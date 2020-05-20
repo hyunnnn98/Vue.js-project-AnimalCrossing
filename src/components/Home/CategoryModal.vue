@@ -2,10 +2,13 @@
   <div>
     <ion-header>
       <ion-toolbar>
-        <ion-title>카테고리</ion-title>
-        <ion-tab-button @click="modalClose(false)">
+        <ion-title
+          >카테고리
+          <span class="backUrl" @click="modalClose(false)"> 뒤로가기</span>
+        </ion-title>
+        <!-- <ion-tab-button>
           <ion-label>뒤로가기</ion-label>
-        </ion-tab-button>
+        </ion-tab-button> -->
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
@@ -46,3 +49,14 @@ export default {
   },
 };
 </script>
+
+<style>
+.backUrl {
+  /* background-color: red; */
+  position: absolute;
+  top: 3px;
+  right: 10px;
+  font-size: 0.7em;
+  cursor: pointer;
+}
+</style>

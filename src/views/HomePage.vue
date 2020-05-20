@@ -3,8 +3,8 @@
     <SearchBar></SearchBar>
     <NoticeTabs></NoticeTabs>
     <CategoryTabs></CategoryTabs>
-    <ul>
-      <ItemBox></ItemBox>
+    <ul class="item-container ">
+      <ItemBox v-for="item in items" :key="item"></ItemBox>
     </ul>
   </div>
 </template>
@@ -22,5 +22,23 @@ export default {
     CategoryTabs,
     ItemBox,
   },
+  data() {
+    return {
+      items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+    };
+  },
 };
 </script>
+
+<style>
+.item-container {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: rgb(233, 232, 232);
+  height: 500px;
+  overflow-y: scroll;
+}
+.item-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+</style>

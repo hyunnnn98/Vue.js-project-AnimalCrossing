@@ -23,4 +23,8 @@ Animalcross Vue 소스 코드입니다.
 ```
 * [CREATE]
 1. Ionic Cli 셋팅 => android 환경 실행 확인.
+2. LoginPage, PassportPage 퍼블리싱
+
+* [UPDATE]
+1. MainPage UI / UX 재설정.
 ```

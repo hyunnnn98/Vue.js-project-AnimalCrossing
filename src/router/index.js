@@ -9,6 +9,16 @@ const routes = [
     name: 'Home',
     component: () => import('../views/HomePage.vue'),
   },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/LoginPage.vue'),
+  },
+  {
+    path: '/passport',
+    name: 'Passport',
+    component: () => import('../views/PassportPage.vue'),
+  },
 ];
 
 const router = new IonicVueRouter({
