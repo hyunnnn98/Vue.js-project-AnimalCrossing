@@ -18,3 +18,9 @@ Animalcross Vue 소스 코드입니다.
 3. 전체적인 컴포넌트 구조 설계
 4. Homepage -> Category Modal 구현
 ```
+
+### 2020.05.21
+```
+* [CREATE]
+1. Ionic Cli 셋팅 => android 환경 실행 확인.
+```

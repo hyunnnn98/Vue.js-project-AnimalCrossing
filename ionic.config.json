@@ -1,0 +1,7 @@
+{
+  "name": "animal-cross",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
