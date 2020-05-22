@@ -1,9 +1,6 @@
 <template>
   <div class="Category">
-    <ion-tab-button @click="openModal">
-      <ion-icon name="list"></ion-icon>
-      <ion-label>카테고리</ion-label>
-    </ion-tab-button>
+    <ion-icon name="list" @click="openModal"></ion-icon>
   </div>
 </template>
 
@@ -40,5 +37,14 @@ export default {
 .Category {
   border-bottom: 1px solid #e0e0e0;
   height: 50px;
+  background-color: white;
+}
+
+.Category ion-icon {
+  width: 30px;
+  height: 30px;
+  margin-top: 0.7em;
+  margin-left: 1em;
+  cursor: pointer;
 }
 </style>

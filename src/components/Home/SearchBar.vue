@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="searchInput">
     <ion-item>
-      <ion-label position="floating">찾고싶은 아이템을 검색해 보세요</ion-label>
+      <!-- <ion-label position="floating">찾고싶은 아이템을 검색해 보세요</ion-label> -->
       <ion-input
         :value="myInput"
         @input="myInput = $event.target.value"
+        placeholder="찾고싶은 아이템을 검색해 보세요"
       ></ion-input>
     </ion-item>
     <div class="search" @click="handelClick"></div>
@@ -30,17 +31,16 @@ export default {
 </script>
 
 <style>
-header {
-  /* background-color: red; */
-  height: 50px;
-  line-height: 50px;
-  padding: 0 40px;
-  border-bottom: 1px solid #e0e0e0;
+.searchInput {
+  position: absolute;
+  width: 100%;
+  background-color: white !important;
+  z-index: 10000000000;
 }
 
 .search {
   position: absolute;
-  top: 10px;
+  top: 7px;
   right: 15px;
   height: 32px;
   width: 32px;
@@ -48,6 +48,5 @@ header {
   background-image: url('../../imgs/search.png');
   background-size: contain;
   cursor: pointer;
-  z-index: 1000000;
 }
 </style>

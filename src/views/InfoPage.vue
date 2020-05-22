@@ -1,5 +1,5 @@
 <template>
-  <ion-app> 인포페이지입니다! </ion-app>
+  <div class="info">인포페이지 입니다!</div>
 </template>
 
 <script>
@@ -7,3 +7,11 @@ export default {
   components: {},
 };
 </script>
+
+<style>
+.info {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+}
+</style>

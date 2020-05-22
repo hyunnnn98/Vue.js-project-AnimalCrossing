@@ -4,13 +4,13 @@
     <div class="LoginBody">
       <ul>
         <li @click="loginAcess">
-          카카오톡으로 시작하기
+          <a href="https://anicro.org/auth/">카카오톡으로 시작하기</a>
         </li>
         <li>
-          구글로 시작하기
+          <a href="https://anicro.org/auth/google">구글로 시작하기</a>
         </li>
         <li>
-          페이스북으로 시작하기
+          <a href="https://anicro.org/auth/facebook">페이스북으로 시작하기</a>
         </li>
       </ul>
     </div>
@@ -65,14 +65,15 @@ export default {
 }
 
 .LoginBody ul li {
-  /* border: 2px solid black; */
+  border: 2px solid rgba(0, 0, 0, 0.116);
   color: white;
-  font-size: 1.4em;
+  font-size: 1.3em;
   font-weight: bold;
   padding: 1em 2em;
-  margin: 2em;
-  border-radius: 10px;
+  margin: 1.3em;
+  border-radius: 25px;
   text-align: center;
+  letter-spacing: -1px;
 }
 
 .LoginBody ul li:nth-child(1) {

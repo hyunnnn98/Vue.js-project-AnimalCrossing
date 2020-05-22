@@ -1,7 +1,7 @@
 <template>
   <ion-tabs>
     <!-- 홈화면 바로가기 -->
-    <ion-tab tab="/home">
+    <ion-tab tab="/main">
       <HomeMain></HomeMain>
     </ion-tab>
 
@@ -22,7 +22,7 @@
 
     <template slot="bottom">
       <ion-tab-bar>
-        <ion-tab-button tab="/home">
+        <ion-tab-button tab="/main">
           <ion-icon name="home"></ion-icon>
           <ion-label>홈</ion-label>
         </ion-tab-button>
