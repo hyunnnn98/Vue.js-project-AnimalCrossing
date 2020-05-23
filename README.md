@@ -28,3 +28,12 @@ Animalcross Vue 소스 코드입니다.
 * [UPDATE]
 1. MainPage UI / UX 재설정.
 ```
+
+### 2020.05.23
+```
+* [CREATE]
+1. LoginPage, PassportPage, PostPage => 서버 연동 완료.
+
+* [UPDATE]
+1. LoginPage, PassportPage css 변경.
+```

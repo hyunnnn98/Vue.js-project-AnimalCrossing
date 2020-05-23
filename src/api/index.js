@@ -9,7 +9,7 @@ function createInstance() {
   });
 }
 
-// 엑시오스 초기화 함수
+// 인증된 유저 url 설정 값
 function createInstanceWithAuth(url) {
   const instance = axios.create({
     baseURL: `${process.env.VUE_APP_API_URL}${url}`,

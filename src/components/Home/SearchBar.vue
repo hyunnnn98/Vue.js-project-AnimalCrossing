@@ -1,7 +1,6 @@
 <template>
   <div class="searchInput">
     <ion-item>
-      <!-- <ion-label position="floating">찾고싶은 아이템을 검색해 보세요</ion-label> -->
       <ion-input
         :value="myInput"
         @input="myInput = $event.target.value"
@@ -10,7 +9,6 @@
     </ion-item>
     <div class="search" @click="handelClick"></div>
   </div>
-  <!-- <div>찾고싶은 아이템을 검색해 보세요</div> -->
 </template>
 
 <script>
@@ -35,7 +33,7 @@ export default {
   position: absolute;
   width: 100%;
   background-color: white !important;
-  z-index: 10000000000;
+  z-index: 10000;
 }
 
 .search {
@@ -48,5 +46,6 @@ export default {
   background-image: url('../../imgs/search.png');
   background-size: contain;
   cursor: pointer;
+  z-index: 20000;
 }
 </style>

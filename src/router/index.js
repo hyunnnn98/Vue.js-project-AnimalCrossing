@@ -9,8 +9,7 @@ Vue.use(IonicVueRouter);
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import('../views/LoginPage.vue'),
+    redirect: '/main',
   },
   {
     path: '/login',
@@ -18,20 +17,33 @@ const routes = [
     component: () => import('../views/LoginPage.vue'),
   },
   {
-    path: '/main',
-    name: 'Main',
-    component: () => import('../views/AppTabs.vue'),
-  },
-  {
-    path: '/loading/:us_logintoken/:us_social_id/:us_social',
-    name: 'Loading',
-    component: () => import('../views/LoadingPage.vue'),
-    props: true,
-  },
-  {
     path: '/passport',
     name: 'Passport',
     component: () => import('../views/PassportPage.vue'),
+  },
+  {
+    path: '/main',
+    name: 'Main',
+    meta: { auth: true },
+    component: () => import('../views/AppTabs.vue'),
+  },
+  {
+    path: '/post',
+    name: 'Post',
+    meta: { auth: true },
+    component: () => import('../views/AppTabs.vue'),
+  },
+  {
+    path: '/talk',
+    name: 'Talk',
+    meta: { auth: true },
+    component: () => import('../views/AppTabs.vue'),
+  },
+  {
+    path: '/info',
+    name: 'Info',
+    meta: { auth: true },
+    component: () => import('../views/AppTabs.vue'),
   },
 ];
 
@@ -46,11 +58,8 @@ const router = new IonicVueRouter({
 //     console.log('로그인이 필요합니다!');
 //     next('/login');
 //     return;
-//   } else if (to.meta.auth && store.getters.isLogin) {
-//     afterAuth
-//       .get('서버 주소')
-//       .then(() => {})
-//       .catch(err => {});
+//   } else {
+//     next();
 //   }
 // });
 

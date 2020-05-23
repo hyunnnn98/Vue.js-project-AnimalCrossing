@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "ionic": "vue-cli-service build && npx cap sync android",
+    "start": "npx cap open android"
   },
   "dependencies": {
     "@capacitor/android": "^2.1.0",

@@ -54,6 +54,7 @@ import PostPage from '@/views/PostPage.vue';
 import InfoPage from '@/views/InfoPage.vue';
 
 export default {
+  name: 'TabPage',
   components: {
     HomeMain,
     TalkMain,

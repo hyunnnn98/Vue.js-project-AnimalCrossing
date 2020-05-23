@@ -2,7 +2,7 @@
   <ion-app>
     <!-- TODO 로그인 상태에 따라 페이지 이동 -->
     <ion-vue-router></ion-vue-router>
-    <!-- <AppTabs></AppTabs> -->
+    <!-- <AppTabs v-if="$store.getters.isLogin"></AppTabs> -->
   </ion-app>
 </template>
 

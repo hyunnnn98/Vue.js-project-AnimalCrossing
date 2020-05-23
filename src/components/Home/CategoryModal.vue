@@ -1,16 +1,19 @@
 <template>
-  <div>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title
-          >카테고리
-          <span class="backUrl" @click="modalClose(false)"> 뒤로가기</span>
-        </ion-title>
-        <!-- <ion-tab-button>
+  <div class="modal-category">
+    <ion-toolbar>
+      <ion-title>
+        카테고리
+        <ion-icon
+          class="backUrl"
+          name="close-circle"
+          @click="modalClose(false)"
+        ></ion-icon>
+      </ion-title>
+      <!-- <ion-tab-button>
           <ion-label>뒤로가기</ion-label>
         </ion-tab-button> -->
-      </ion-toolbar>
-    </ion-header>
+    </ion-toolbar>
+
     <ion-content class="ion-padding">
       <ul>
         <li @click="selectMenu(menu)" v-for="menu in menus" :key="menu">
@@ -51,12 +54,18 @@ export default {
 </script>
 
 <style>
+.modal-category ion-title {
+  /* background-color: red; */
+  text-align: center;
+}
+
 .backUrl {
   /* background-color: red; */
   position: absolute;
-  top: 3px;
+  top: -5px;
   right: 10px;
-  font-size: 0.7em;
+  font-size: 1.3em;
   cursor: pointer;
+  color: rgb(47, 179, 14);
 }
 </style>

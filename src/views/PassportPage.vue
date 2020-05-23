@@ -1,10 +1,31 @@
 <template>
-  <div class="passport">
+  <ion-content class="ion-padding passport">
+    <ion-icon name="arrow-back" @click="$router.push('/login')"></ion-icon>
     <div class="passport-container">
-      <h2>- PASSPORT -</h2>
       <ul>
-        <li><div class="passport-img"></div></li>
         <li>
+          나만의 썸네일 사진을 변경해보세요!
+        </li>
+        <li>
+          <div class="passport-img"></div>
+        </li>
+        <li>
+          <div>
+            <p>이메일</p>
+            <input
+              type="text"
+              :value="us_email"
+              @input="us_email = $event.target.value"
+            />
+          </div>
+          <div>
+            <p>비밀번호</p>
+            <input
+              type="password"
+              :value="us_password"
+              @input="us_password = $event.target.value"
+            />
+          </div>
           <div>
             <p>이름</p>
             <input
@@ -31,41 +52,41 @@
           </div>
         </li>
       </ul>
+      <ion-button shape="block" color="danger" @click="submit">
+        등록하기
+      </ion-button>
     </div>
-    <ion-button shape="block" color="success" @click="submit"
-      >등록하기</ion-button
-    >
-  </div>
+  </ion-content>
 </template>
 
 <script>
 import axios from 'axios';
 
 export default {
+  name: 'PassportPage',
   data() {
     return {
+      us_email: null,
+      us_password: null,
       us_nickname: null,
       us_islandname: null,
       us_code: null,
-      us_info: null,
     };
   },
   methods: {
     submit() {
-      this.us_info = this.$store.state.us_info;
       const data = {
+        us_email: this.us_email,
+        us_password: this.us_password,
         us_nickname: this.us_nickname,
         us_islandname: this.us_islandname,
         us_code: this.us_code,
-        us_social_id: this.us_info.us_social_id,
-        us_social: this.us_info.us_social,
-        us_logintoken: this.us_info.us_logintoken,
       };
       axios
-        .post('https://anicro.org/auth/create_user_info', data)
+        .post('https://anicro.org/auth/register', data)
         .then(res => {
           console.log(res);
-          this.$router.replace('/main');
+          this.$router.replace('/login');
         })
         .catch(err => {
           console.log(err);
@@ -77,7 +98,13 @@ export default {
 
 <style>
 .passport {
-  margin: 10px;
+  /* margin: 10px; */
+  --background: rgb(3, 194, 19);
+}
+
+.passport ion-icon {
+  width: 30px;
+  height: 30px;
 }
 
 .passport-container {
@@ -86,37 +113,47 @@ export default {
   justify-content: center;
   border: 2px solid rgb(3, 194, 19);
   padding: 10px;
-  /* background-color: red; */
+  border-radius: 10px;
+  background-color: white;
 }
 
 .passport-container > h2 {
+  font-weight: 900;
+  font-size: 1.5em;
   text-align: center;
   margin-bottom: 2em;
 }
 
 .passport-container > ul {
-  display: inline-flex;
-  justify-content: space-between;
-  align-items: center;
   flex: 1;
-  /* background-color: red; */
-  height: 500px;
 }
 
 .passport-container > ul > li:nth-child(1) {
-  width: 150px;
-  height: 150px;
-  /* background-color: yellowgreen; */
-  border: 2px solid black;
-  border-radius: 15px;
+  text-align: center;
+  padding: 10px;
+  background-color: rgb(0, 0, 0);
+  border-radius: 50px;
+  color: white;
+  margin: 10px 20px;
 }
 
 .passport-container > ul > li:nth-child(2) {
-  /* background-color: teal; */
-  width: 50%;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  /* background-color: yellowgreen; */
+  border: 2px solid black;
+  border-radius: 15px;
+  margin-bottom: 2em;
 }
 
-.passport-container > ul > li:nth-child(2) > div:nth-child(n) {
+.passport-container > ul > li:nth-child(3) {
+  /* background-color: teal; */
+  /* width: 50%; */
+  padding: 10px;
+}
+
+.passport-container > ul > li:nth-child(3) > div:nth-child(n) {
   margin-bottom: 2em;
   /* background-color: red; */
 }
@@ -144,5 +181,12 @@ export default {
   background-image: url('../imgs/tanuki.png');
   background-size: cover;
   /* background-color: teal; */
+}
+
+@media (min-width: 520px) {
+  .passport-container {
+    width: 520px;
+    margin: 0 auto;
+  }
 }
 </style>

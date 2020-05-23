@@ -11,6 +11,7 @@
 import TalkBox from '@/components/Talk/TalkBox.vue';
 
 export default {
+  name: 'TalkPage',
   components: {
     TalkBox,
   },

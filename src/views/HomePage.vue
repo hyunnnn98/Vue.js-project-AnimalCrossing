@@ -25,6 +25,7 @@ import CategoryTabs from '@/components/Home/CategoryTabs.vue';
 import ItemBox from '@/components/Home/ItemBox.vue';
 
 export default {
+  name: 'HomePage',
   components: {
     SearchBar,
     NoticeTabs,
@@ -90,7 +91,6 @@ export default {
   width: 100%;
   color: white;
   text-align: center;
-  /* height: 20px; */
   background-color: #558bee;
   margin: 5px 3px;
   padding: 10px;
