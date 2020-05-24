@@ -8,14 +8,14 @@ function saveUserToCookie(value) {
 
 function getAuthFromCookie() {
   return document.cookie.replace(
-    /(?:(?:^|.*;\s*)til_auth\s*=\s*([^;]*).*$)|^.*$/,
+    /(?:(?:^|.*;\s*)animal_auth\s*=\s*([^;]*).*$)|^.*$/,
     '$1',
   );
 }
 
 function getUserFromCookie() {
   return document.cookie.replace(
-    /(?:(?:^|.*;\s*)til_user\s*=\s*([^;]*).*$)|^.*$/,
+    /(?:(?:^|.*;\s*)animal_user\s*=\s*([^;]*).*$)|^.*$/,
     '$1',
   );
 }

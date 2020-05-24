@@ -4,7 +4,7 @@ export function setInterceptors(instance) {
   instance.interceptors.request.use(
     function(config) {
       // 헤더 - 세션
-      config.headers.Authorization = `${store.state.session}`;
+      config.headers.Authorization = `${store.state.us_logintoken}`;
       return config;
     },
     function(error) {

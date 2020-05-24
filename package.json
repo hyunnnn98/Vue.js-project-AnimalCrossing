@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "ionic": "vue-cli-service build && npx cap sync android",
+    "ionic": "vue-cli-service build && npx cap sync android && npx cap open android",
     "start": "npx cap open android"
   },
   "dependencies": {

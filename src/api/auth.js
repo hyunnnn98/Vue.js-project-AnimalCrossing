@@ -12,4 +12,9 @@ function logOut() {
   return afterAuth.post('/');
 }
 
-export { loginUser, logOut };
+// 사용자 유효성 검사
+function authCheck(userData) {
+  return afterAuth.post('/auth/token_check', userData);
+}
+
+export { loginUser, logOut, authCheck };

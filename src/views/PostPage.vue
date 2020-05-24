@@ -1,11 +1,13 @@
 <template>
   <ion-content class="ion-padding post">
-    <div class="post-Header">
-      게시글 작성
-      <ion-icon name="arrow-back" @click="$router.push('/main')"></ion-icon>
+    <div class="postPage">
+      <div class="post-Header">
+        게시글 작성
+        <ion-icon name="arrow-back" @click="$router.push('/main')"></ion-icon>
+      </div>
+      <SelectPicture></SelectPicture>
+      <PostContent></PostContent>
     </div>
-    <SelectPicture></SelectPicture>
-    <PostContent></PostContent>
   </ion-content>
 </template>
 
@@ -43,5 +45,12 @@ export default {
   left: 10px;
   width: 30px;
   height: 30px;
+}
+
+@media (min-width: 520px) {
+  .postPage {
+    width: 500px;
+    margin: 0 auto;
+  }
 }
 </style>

@@ -37,3 +37,12 @@ Animalcross Vue 소스 코드입니다.
 * [UPDATE]
 1. LoginPage, PassportPage css 변경.
 ```
+
+### 2020.05.25
+```
+* [CREATE]
+1. Android Camera Module 권한 얻고, 이미지 파일 AWS S3 전송.
+
+* [UPDATE]
+1. 유저 신뢰성 검사 ( 라우터 이동마다 ) => VueX + VueRouter
+```

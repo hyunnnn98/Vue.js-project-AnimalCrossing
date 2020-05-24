@@ -14,15 +14,16 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     // *** us_info ***
-    us_nickname: getUserFromCookie() || '',
     us_logintoken: getAuthFromCookie() || '',
-    us_id: '',
+    us_id: getUserFromCookie() || '',
+    us_nickname: '',
     us_islandname: '',
     us_code: '',
+    us_thumbnail: '',
   },
   getters: {
     isLogin(state) {
-      return state.us_nickname !== '';
+      return state.us_id !== '';
     },
   },
   mutations: {
@@ -32,6 +33,7 @@ export default new Vuex.Store({
       state.us_nickname = info.us_nickname;
       state.us_islandname = info.us_islandname;
       state.us_code = info.us_code;
+      state.us_thumbnail = info.us_thumbnail;
     },
     clearUserInfo(state) {
       state.us_info = '';
@@ -47,11 +49,11 @@ export default new Vuex.Store({
     async LOGIN({ commit }, user_data) {
       //TODO 여기서 DB로부터 유저 이름, 섬이름, 통신코드,토큰 받아와야 함.
       const { data } = await loginUser(user_data);
-      console.log(data);
-      commit('setUserInfo', data.data.us_info);
-      commit('setToken', data.data.new_token);
-      saveAuthToCookie(data.data.new_token);
-      saveUserToCookie(data.data.us_info.us_nickname);
+      console.log('로그인!', data);
+      commit('setUserInfo', data.info.us_info);
+      commit('setToken', data.info.new_token);
+      saveAuthToCookie(data.info.new_token);
+      saveUserToCookie(data.info.us_info.us_id);
       return data;
     },
     LOGOUT({ commit }) {
