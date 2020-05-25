@@ -8,8 +8,8 @@ function loginUser(userData) {
 }
 
 // 로그아웃 API
-function logOut() {
-  return afterAuth.post('/');
+function logOut(userData) {
+  return afterAuth.post('/auth/logout', userData);
 }
 
 // 사용자 유효성 검사

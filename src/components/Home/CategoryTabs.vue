@@ -8,6 +8,12 @@
 import CategoryModal from './CategoryModal.vue';
 
 export default {
+  name: 'category_tab',
+  props: {
+    category: {
+      type: Array,
+    },
+  },
   methods: {
     async openModal() {
       let modal = await this.$ionic.modalController.create({
@@ -17,7 +23,7 @@ export default {
             content: 'New Content',
           },
           propsData: {
-            title: 'New title',
+            categorys: this.category,
           },
         },
       });

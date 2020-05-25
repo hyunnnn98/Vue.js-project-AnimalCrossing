@@ -36,7 +36,11 @@ export default new Vuex.Store({
       state.us_thumbnail = info.us_thumbnail;
     },
     clearUserInfo(state) {
-      state.us_info = '';
+      state.us_id = '';
+      state.us_nickname = '';
+      state.us_islandname = '';
+      state.us_code = '';
+      state.us_thumbnail = '';
     },
     setToken(state, token) {
       state.us_logintoken = token;
@@ -58,7 +62,7 @@ export default new Vuex.Store({
     },
     LOGOUT({ commit }) {
       commit('clearUserInfo');
-      commit('clearSession');
+      commit('clearToken');
       deleteCookie('animal_auth');
       deleteCookie('animal_user');
     },

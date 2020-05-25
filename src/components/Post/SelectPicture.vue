@@ -23,6 +23,8 @@
 <script>
 import { EventBus } from '@/utils/bus';
 import { Plugins, CameraSource, CameraResultType } from '@capacitor/core';
+const { Camera } = Plugins;
+const { Device } = Plugins;
 
 export default {
   name: 'post-picture',
@@ -31,10 +33,13 @@ export default {
       imageUrl: [],
       blobs: [],
       formData: null,
+      device_info: null,
     };
   },
-  mounted() {
+  async mounted() {
     this.formData = new FormData();
+    const data = await Device.getInfo();
+    this.device_info = await data.platform;
   },
   created() {
     EventBus.$on('send_imgs', async bo_id => {
@@ -46,32 +51,37 @@ export default {
   },
   methods: {
     async talk_picture() {
-      const { Camera } = Plugins;
-      console.log('사진 클릭!');
-      try {
-        const image = await Camera.getPhoto({
-          quality: 20,
-          allowEditing: false,
-          resultType: CameraResultType.DataUrl,
-          source: CameraSource.Prompt,
-        });
+      // DeviceInfo 보고 사용자 구분하기
 
-        // 이미지파일 dataUrl 저장
-        let dataUrl = image.dataUrl;
-        this.imageUrl.push(dataUrl);
+      console.log(this.device_info);
+      if (this.device_info != 'web') {
+        try {
+          const image = await Camera.getPhoto({
+            quality: 20,
+            allowEditing: false,
+            resultType: CameraResultType.DataUrl,
+            source: CameraSource.Prompt,
+            promptLabelPhoto: '앨범에서 가져오기',
+            promptLabelPicture: '직접촬영',
+          });
 
-        let block = dataUrl.split(';');
-        let contentType = block[0].split(':')[1]; // In this case "image/gif"
-        let realData = block[1].split(',')[1]; // In this case "iVBORw0KGg...."
-        let blob = this.b64toBlob(realData, contentType);
+          // 이미지파일 dataUrl 저장
+          let dataUrl = image.dataUrl;
+          this.imageUrl.push(dataUrl);
 
-        // 생성된 blob 객체 배열 저장
-        this.blobs.push(blob);
+          let block = dataUrl.split(';');
+          let contentType = block[0].split(':')[1]; // In this case "image/gif"
+          let realData = block[1].split(',')[1]; // In this case "iVBORw0KGg...."
+          let blob = this.b64toBlob(realData, contentType);
 
-        // append는 젤 마지막에 한꺼번에 순서대로 하는게 맞음.
-      } catch (err) {
-        console.log('err', err);
-        // alert('err: ' + err);
+          // 생성된 blob 객체 배열 저장
+          this.blobs.push(blob);
+        } catch (err) {
+          console.log('err', err);
+          // alert('err: ' + err);
+        }
+      } else {
+        alert('모바일이 아닙니다!');
       }
     },
     async image_submit(bo_id) {

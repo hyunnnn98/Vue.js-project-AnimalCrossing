@@ -46,3 +46,14 @@ Animalcross Vue 소스 코드입니다.
 * [UPDATE]
 1. 유저 신뢰성 검사 ( 라우터 이동마다 ) => VueX + VueRouter
 ```
+
+### 2020.05.26
+```
+* [CREATE]
+1. MainPage 글 데이터 받기
+2. 카테고리 데이터 받기.
+3. 로그아웃 처리
+
+* [UPDATE]
+1. 글 작성 이미지 처리 (AWS S3) 완료. 
+```

@@ -16,8 +16,12 @@
 
     <ion-content class="ion-padding">
       <ul>
-        <li @click="selectMenu(menu)" v-for="menu in menus" :key="menu">
-          {{ menu }}
+        <li
+          @click="selectMenu(category.ca_id)"
+          v-for="category in categorys"
+          :key="category.ca_id"
+        >
+          {{ category.ca_contents }}
         </li>
       </ul>
     </ion-content>
@@ -25,16 +29,25 @@
 </template>
 
 <script>
+import { EventBus } from '@/utils/bus';
+
 export default {
-  name: 'Modal',
-  props: {
-    title: { type: String, default: 'Super Modal' },
-  },
+  name: 'category_modal',
   data() {
     return {
       select: null,
-      menus: ['입양 / 분양', '아이템', '만지작', '알바', '무료나눔'],
     };
+  },
+  props: {
+    categorys: {
+      type: Array,
+    },
+  },
+  created() {
+    EventBus.$on('category_list', category => {
+      this.category = category;
+      console.log('이벤트버스로 받은 카테고리:', category);
+    });
   },
   methods: {
     selectMenu(menu) {

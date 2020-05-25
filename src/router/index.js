@@ -78,8 +78,9 @@ router.beforeEach((to, from, next) => {
         console.log('체크체크!');
         next();
       })
-      .catch(err => {
+      .catch(async err => {
         console.log('신뢰성 오류일때!', err);
+        await store.dispatch('LOGOUT');
         next('/login');
       });
   } else {

@@ -1,32 +1,40 @@
 <template>
   <li class="itembox">
     <div class="post-title">
-      대나무 레시피 팔아요
+      {{ item.bo_title }}
     </div>
     <div class="post-contents">
       <span class="post-contents post_user">
-        <span class="post-contents nick_name">코코입니다</span>
-        <span class="post-contents rank">★★★★☆</span>
+        <span class="post-contents nick_name">{{ item.user.us_nickname }}</span>
+        <span class="post-contents rank">{{ item.user.us_grant }}</span>
         <span class="post-contents like">
-          <img src="../../imgs/like.png" alt="좋아요" />3
+          <img src="../../imgs/like.png" alt="좋아요" />{{ item.bo_like }}
         </span>
         <span class="post-contents bad">
-          <img src="../../imgs/bad.png" alt="싫어요" />2
+          <img src="../../imgs/bad.png" alt="싫어요" />{{ item.bo_hate }}
         </span>
       </span>
       <span class="post-contents post_info">
-        <span class="post-contents time">22:11</span>
-        <span class="post-contents clicked">조회 22</span>
+        <span class="post-contents time">{{ item.createdAt }}</span>
+        <span class="post-contents clicked">조회 {{ item.bo_view }}</span>
       </span>
     </div>
-    <div class="post-price">
-      20 마일
-    </div>
+    <div class="post-price">{{ item.bo_cost }} {{ item.bo_cost_selector }}</div>
+    <div class="post-price"></div>
   </li>
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'ItemBox',
+  props: ['item'],
+  mounted() {
+    console.log(this.item);
+  },
+  data() {
+    return {};
+  },
+};
 </script>
 
 <style>
