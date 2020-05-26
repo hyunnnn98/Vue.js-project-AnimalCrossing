@@ -40,9 +40,9 @@
         <ion-item class="content">
           <ion-label position="floating"><span>*</span> 상품설명</ion-label>
           <ion-textarea
+            class="post-textarea"
             :value="bo_content"
             @input="bo_content = $event.target.value"
-            clear-on-edit="true"
           ></ion-textarea>
         </ion-item>
       </li>
@@ -74,7 +74,7 @@ export default {
   name: 'post-content',
   data() {
     return {
-      bo_trade_value: '',
+      bo_trade_value: 1,
       bo_title: '',
       bo_category: 1,
       bo_content: '',
@@ -195,7 +195,8 @@ export default {
   border: 0px;
 }
 
-.content input[type='text'] {
+.content input[type='text'],
+.content input[type='number'] {
   text-indent: 5px !important;
   /* background-color: red; */
 }
@@ -206,6 +207,17 @@ export default {
 
 .content span {
   color: rgb(255, 102, 0);
+}
+
+.post_content ion-item {
+  height: 150px;
+}
+
+.post-textarea > textarea {
+  height: 120px;
+  text-indent: 0px;
+  /* overflow: hidden; */
+  /* padding: 5px 5px; */
 }
 
 /* 판매 / 구매 / 교환 버튼 */
@@ -230,8 +242,8 @@ export default {
 
 .set-buttons > li:nth-child(1) {
   border: 1px solid rgb(255, 138, 4);
-  background-color: rgba(255, 138, 4, 0.092);
-  color: rgb(255, 138, 4);
+  background-color: rgba(255, 138, 4, 0.767);
+  color: white;
 }
 
 .set-buttons > li:nth-child(2) {

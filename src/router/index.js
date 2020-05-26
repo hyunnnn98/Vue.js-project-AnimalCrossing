@@ -35,6 +35,12 @@ const routes = [
     component: () => import('@/views/AppTabs.vue'),
   },
   {
+    path: '/main/:id',
+    name: 'Main_id',
+    meta: { auth: true },
+    component: () => import('@/views/PostInfoPage.vue'),
+  },
+  {
     path: '/post',
     name: 'Post',
     meta: { auth: true },
@@ -45,6 +51,12 @@ const routes = [
     name: 'Talk',
     meta: { auth: true },
     component: () => import('@/views/AppTabs.vue'),
+  },
+  {
+    path: '/talk/:id',
+    name: 'Talk_id',
+    meta: { auth: true },
+    component: () => import('@/components/Talk/TalkList.vue'),
   },
   {
     path: '/info',

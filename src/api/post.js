@@ -10,6 +10,7 @@ function getPost(offset) {
   return afterAuth.post('/', offset);
 }
 
+// 카테고리 가져오기
 function getCategory() {
   return afterAuth.post('/get_category');
 }

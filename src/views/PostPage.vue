@@ -1,10 +1,7 @@
 <template>
   <ion-content class="ion-padding post">
     <div class="postPage">
-      <div class="post-Header">
-        게시글 작성
-        <ion-icon name="arrow-back" @click="$router.push('/main')"></ion-icon>
-      </div>
+      <PostHeader :head_name="this.title"></PostHeader>
       <SelectPicture></SelectPicture>
       <PostContent></PostContent>
     </div>
@@ -12,6 +9,7 @@
 </template>
 
 <script>
+import PostHeader from '@/components/Post/PostHeader';
 import SelectPicture from '@/components/Post/SelectPicture';
 import PostContent from '@/components/Post/PostContent';
 
@@ -20,33 +18,19 @@ const { Camera } = Plugins;
 export default {
   name: 'PostPage',
   components: {
+    PostHeader,
     SelectPicture,
     PostContent,
   },
   data() {
-    return {};
+    return {
+      title: '게시글 작성',
+    };
   },
 };
 </script>
 
 <style>
-.post-Header {
-  /* background-color: red; */
-  text-align: center;
-  height: 20px;
-  font-weight: bold;
-  font-size: 1.3em;
-  letter-spacing: -2px;
-}
-
-.post-Header ion-icon {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 30px;
-  height: 30px;
-}
-
 @media (min-width: 520px) {
   .postPage {
     width: 500px;

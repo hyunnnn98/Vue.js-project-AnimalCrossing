@@ -2,6 +2,11 @@
 import { instance } from './index';
 import { afterAuth } from './index';
 
+// 회원가입 API
+function joinUser(userData) {
+  return instance.post('/auth/register', userData);
+}
+
 // 로그인 API
 function loginUser(userData) {
   return instance.post('/auth/login', userData);
@@ -17,4 +22,4 @@ function authCheck(userData) {
   return afterAuth.post('/auth/token_check', userData);
 }
 
-export { loginUser, logOut, authCheck };
+export { joinUser, loginUser, logOut, authCheck };

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import socket_io from 'socket.io-client';
 import {
   getAuthFromCookie,
   getUserFromCookie,
@@ -20,6 +21,8 @@ export default new Vuex.Store({
     us_islandname: '',
     us_code: '',
     us_thumbnail: '',
+    // *** socket.io ***
+    socket: '',
   },
   getters: {
     isLogin(state) {
@@ -48,14 +51,44 @@ export default new Vuex.Store({
     clearToken(state) {
       state.us_logintoken = '';
     },
+    setSocket(state) {
+      console.log('소켓 접근을 하는중입니다!');
+      if (state.socket === '') {
+        console.log('여기들어왔어요!');
+        state.socket = socket_io('https://server.anicro.org/');
+      }
+    },
+    getSocket(state) {
+      return state.socket;
+    },
+    on(state, payload) {
+      console.log('on 들어왔음!');
+      let aa;
+      state.socket
+        .on(payload.name)
+        .then(res => {
+          console.log(res);
+          return res;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      // return aa;
+    },
+    emit(state, payload) {
+      const socket_io = state.socket;
+      console.log('emit 들어왔음!');
+      // console.log('emit', payload.name, payload.data);
+      return socket_io.emit(payload.name, payload.data);
+    },
   },
   actions: {
     async LOGIN({ commit }, user_data) {
-      //TODO 여기서 DB로부터 유저 이름, 섬이름, 통신코드,토큰 받아와야 함.
       const { data } = await loginUser(user_data);
       console.log('로그인!', data);
       commit('setUserInfo', data.info.us_info);
       commit('setToken', data.info.new_token);
+      commit('setSocket');
       saveAuthToCookie(data.info.new_token);
       saveUserToCookie(data.info.us_info.us_id);
       return data;
@@ -65,6 +98,13 @@ export default new Vuex.Store({
       commit('clearToken');
       deleteCookie('animal_auth');
       deleteCookie('animal_user');
+    },
+    async X_SOCKET({ commit }, payload) {
+      // console.log('actions :', payload);
+      await commit('setSocket');
+      const result = await commit(payload.type, payload);
+      console.log('X_SOCKET : ', result);
+      return result;
     },
   },
 });

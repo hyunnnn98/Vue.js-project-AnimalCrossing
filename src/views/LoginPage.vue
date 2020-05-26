@@ -1,5 +1,5 @@
 <template>
-  <ion-app class="LoginPage">
+  <div class="LoginPage">
     <div class="LoginHeader">로고들어갈 위치</div>
     <div class="LoginBody">
       <ul>
@@ -34,7 +34,7 @@
         </li>
       </ul>
     </div>
-  </ion-app>
+  </div>
 </template>
 
 <script>

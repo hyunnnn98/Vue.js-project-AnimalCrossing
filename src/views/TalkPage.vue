@@ -2,7 +2,7 @@
   <div class="talk">
     챗팅방이 나열 될 예정입니다.
     <ul>
-      <TalkBox v-for="talk in talks" :key="talk"></TalkBox>
+      <TalkBox :room_id="talk" v-for="talk in talks" :key="talk"></TalkBox>
     </ul>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <li class="itembox">
+  <li @click="get_postData(item.bo_id)" class="itembox">
     <div class="post-title">
       {{ item.bo_title }}
     </div>
@@ -28,11 +28,14 @@
 export default {
   name: 'ItemBox',
   props: ['item'],
-  mounted() {
-    console.log(this.item);
-  },
   data() {
     return {};
+  },
+  methods: {
+    get_postData(bo_id) {
+      console.log(bo_id);
+      this.$router.push(`/main/${bo_id}`);
+    },
   },
 };
 </script>

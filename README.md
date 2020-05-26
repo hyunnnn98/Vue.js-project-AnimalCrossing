@@ -57,3 +57,10 @@ Animalcross Vue 소스 코드입니다.
 * [UPDATE]
 1. 글 작성 이미지 처리 (AWS S3) 완료. 
 ```
+
+### 2020.05.27
+```
+* [CREATE]
+1. TalkPage, PostInfoPage 퍼블리싱
+2. Socket.io 연동.
+```

@@ -52,9 +52,45 @@ import TalkMain from '@/views/TalkPage.vue';
 import HomeMain from '@/views/HomePage.vue';
 import PostPage from '@/views/PostPage.vue';
 import InfoPage from '@/views/InfoPage.vue';
+// import { mapActions } from 'vuex';
 
 export default {
   name: 'TabPage',
+  data() {
+    return {};
+  },
+  async mounted() {
+    const us_id = this.$store.state.us_id;
+    // // console.log('유저아이디: ', us_id);
+    // try {
+    //   await this.X_SOCKET({
+    //     type: 'emit',
+    //     name: 'get_us_id',
+    //     data: us_id,
+    //   });
+    //   const data = await this.X_SOCKET({
+    //     type: 'on',
+    //     name: 'get_chat_room',
+    //   });
+    //   console.log('최종 데이터:', data);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // this.X_SOCKET('emit', 'get_chat_room', us_id);
+    // const room_data = await this.X_SOCKET('on', 'get_chat_room_data', us_id);
+    // console.log(room_data);
+    // this.X_SOCKET('on', 'get_us_id', us_id);
+    // this.X_SOCKET('on', 'get_us_id', us_id);
+    await this.$store.commit('setSocket');
+    await this.$store.state.socket.emit('get_us_id', us_id);
+    await this.$store.state.socket.on('get_chat_room', data => {
+      console.log('받은 룸 데이터: ', data);
+    });
+  },
+  methods: {
+    // ...mapActions(['X_SOCKET']),
+  },
+
   components: {
     HomeMain,
     TalkMain,
@@ -63,10 +99,3 @@ export default {
   },
 };
 </script>
-
-<style>
-/* ion-badge {
-  left: 75px;
-  top: 5px;
-} */
-</style>

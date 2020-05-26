@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { joinUser } from '@/api/auth';
 
 export default {
   name: 'PassportPage',
@@ -82,8 +82,7 @@ export default {
         us_islandname: this.us_islandname,
         us_code: this.us_code,
       };
-      axios
-        .post('https://anicro.org/auth/register', data)
+      joinUser(data)
         .then(res => {
           console.log(res);
           this.$router.replace('/login');
