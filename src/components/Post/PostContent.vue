@@ -106,6 +106,7 @@ export default {
         alert(result.data.info);
         if (result) EventBus.$emit('send_imgs', result.data.info);
         this.init_post();
+        EventBus.$emit('main-reset');
         this.$router.push('/main');
       } catch (err) {
         console.log(err);

@@ -64,3 +64,9 @@ Animalcross Vue 소스 코드입니다.
 1. TalkPage, PostInfoPage 퍼블리싱
 2. Socket.io 연동.
 ```
+
+### 2020.05.28
+```
+* [CREATE]
+1. Socket.io 연동 => Chat data binding
+```

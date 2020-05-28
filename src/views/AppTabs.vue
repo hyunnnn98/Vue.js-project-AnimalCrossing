@@ -34,7 +34,7 @@
 
         <ion-tab-button tab="/talk">
           <ion-icon name="chatbubbles"></ion-icon>
-          <ion-badge>233</ion-badge>
+          <ion-badge>{{ this.talk_count }}</ion-badge>
           <ion-label>채팅</ion-label>
         </ion-tab-button>
 
@@ -52,44 +52,41 @@ import TalkMain from '@/views/TalkPage.vue';
 import HomeMain from '@/views/HomePage.vue';
 import PostPage from '@/views/PostPage.vue';
 import InfoPage from '@/views/InfoPage.vue';
-// import { mapActions } from 'vuex';
+import { EventBus } from '@/utils/bus';
 
 export default {
   name: 'TabPage',
   data() {
-    return {};
+    return {
+      talk_count: 0,
+    };
+  },
+  created() {
+    this.$store.state.socket.on('get_read_count', data => {
+      console.log('[APP] 받은 메세지 개수: ', data);
+      this.talk_count = data;
+    });
+
+    this.$store.state.socket.on('send_message_notification', data => {
+      console.log('[APP] 받은 룸 소식: ', data);
+      alert(data);
+      // this.talk_count = data;
+    });
+  },
+  beforeDestroy() {
+    this.$store.state.socket.off('get_read_count');
+    this.$store.state.socket.off('send_message_notification');
   },
   async mounted() {
     const us_id = this.$store.state.us_id;
-    // // console.log('유저아이디: ', us_id);
-    // try {
-    //   await this.X_SOCKET({
-    //     type: 'emit',
-    //     name: 'get_us_id',
-    //     data: us_id,
-    //   });
-    //   const data = await this.X_SOCKET({
-    //     type: 'on',
-    //     name: 'get_chat_room',
-    //   });
-    //   console.log('최종 데이터:', data);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // this.X_SOCKET('emit', 'get_chat_room', us_id);
-    // const room_data = await this.X_SOCKET('on', 'get_chat_room_data', us_id);
-    // console.log(room_data);
-    // this.X_SOCKET('on', 'get_us_id', us_id);
-    // this.X_SOCKET('on', 'get_us_id', us_id);
     await this.$store.commit('setSocket');
     await this.$store.state.socket.emit('get_us_id', us_id);
     await this.$store.state.socket.on('get_chat_room', data => {
       console.log('받은 룸 데이터: ', data);
     });
+    await this.$store.state.socket.emit('get_read_count', us_id);
   },
-  methods: {
-    // ...mapActions(['X_SOCKET']),
-  },
+  methods: {},
 
   components: {
     HomeMain,

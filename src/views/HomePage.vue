@@ -1,9 +1,23 @@
 <template>
-  <div>
+  <div class="home-main">
     <SearchBar></SearchBar>
     <div class="home-body">
+      //TODO ion-refresher 추가하기.
+      <!-- <ion-content>
+        <ion-refresher
+          @ionRefresh="doRefresh($event)"
+          slot="fixed"
+          pull-factor="0.5"
+          pull-min="100"
+          pull-max="200"
+        >
+          <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+      </ion-content> -->
       <NoticeTabs></NoticeTabs>
       <CategoryTabs :category="category"></CategoryTabs>
+      <!-- 포스트 리로딩 바 -->
+
       <ul class="item-container">
         <ItemBox
           v-for="(item, index) in items"
@@ -14,6 +28,10 @@
           다음페이지로 넘어가기
         </li>
         <li class="itme-ad">광고영역</li>
+        <!-- //TODO 최상단 바로가기 -->
+        <!-- <li @click="scrollToTop()" class="itme-top">
+          최상단가기
+        </li> -->
       </ul>
     </div>
     <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
@@ -33,7 +51,6 @@ import { getPost, getCategory } from '@/api/post.js';
 import { EventBus } from '@/utils/bus';
 
 export default {
-  name: 'HomePage',
   components: {
     SearchBar,
     NoticeTabs,
@@ -47,20 +64,17 @@ export default {
       category: [],
     };
   },
+  created() {
+    EventBus.$on('main-reset', res => {
+      console.log('게시글 리로딩!');
+      this.refreshPost();
+    });
+  },
   mounted() {
-    getPost()
-      .then(res => {
-        console.log(res.data);
-        this.items = res.data.info.board;
-        this.offset = res.data.info.next_offset;
-      })
-      .catch(err => {
-        console.log(err);
-      });
-
+    this.refreshPost();
     getCategory()
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         this.category = res.data.info;
       })
       .catch(err => {
@@ -68,39 +82,64 @@ export default {
       });
   },
   methods: {
-    set_date() {
-      let now_date = new Date();
-      let past_date = new Date('2020-05-25T13:02:08.000Z');
-      let result = Math.abs(now_date - past_date);
+    scrollToTop(e) {},
+    refreshPost() {
+      getPost()
+        .then(async res => {
+          await this.set_date(res.data.info.board);
+          this.items = res.data.info.board;
+          this.offset = res.data.info.next_offset;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    set_date(posts_date) {
+      const now_date = new Date();
+      let past_date, result_date, result_hour;
+      // 여기서 for문 시작.
+      posts_date.forEach(function(element) {
+        past_date = new Date(element.createdAt);
+        result_hour =
+          (now_date.getTime() - past_date.getTime()) / (1000 * 60 * 60 * 24);
+
+        if (result_hour > 1) {
+          result_date =
+            past_date.getFullYear() +
+            '년 ' +
+            (past_date.getMonth() + 1) +
+            '월 ' +
+            past_date.getDate() +
+            '일';
+        } else {
+          let hour = now_date.getHours() - past_date.getHours();
+          let minutes = now_date.getMinutes() - past_date.getMinutes();
+          hour > 0
+            ? (result_date = hour + '시간전')
+            : (result_date = minutes + '분전');
+        }
+        // console.log(result_date);
+        element.createdAt = result_date;
+      });
+
       //TODO 시간 값 계산해서 나타내기
     },
-    scrollToTop() {
-      console.log('클릭!');
-
-      const tag = document.querySelector('.searchInput');
-      console.log(tag);
-
-      window.scroll({
-        behavior: 'smooth',
-        left: 0,
-        top: tag.offsetTop,
-      });
-    },
     async new_post(offset) {
-      let data = { offset };
-      await getPost(data)
-        .then(res => {
-          console.log(res);
+      try {
+        const res = await getPost({ offset });
+        if (res) {
+          // console.log(res);
+          await this.set_date(res.data.info.board);
           //TODO 새로운 게시글 this.items에 추가하기.
           for (let item of res.data.info.board) {
             this.items.push(item);
           }
           console.log(this.items);
           this.offset = res.data.info.next_offset;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

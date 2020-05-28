@@ -1,16 +1,29 @@
 <template>
-  <div class="info">
-    인포페이지 입니다!
+  <ion-content class="ion-padding info">
+    <PostHeader :head_name="title"></PostHeader>
+    <InfoContent :us_info="us_info"></InfoContent>
     <button @click="logout_submit">로그아웃</button>
-  </div>
+  </ion-content>
 </template>
 
 <script>
 import { logOut } from '@/api/auth';
+import PostHeader from '@/components/Post/PostHeader';
+import InfoContent from '@/components/Info/InfoContent';
 
 export default {
   name: 'InfoPage',
-  components: {},
+  components: { PostHeader, InfoContent },
+  data() {
+    return {
+      title: '내정보',
+      us_info: {
+        us_nickname: this.$store.state.us_nickname,
+        us_thumbnail: this.$store.state.us_thumbnail,
+        us_islandname: this.$store.state.us_islandname,
+      },
+    };
+  },
   methods: {
     async logout_submit() {
       const data = { us_id: this.$store.state.us_id };

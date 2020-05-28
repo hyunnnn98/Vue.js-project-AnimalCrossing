@@ -15,9 +15,18 @@ function getCategory() {
   return afterAuth.post('/get_category');
 }
 
+// 상세 정보데이터 가져오기
+function getDetailPost(bo_id) {
+  return afterAuth.get('/board/detail/', {
+    params: {
+      bo_id,
+    },
+  });
+}
+
 // // 로그아웃 API
 // function logOut() {
 //     return afterAuth.post('/');
 // }
 
-export { createPost, getPost, getCategory };
+export { createPost, getPost, getCategory, getDetailPost };

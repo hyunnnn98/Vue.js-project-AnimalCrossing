@@ -1,7 +1,9 @@
 <template>
-  <li @click="get_talk" class="talk-box">
-    <div class="talk-avater">{{ room_id }}</div>
-    <div class="talk-content">아바타 그림</div>
+  <li v-if="room_data" @click="join_room" class="talk-box">
+    <div class="talk-avater"></div>
+    <div class="talk-content">
+      {{ room_data.board.bo_title }}
+    </div>
     <div class="talk-info">아바타 그림</div>
   </li>
 </template>
@@ -9,14 +11,19 @@
 <script>
 export default {
   props: {
-    room_id: {
-      type: Number,
+    room_data: {
+      type: Object,
     },
   },
   methods: {
-    get_talk() {
-      console.log(this.room_id);
-      this.$router.push('/talk/1');
+    join_room() {
+      this.$router.push(`/talk/${this.room_data.ch_room_id}`);
+      this.$store.state.socket.emit(
+        'join_room',
+        this.$store.state.us_id,
+        this.room_data.ch_room_id,
+      );
+      this.$store.state.socket.emit('get_read_count', this.$store.state.us_id);
     },
   },
 };
@@ -25,7 +32,7 @@ export default {
 <style>
 .talk-box {
   flex: 1;
-  background-color: red;
+  /* background-color: red; */
   margin: 5px 0;
   width: 100%;
   height: 80px;

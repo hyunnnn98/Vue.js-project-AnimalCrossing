@@ -38,7 +38,7 @@ const routes = [
     path: '/main/:id',
     name: 'Main_id',
     meta: { auth: true },
-    component: () => import('@/views/PostInfoPage.vue'),
+    component: () => import('@/views/ItemPage.vue'),
   },
   {
     path: '/post',
