@@ -13,10 +13,6 @@
         name="close-circle"
       ></ion-icon>
     </li>
-    <!-- <li>
-      <ion-icon class="delete-picture" name="close-circle"></ion-icon>
-      <img src="../../imgs/tanuki.png" />
-    </li> -->
   </ul>
 </template>
 

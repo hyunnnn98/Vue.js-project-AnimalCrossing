@@ -16,8 +16,6 @@
       </ion-content> -->
       <NoticeTabs></NoticeTabs>
       <CategoryTabs :category="category"></CategoryTabs>
-      <!-- 포스트 리로딩 바 -->
-
       <ul class="item-container">
         <ItemBox
           v-for="(item, index) in items"
@@ -28,17 +26,9 @@
           다음페이지로 넘어가기
         </li>
         <li class="itme-ad">광고영역</li>
-        <!-- //TODO 최상단 바로가기 -->
-        <!-- <li @click="scrollToTop()" class="itme-top">
-          최상단가기
-        </li> -->
       </ul>
     </div>
-    <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button size="small" color="success">
-        <ion-icon @click="logScrollStart" name="arrow-up"></ion-icon>
-      </ion-fab-button>
-    </ion-fab> -->
+    <ScrollControl></ScrollControl>
   </div>
 </template>
 
@@ -47,6 +37,7 @@ import SearchBar from '@/components/Home/SearchBar.vue';
 import NoticeTabs from '@/components/Home/NoticeTabs.vue';
 import CategoryTabs from '@/components/Home/CategoryTabs.vue';
 import ItemBox from '@/components/Home/ItemBox.vue';
+import ScrollControl from '@/components/Home/ScrollControl.vue';
 import { getPost, getCategory } from '@/api/post.js';
 import { EventBus } from '@/utils/bus';
 
@@ -56,6 +47,7 @@ export default {
     NoticeTabs,
     CategoryTabs,
     ItemBox,
+    ScrollControl,
   },
   data() {
     return {
@@ -74,7 +66,6 @@ export default {
     this.refreshPost();
     getCategory()
       .then(res => {
-        // console.log(res.data);
         this.category = res.data.info;
       })
       .catch(err => {
@@ -82,11 +73,11 @@ export default {
       });
   },
   methods: {
-    scrollToTop(e) {},
     refreshPost() {
       getPost()
         .then(async res => {
           await this.set_date(res.data.info.board);
+          console.log(res.data);
           this.items = res.data.info.board;
           this.offset = res.data.info.next_offset;
         })
@@ -148,12 +139,9 @@ export default {
 <style>
 .item-container {
   display: flex;
-  /* flex-direction: row; */
   flex-wrap: wrap;
   background-color: rgb(233, 232, 232);
   width: 100%;
-  /* height: 900px; */
-  /* overflow-y: scroll; */
 }
 
 .item-container::-webkit-scrollbar {

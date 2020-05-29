@@ -1,10 +1,17 @@
 <template>
   <li v-if="room_data" @click="join_room" class="talk-box">
-    <div class="talk-avater"></div>
-    <div class="talk-content">
-      {{ room_data.board.bo_title }}
+    <div class="talk-avater">
+      <img :src="`${room_data.board.user.us_thumbnail}`" alt="썸네일" />
     </div>
-    <div class="talk-info">아바타 그림</div>
+    <div class="talk-content">
+      <p class="talk-title">{{ room_data.board.bo_title }}</p>
+      <p class="talk-nickname">{{ room_data.board.user.us_nickname }}</p>
+      <p class="talk-lastcontent">{{ room_data.ch_content }}</p>
+    </div>
+    <div class="talk-info">
+      {{ room_data.createdAt }}
+      <p v-if="room_data.ch_read">{{ room_data.ch_read }}</p>
+    </div>
   </li>
 </template>
 
@@ -32,7 +39,6 @@ export default {
 <style>
 .talk-box {
   flex: 1;
-  /* background-color: red; */
   margin: 5px 0;
   width: 100%;
   height: 80px;
@@ -41,12 +47,10 @@ export default {
 }
 
 .talk-avater {
-  background-color: yellowgreen;
-  /* flex-grow: 0.5; */
   width: 80px;
   height: 100%;
   border-radius: 25px;
-  padding: 10px;
+  overflow: hidden;
 }
 
 .talk-content {
@@ -55,8 +59,23 @@ export default {
 }
 
 .talk-info {
-  flex-grow: 0.5;
-  background-color: blue;
+  width: 150px;
   padding: 10px;
+}
+
+.talk-nickname {
+  color: black;
+  font-weight: 900;
+  margin: 5px 0px;
+}
+
+.talk-title {
+  display: inline-block;
+  padding: 1px 10px;
+  background-color: rgb(143, 143, 143);
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 0.9em;
 }
 </style>

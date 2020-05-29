@@ -85,9 +85,9 @@ router.beforeEach((to, from, next) => {
     let us_info = { us_id: store.state.us_id };
     authCheck(us_info)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         store.commit('setUserInfo', res.data.info);
-        console.log('체크체크!');
+        // console.log('체크체크!');
         next();
       })
       .catch(async err => {

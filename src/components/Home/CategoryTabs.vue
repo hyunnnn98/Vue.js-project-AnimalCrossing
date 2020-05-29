@@ -1,6 +1,11 @@
 <template>
   <div class="Category">
     <ion-icon name="list" @click="openModal"></ion-icon>
+    <!-- <div class="Top_Category">
+      <span>입양 / 분양</span>
+      <span>아이템</span>
+      <span>무주식</span>
+    </div> -->
   </div>
 </template>
 
@@ -43,7 +48,18 @@ export default {
 .Category {
   border-bottom: 1px solid #e0e0e0;
   height: 50px;
+  /* line-height: 50px; */
   background-color: white;
+}
+
+.Top_Category {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+.Category > span {
+  display: inline-block;
 }
 
 .Category ion-icon {

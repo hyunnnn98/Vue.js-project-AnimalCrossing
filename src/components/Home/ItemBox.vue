@@ -1,6 +1,9 @@
 <template>
   <li @click="get_postData(item.bo_id)" class="itembox">
     <div class="post-title">
+      <span class="post-category" :class="`id_${item.bo_category}`">{{
+        item.category.ca_contents
+      }}</span>
       {{ item.bo_title }}
     </div>
     <div class="post-contents">
@@ -19,12 +22,15 @@
         <span class="post-contents clicked">조회 {{ item.bo_view }}</span>
       </span>
     </div>
-    <div class="post-price">{{ item.bo_cost }} {{ item.bo_cost_selector }}</div>
+    <div class="post-price">
+      {{ item.bo_cost }} {{ item.bo_cost_selector == 0 ? '벨' : '마일' }}
+    </div>
     <div class="post-price"></div>
   </li>
 </template>
 
 <script>
+import { setPostView } from '@/api/post';
 export default {
   name: 'ItemBox',
   props: ['item'],
@@ -33,7 +39,8 @@ export default {
   },
   methods: {
     get_postData(bo_id) {
-      console.log(bo_id);
+      // console.log(bo_id);
+      setPostView(bo_id);
       this.$router.push(`/main/${bo_id}`);
     },
   },
@@ -58,6 +65,26 @@ export default {
   font-size: 1.5em;
   font-weight: 900;
   padding: 5px 0;
+  color: rgb(73, 73, 73);
+}
+
+.post-category {
+  padding: 0 5px;
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+}
+
+.post-category.id_1 {
+  background-color: rgb(240, 70, 3);
+}
+
+.post-category.id_2 {
+  background-color: rgb(3, 240, 121);
+}
+
+.post-category.id_4 {
+  background-color: rgb(162, 91, 221);
 }
 
 .post-contents.post_info,

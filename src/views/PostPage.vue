@@ -1,7 +1,7 @@
 <template>
   <ion-content class="ion-padding post">
     <div class="postPage">
-      <PostHeader :head_name="this.title"></PostHeader>
+      <AppHeader :head_name="this.title"></AppHeader>
       <SelectPicture></SelectPicture>
       <PostContent></PostContent>
     </div>
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import PostHeader from '@/components/Post/PostHeader';
+import AppHeader from '@/components/common/AppHeader';
 import SelectPicture from '@/components/Post/SelectPicture';
 import PostContent from '@/components/Post/PostContent';
 
@@ -18,7 +18,7 @@ const { Camera } = Plugins;
 export default {
   name: 'PostPage',
   components: {
-    PostHeader,
+    AppHeader,
     SelectPicture,
     PostContent,
   },

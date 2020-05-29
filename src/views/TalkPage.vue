@@ -1,6 +1,5 @@
 <template>
   <div class="talk">
-    챗팅방이 나열 될 예정입니다.
     <ul v-if="talks">
       <TalkBox
         :room_data="talk"
@@ -25,16 +24,8 @@ export default {
       talks: null,
     };
   },
-  created() {
-    // EventBus.$on('chat_data', data => {
-    //   console.log('[Talk] eventbus:', data);
-    //   this.talks = data;
-    // });
-  },
   beforeDestroy() {
-    // EventBus.$off('get_chat_data');
     this.$store.state.socket.off('get_chat_data');
-    // 컴포넌트 Destroy될때 다시 emit날리고 created에서 받으면 리턴되지 않나??
   },
   async mounted() {
     // 채팅 데이터 업데이트.
@@ -67,8 +58,6 @@ export default {
   flex-direction: column;
   height: 100%;
   padding: 0px 5px;
-  /* background-color: black; */
-  /* margin: 0 10px; */
 }
 
 .talk::-webkit-scrollbar {

@@ -1,7 +1,7 @@
 <template>
   <div class="modal-category">
     <ion-toolbar>
-      <ion-title>
+      <ion-title class="modal-title">
         카테고리
         <ion-icon
           class="backUrl"
@@ -15,7 +15,7 @@
     </ion-toolbar>
 
     <ion-content class="ion-padding">
-      <ul>
+      <ul class="category-ui">
         <li
           @click="selectMenu(category.ca_id)"
           v-for="category in categorys"
@@ -70,15 +70,41 @@ export default {
 .modal-category ion-title {
   /* background-color: red; */
   text-align: center;
+  height: 30px;
+  line-height: 20px;
+  font-weight: bold;
+  font-size: 1.3em;
+  letter-spacing: -2px;
 }
 
 .backUrl {
   /* background-color: red; */
   position: absolute;
-  top: -5px;
+  top: 0px;
   right: 10px;
   font-size: 1.3em;
   cursor: pointer;
-  color: rgb(47, 179, 14);
+  color: rgb(30, 107, 11);
+}
+
+.category-ui {
+  margin: 0 auto;
+  width: 400px;
+  display: flex;
+  /* flex-direction: column; */
+
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.category-ui > li {
+  background-color: rgba(27, 162, 216, 0.171);
+  font-weight: 700;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 1em 0px;
+  text-align: center;
+  flex-basis: 40%;
+  cursor: pointer;
 }
 </style>

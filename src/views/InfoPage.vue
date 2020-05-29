@@ -1,6 +1,6 @@
 <template>
   <ion-content class="ion-padding info">
-    <PostHeader :head_name="title"></PostHeader>
+    <AppHeader :head_name="title"></AppHeader>
     <InfoContent :us_info="us_info"></InfoContent>
     <button @click="logout_submit">로그아웃</button>
   </ion-content>
@@ -8,12 +8,12 @@
 
 <script>
 import { logOut } from '@/api/auth';
-import PostHeader from '@/components/Post/PostHeader';
+import AppHeader from '@/components/common/AppHeader';
 import InfoContent from '@/components/Info/InfoContent';
 
 export default {
   name: 'InfoPage',
-  components: { PostHeader, InfoContent },
+  components: { AppHeader, InfoContent },
   data() {
     return {
       title: '내정보',

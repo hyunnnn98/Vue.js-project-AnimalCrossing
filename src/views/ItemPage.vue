@@ -1,54 +1,38 @@
 <template>
   <ion-content class="ion-padding post">
-    <PostHeader :head_name="this.title"></PostHeader>
+    <AppHeader :head_name="this.title"></AppHeader>
     <ItemInfo v-if="bo_data" :item_data="this.bo_data.info"></ItemInfo>
     판매자정보
     <InfoContent v-if="bo_data" :us_info="this.bo_data.info.user"></InfoContent>
-    <div class="pi-bottom">
-      <div class="pi-input-like">좋아요버튼</div>
-      <div class="pi-input-bad">싫어요버튼</div>
-      <div @click="create_room()" class="pi-input-talk">거래하기</div>
-    </div>
+    <InfoFooter></InfoFooter>
   </ion-content>
 </template>
 
 <script>
-import PostHeader from '@/components/Post/PostHeader';
+import AppHeader from '@/components/common/AppHeader';
 import InfoContent from '@/components/Info/InfoContent';
+import InfoFooter from '@/components/Info/InfoFooter';
 import ItemInfo from '@/components/Home/ItemInfo';
 import { getDetailPost } from '@/api/post';
 
 export default {
   components: {
-    PostHeader,
+    AppHeader,
     ItemInfo,
     InfoContent,
+    InfoFooter,
   },
   data() {
     return {
+      bo_data: '',
       title: '상세조회',
       bo_id: this.$route.params.id,
-      us_id: this.$store.state.us_id,
-      bo_data: '',
     };
   },
   async mounted() {
     const { data } = await getDetailPost(this.bo_id);
     this.bo_data = await data;
     console.log(data);
-  },
-  methods: {
-    async create_room() {
-      console.log(this.us_id);
-      console.log(this.bo_id);
-      await this.$store.commit('setSocket');
-      await this.$store.state.socket.emit(
-        'create_room',
-        parseInt(this.us_id),
-        parseInt(this.bo_id),
-      );
-      this.$router.push(`/talk/${this.bo_id}-${this.us_id}`);
-    },
   },
 };
 </script>

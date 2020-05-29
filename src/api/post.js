@@ -24,9 +24,17 @@ function getDetailPost(bo_id) {
   });
 }
 
+function setPostView(bo_id) {
+  return afterAuth.get('/board/view', {
+    params: {
+      bo_id,
+    },
+  });
+}
+
 // // 로그아웃 API
 // function logOut() {
 //     return afterAuth.post('/');
 // }
 
-export { createPost, getPost, getCategory, getDetailPost };
+export { createPost, getPost, getCategory, getDetailPost, setPostView };

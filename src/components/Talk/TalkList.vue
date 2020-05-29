@@ -6,61 +6,40 @@
       <ion-icon name="search" @click="$router.push('/talk')" />
     </div>
     <ul>
-      <li v-for="(chat, index) in chat_data" :key="index">
-        <!-- <p :class="`chat${chat}`">{{ chat }}</p> -->
-        <p :class="`chat receiver`">{{ chat.ch_content }}</p>
-        <span class="chat time">오후 13:00</span>
-        <span class="chat read" v-if="chat.ch_read == 0">읽음</span>
-        <!-- //TODO class 발신 : 수신 구분해서 뿌려주기. -->
+      <li
+        :class="chat.ch_send_us_id == us_id ? 'sender' : 'receiver'"
+        v-for="(chat, index) in chat_data"
+        :key="index"
+      >
+        <template class="cbt-sender" v-if="us_id == chat.ch_send_us_id">
+          <span class="chat read" v-if="chat.ch_read == 0">읽음</span>
+          <span class="chat time">오후 13:00</span>
+          <p class="chat sender">{{ chat.ch_content }}</p>
+        </template>
+        <template v-else>
+          <p class="chat receiver">{{ chat.ch_content }}</p>
+          <span class="chat time">오후 13:00</span>
+          <span class="chat read" v-if="chat.ch_read == 0">읽음</span>
+        </template>
       </li>
-      <!-- <li>
-        <p :class="`chat sender`">판매자님 안녕하세요!</p>
-        <span class="chat time">오후 13:00</span>
-      </li>
-      <li>
-        <p :class="`chat sender`">
-          판매자님 안녕하세요! 동해물과백두산이 마르고 닳도록 하느님이 보우하사
-          우리나라만세
-        </p>
-        <span class="chat time">오후 13:00</span>
-      </li>
-      <li>
-        <p :class="`chat receiver`">아 네네!! 안녕하세요!</p>
-        <span class="chat time">오후 13:00</span>
-      </li>
-      <li>
-        <p :class="`chat receiver`">아 네네!! 안녕하세요!</p>
-        <span class="chat time">오후 13:00</span>
-      </li>
-      <li>
-        <p :class="`chat sender`">판매자님 안녕하세요!</p>
-        <span class="chat time">오후 13:00</span>
-      </li>
-      <li>
-        <p :class="`chat receiver`">아 네네!! 안녕하세요!</p>
-        <span class="chat time">오후 13:00</span>
-      </li> -->
-
-      <!-- <li>마지막대화</li> -->
     </ul>
-    <form action="#">
-      <div class="fix-bottom">
-        <ion-textarea
-          type="text"
-          :value="us_input_value"
-          @input="us_input_value = $event.target.value"
-          clear-on-edit="true"
-          placeholder="채팅을 입력해주세요."
-        ></ion-textarea>
-        <ion-buton
-          @click="send_message"
-          type="submit"
-          class="btn_send"
-          expand="block"
-          >전송</ion-buton
-        >
-      </div>
-    </form>
+    <div class="fix-bottom">
+      <ion-textarea
+        type="text"
+        :value="us_input_value"
+        @input="us_input_value = $event.target.value"
+        clear-on-edit="true"
+        placeholder="채팅을 입력해주세요."
+      ></ion-textarea>
+      <ion-buton
+        class="btn_send"
+        @click="send_message"
+        :disabled="!us_input_value"
+        :class="!us_input_value ? 'disabled' : null"
+        type="submit"
+        expand="block"
+      ></ion-buton>
+    </div>
   </div>
 </template>
 
@@ -99,8 +78,8 @@ export default {
   },
   methods: {
     send_message() {
-      console.log('메세지 전송!', this.room_id);
       //TODO 다른 유저가 채팅방 무단 침입 막기.
+      if (this.us_input_value == '') return;
       // 새로운 채팅메시지 보내기.
       this.$store.state.socket.emit(
         'send_message',
@@ -118,7 +97,8 @@ export default {
   max-width: none;
   max-height: 100%;
   min-height: 300px;
-  background-color: yellowgreen;
+  background-image: url('../../imgs/chat-background.png');
+  background-size: cover;
   overflow-y: scroll;
 }
 
@@ -165,6 +145,7 @@ export default {
   font-weight: bold;
   font-size: 1.3em;
   letter-spacing: -2px;
+  z-index: 100;
 }
 
 .fix-header ion-icon {
@@ -200,15 +181,24 @@ export default {
 }
 
 .fix-bottom .btn_send {
-  background-color: rgb(180, 206, 255);
-  color: black;
+  background-color: rgb(110, 175, 216);
   text-align: center;
   line-height: 40px;
-  font-weight: 900;
+  font-weight: 700;
   height: 40px;
   width: 60px;
   border-radius: 10px;
+  letter-spacing: 2px;
   box-shadow: 0px 1px 5px rgb(88, 88, 88);
+  background-image: url('../../imgs/send.png');
+  background-size: 2em;
+  background-repeat: no-repeat;
+  background-position-x: 1em;
+  background-position-y: 0.5em;
+}
+
+.btn_send.disabled {
+  background-color: rgb(182, 195, 202);
 }
 
 .chat {
@@ -216,23 +206,42 @@ export default {
   max-width: 300px;
 }
 
+.sender {
+  text-align: right;
+}
+
 .chat.receiver {
-  background-color: rgb(255, 232, 28);
+  background-color: white;
   box-shadow: 0px 3px 8px rgb(88, 88, 88);
 }
 .chat.sender {
-  background-color: white;
+  background-color: rgb(255, 232, 28);
   box-shadow: -1px 3px 8px rgb(88, 88, 88);
+  text-align: left;
 }
 
-.chat.time {
+.sender .time {
+  font-size: 0.8em;
+  position: relative;
+  right: 5px;
+  bottom: -8px;
+}
+
+.sender .read {
+  position: relative;
+  font-size: 0.7em;
+  top: -9px;
+  left: 47px;
+}
+
+.receiver .time {
   font-size: 0.8em;
   position: relative;
   left: 5px;
   bottom: -8px;
 }
 
-.chat.read {
+.receiver .read {
   position: relative;
   font-size: 0.7em;
   top: -9px;

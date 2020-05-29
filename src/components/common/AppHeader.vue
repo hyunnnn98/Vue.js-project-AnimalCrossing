@@ -1,5 +1,5 @@
 <template>
-  <div class="post-Header">
+  <div class="App-Header">
     {{ head_name }}
     <ion-icon name="arrow-back" @click="$router.push('/main')"></ion-icon>
   </div>
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style>
-.post-Header {
+.App-Header {
   text-align: center;
   height: 30px;
   line-height: 20px;
@@ -25,7 +25,7 @@ export default {
   letter-spacing: -2px;
 }
 
-.post-Header ion-icon {
+.App-Header ion-icon {
   position: absolute;
   top: 10px;
   left: 10px;

@@ -70,3 +70,11 @@ Animalcross Vue 소스 코드입니다.
 * [CREATE]
 1. Socket.io 연동 => Chat data binding
 ```
+
+### 2020.05.29
+```
+* [UPDATE]
+1. MainPage 태그형식 글 색깔별 구분하기.
+2. Category Modal CSS 수정.
+3. Mobile 글 작성 => S3 사진 슬라이드 형식 바인딩 완료.
+```
