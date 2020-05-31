@@ -36,10 +36,11 @@
 import SearchBar from '@/components/Home/SearchBar.vue';
 import NoticeTabs from '@/components/Home/NoticeTabs.vue';
 import CategoryTabs from '@/components/Home/CategoryTabs.vue';
-import ItemBox from '@/components/Home/ItemBox.vue';
+import ItemBox from '@/components/Item/ItemBox.vue';
 import ScrollControl from '@/components/Home/ScrollControl.vue';
 import { getPost, getCategory } from '@/api/post.js';
 import { EventBus } from '@/utils/bus';
+import { dateFormat } from '@/utils/dateFormat';
 
 export default {
   components: {
@@ -87,30 +88,28 @@ export default {
     },
     set_date(posts_date) {
       const now_date = new Date();
-      let past_date, result_date, result_hour;
       // 여기서 for문 시작.
-      posts_date.forEach(function(element) {
-        past_date = new Date(element.createdAt);
-        result_hour =
-          (now_date.getTime() - past_date.getTime()) / (1000 * 60 * 60 * 24);
+      posts_date.forEach(v => {
+        v.createdAt = dateFormat(now_date, v.createdAt);
+        // past_date = new Date(element.createdAt);
+        // result_hour =
+        //   (now_date.getTime() - past_date.getTime()) / (1000 * 60 * 60 * 24);
 
-        if (result_hour > 1) {
-          result_date =
-            past_date.getFullYear() +
-            '년 ' +
-            (past_date.getMonth() + 1) +
-            '월 ' +
-            past_date.getDate() +
-            '일';
-        } else {
-          let hour = now_date.getHours() - past_date.getHours();
-          let minutes = now_date.getMinutes() - past_date.getMinutes();
-          hour > 0
-            ? (result_date = hour + '시간전')
-            : (result_date = minutes + '분전');
-        }
+        // if (result_hour > 1) {
+        //   result_date =
+        //     past_date.getMonth() + 1 + '월 ' + past_date.getDate() + '일';
+        // } else {
+        //   let hour = now_date.getHours() - past_date.getHours();
+        //   let minutes =
+        //     now_date.getHours() * 60 +
+        //     now_date.getMinutes() -
+        //     (past_date.getHours() * 60 + past_date.getMinutes());
+        //   hour > 0
+        //     ? (result_date = hour + '시간전')
+        //     : (result_date = minutes + '분전');
+        // }
         // console.log(result_date);
-        element.createdAt = result_date;
+        // v.createdAt = result_date;
       });
 
       //TODO 시간 값 계산해서 나타내기

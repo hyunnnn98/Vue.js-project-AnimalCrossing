@@ -47,10 +47,15 @@ export default {
 }
 
 .talk-avater {
-  width: 80px;
+  width: 80px !important;
   height: 100%;
   border-radius: 25px;
   overflow: hidden;
+}
+
+.talk-avater img {
+  width: 80px !important;
+  height: auto;
 }
 
 .talk-content {
@@ -59,8 +64,9 @@ export default {
 }
 
 .talk-info {
+  text-align: right;
   width: 150px;
-  padding: 10px;
+  padding: 10px 20px;
 }
 
 .talk-nickname {

@@ -1,5 +1,5 @@
 <template>
-  <ion-tabs>
+  <ion-tabs class="m-tabs">
     <!-- 홈화면 바로가기 -->
     <ion-tab tab="/main">
       <HomeMain></HomeMain>
@@ -96,3 +96,5 @@ export default {
   },
 };
 </script>
+
+<style></style>

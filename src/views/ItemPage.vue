@@ -2,25 +2,30 @@
   <ion-content class="ion-padding post">
     <AppHeader :head_name="this.title"></AppHeader>
     <ItemInfo v-if="bo_data" :item_data="this.bo_data.info"></ItemInfo>
-    판매자정보
+    <span class="item-info">판매자정보</span>
     <InfoContent v-if="bo_data" :us_info="this.bo_data.info.user"></InfoContent>
-    <InfoFooter></InfoFooter>
+    <span class="item-info">후기정보</span>
+    <InfoComment></InfoComment>
+    <ItemFooter></ItemFooter>
   </ion-content>
 </template>
 
 <script>
 import AppHeader from '@/components/common/AppHeader';
 import InfoContent from '@/components/Info/InfoContent';
-import InfoFooter from '@/components/Info/InfoFooter';
-import ItemInfo from '@/components/Home/ItemInfo';
+import InfoComment from '@/components/Info/InfoComment';
+import ItemFooter from '@/components/Item/ItemFooter';
+import ItemInfo from '@/components/Item/ItemInfo';
 import { getDetailPost } from '@/api/post';
+import { dateFormat } from '@/utils/dateFormat';
 
 export default {
   components: {
     AppHeader,
     ItemInfo,
     InfoContent,
-    InfoFooter,
+    InfoComment,
+    ItemFooter,
   },
   data() {
     return {
@@ -31,7 +36,10 @@ export default {
   },
   async mounted() {
     const { data } = await getDetailPost(this.bo_id);
-    this.bo_data = await data;
+    const new_date = new Date();
+    let return_date = dateFormat(new_date, data.info.createdAt);
+    data.info.createdAt = return_date;
+    this.bo_data = data;
     console.log(data);
   },
 };
@@ -88,6 +96,7 @@ export default {
   font-size: 0.7em;
   position: relative;
   top: -3px;
+  left: 5px;
 }
 
 .pi-info > span:nth-child(n) {
@@ -111,6 +120,7 @@ export default {
   /* padding: 10px; */
   width: 100%;
   margin: 0px;
+  z-index: 100;
   /* background-color: red; */
 }
 
@@ -132,6 +142,16 @@ export default {
   letter-spacing: -2px;
   text-align: center;
   line-height: 50px;
+}
+
+.item-info {
+  position: relative;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  top: 10px;
+  left: 10px;
 }
 
 @media (min-width: 520px) {

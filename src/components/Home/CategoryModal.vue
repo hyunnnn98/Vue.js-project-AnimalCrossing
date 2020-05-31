@@ -67,6 +67,10 @@ export default {
 </script>
 
 <style>
+.modal-category {
+  padding: 20px 10px;
+}
+
 .modal-category ion-title {
   /* background-color: red; */
   text-align: center;
@@ -89,7 +93,7 @@ export default {
 
 .category-ui {
   margin: 0 auto;
-  width: 400px;
+  max-width: 400px;
   display: flex;
   /* flex-direction: column; */
 

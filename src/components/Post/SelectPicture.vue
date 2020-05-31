@@ -1,23 +1,29 @@
 <template>
   <ul class="post-Picture">
-    <li @click="talk_picture"></li>
-    <li
-      @click="submit_thumbnail(i)"
-      v-for="(picture, i) in imageUrl"
-      :key="picture"
-    >
-      <img :src="imageUrl[i] ? imageUrl[i] : null" />
-      <ion-icon
+    <li @change="handleFileUpload" v-if="device_info == 'web'">
+      <label class="file_tab" for="postImageFileOpenInput" />
+      <input
+        type="file"
+        id="postImageFileOpenInput"
+        ref="uploadImageFile"
+        accept="image/png, image/jpeg"
+      />
+    </li>
+    <li v-else @click="handleFileUpload"></li>
+    <li @click="submit_thumbnail(i)" v-for="(picture, i) in imageUrl" :key="i">
+      <!-- <ion-icon
         @click="deleteUrl(i)"
         class="delete-picture"
         name="close-circle"
-      ></ion-icon>
+      ></ion-icon> -->
+      <img :src="imageUrl[i] ? imageUrl[i] : null" />
     </li>
   </ul>
 </template>
 
 <script>
 import { EventBus } from '@/utils/bus';
+import { valideImageType } from '@/utils/valideImageType';
 import { Plugins, CameraSource, CameraResultType } from '@capacitor/core';
 const { Camera } = Plugins;
 const { Device } = Plugins;
@@ -26,6 +32,7 @@ export default {
   name: 'post-picture',
   data() {
     return {
+      uploadImageFile: '',
       imageUrl: [],
       blobs: [],
       formData: null,
@@ -46,14 +53,12 @@ export default {
     });
   },
   methods: {
-    async talk_picture() {
+    async handleFileUpload() {
       // DeviceInfo 보고 사용자 구분하기
-
-      console.log(this.device_info);
       if (this.device_info != 'web') {
         try {
           const image = await Camera.getPhoto({
-            quality: 20,
+            quality: 100,
             allowEditing: false,
             resultType: CameraResultType.DataUrl,
             source: CameraSource.Prompt,
@@ -77,7 +82,21 @@ export default {
           // alert('err: ' + err);
         }
       } else {
-        alert('모바일이 아닙니다!');
+        const image = this.$refs.uploadImageFile.files[0];
+
+        console.log(image);
+        if (!valideImageType(image)) {
+          console.warn('invalide image file type');
+          return;
+        }
+        let reader = new FileReader();
+        /* reader 시작시 함수 구현 */
+        reader.onload = e => {
+          // this.uploadImageFile = e.target.result;
+          this.imageUrl.push(e.target.result);
+        };
+        reader.readAsDataURL(image);
+        this.blobs.push(image);
       }
     },
     async image_submit(bo_id) {
@@ -152,7 +171,7 @@ export default {
 }
 
 .post-Picture::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
+  /* display: none; Chrome, Safari, Opera */
 }
 
 .post-Picture > li {
@@ -165,7 +184,14 @@ export default {
   overflow: hidden;
 }
 
+.post-Picture > li > img {
+  width: auto;
+  height: 100%;
+}
+
 .post-Picture > li:nth-child(1) {
+  width: 100px;
+  height: 100px;
   background-image: url('../../imgs/camera.png');
   background-repeat: no-repeat;
   background-position-x: 1.2em;
@@ -173,14 +199,30 @@ export default {
   background-color: rgba(245, 241, 10, 0.274);
 }
 
+.file_tab {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
+input[type='file'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 .delete-picture {
   float: right;
-  /* position: relative; */
-  /* top: -95px;
-  left: 75px; */
-  /* top: -17px;
-  left: 75px; */
-  display: block;
+  /* position: absolute; */
+  padding: 5px;
+  /* right: 0px; */
+  /* top: -95px; */
   font-size: 1.5em;
   color: rgb(184, 20, 20);
   cursor: pointer;

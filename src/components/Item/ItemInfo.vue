@@ -19,7 +19,7 @@
       </div>
       <div class="pi-title">{{ item_data.bo_title }}</div>
       <div class="pi-info">
-        <span class="pi-">13:11</span>
+        <span class="pi-">{{ item_data.createdAt }}</span>
         <span class="pi-view">조회수 {{ item_data.bo_view }}</span>
         <span class="pi-like"
           ><img src="../../imgs/like.png" alt="좋아요" />
@@ -48,8 +48,19 @@ export default {
 
 <style>
 .pi-imgs {
-  height: 600px;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  background-color: rgb(197, 197, 197);
+  transition-duration: 0.5s;
+  background-color: black;
+}
+
+.pi-imgs:hover {
+  max-width: 100%;
+  height: 100%;
+}
+
+.pi-imgs img {
+  width: auto;
 }
 </style>

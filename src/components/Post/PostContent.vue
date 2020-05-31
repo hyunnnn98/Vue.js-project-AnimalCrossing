@@ -40,13 +40,14 @@
         <ion-item class="content">
           <ion-label position="floating"><span>*</span> 상품설명</ion-label>
           <ion-textarea
+            placeholder="상품설명을 입력해주세요"
             class="post-textarea"
             :value="bo_content"
             @input="bo_content = $event.target.value"
           ></ion-textarea>
         </ion-item>
       </li>
-      <li>
+      <li v-if="bo_trade_value != 3">
         <ion-item class="content">
           <ion-label position="floating"><span>*</span> 가격</ion-label>
           <ion-input
@@ -103,7 +104,6 @@ export default {
           bo_us_id: this.$store.state.us_id,
         };
         const result = await createPost(post_data);
-        alert(result.data.info);
         if (result) EventBus.$emit('send_imgs', result.data.info);
         this.init_post();
         EventBus.$emit('main-reset');

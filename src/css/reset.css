@@ -54,3 +54,7 @@ textarea[disabled]{padding:11px; font-size:16px; color:#666; font-weight:normal;
 .clear {clear:both;}
 .clear:after { content:""; display:block; clear:both;}
 
+@font-face { 
+    font-family: '여기어때 잘난체'; 
+    src: url(Jalnan.ttf) format('truetype'); 
+}

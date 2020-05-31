@@ -78,3 +78,10 @@ Animalcross Vue 소스 코드입니다.
 2. Category Modal CSS 수정.
 3. Mobile 글 작성 => S3 사진 슬라이드 형식 바인딩 완료.
 ```
+
+### 2020.05.31
+```
+* [UPDATE]
+1. PostPage 사진 업로드 PC / Mobile 지원 완료.
+2. MainPage flex 형태 디자인 수정.
+```

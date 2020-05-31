@@ -2,6 +2,8 @@
   <ion-content class="ion-padding info">
     <AppHeader :head_name="title"></AppHeader>
     <InfoContent :us_info="us_info"></InfoContent>
+    <InfoTrade></InfoTrade>
+    <InfoComment></InfoComment>
     <button @click="logout_submit">로그아웃</button>
   </ion-content>
 </template>
@@ -10,10 +12,12 @@
 import { logOut } from '@/api/auth';
 import AppHeader from '@/components/common/AppHeader';
 import InfoContent from '@/components/Info/InfoContent';
+import InfoTrade from '@/components/Info/InfoTrade';
+import InfoComment from '@/components/Info/InfoComment';
 
 export default {
   name: 'InfoPage',
-  components: { AppHeader, InfoContent },
+  components: { AppHeader, InfoContent, InfoTrade, InfoComment },
   data() {
     return {
       title: '내정보',

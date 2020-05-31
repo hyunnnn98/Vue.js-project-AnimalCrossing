@@ -13,12 +13,12 @@
       >
         <template class="cbt-sender" v-if="us_id == chat.ch_send_us_id">
           <span class="chat read" v-if="chat.ch_read == 0">읽음</span>
-          <span class="chat time">오후 13:00</span>
+          <span class="chat time">{{ chat.createdAt }}</span>
           <p class="chat sender">{{ chat.ch_content }}</p>
         </template>
         <template v-else>
           <p class="chat receiver">{{ chat.ch_content }}</p>
-          <span class="chat time">오후 13:00</span>
+          <span class="chat time">{{ chat.createdAt }}</span>
           <span class="chat read" v-if="chat.ch_read == 0">읽음</span>
         </template>
       </li>
@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { dateFormat } from '@/utils/dateFormat';
+
 export default {
   name: 'TalkRoom',
   data() {
@@ -58,12 +60,20 @@ export default {
     // 초기값 채팅메시지 불러오기.
     this.$store.state.socket.on('get_message', res => {
       console.log('초기값 메시지', res);
+      const new_date = new Date();
+      res.forEach(v => {
+        let return_date = dateFormat(new_date, v.createdAt, 'chat');
+        v.createdAt = return_date;
+      });
       this.chat_data = res;
     });
 
     // 새로운 채팅메시지 불러오기.
     this.$store.state.socket.on('send_message', res => {
       console.log('새롭게 받은 메시지', res);
+      const new_date = new Date();
+      let return_date = dateFormat(new_date, res.createdAt, 'chat');
+      res.createdAt = return_date;
       this.chat_data.push(res);
     });
   },
@@ -231,7 +241,7 @@ export default {
   position: relative;
   font-size: 0.7em;
   top: -9px;
-  left: 47px;
+  left: 38px;
 }
 
 .receiver .time {
@@ -245,6 +255,6 @@ export default {
   position: relative;
   font-size: 0.7em;
   top: -9px;
-  right: 47px;
+  right: 38px;
 }
 </style>

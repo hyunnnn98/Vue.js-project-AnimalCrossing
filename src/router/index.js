@@ -22,7 +22,7 @@ const routes = [
   {
     path: '/passport',
     name: 'Passport',
-    component: () => import('@/views/PassportPage.vue'),
+    component: () => import('@/views/JoinPage.vue'),
     beforeEnter: (to, from, next) => {
       if (store.getters.isLogin) next('/main');
       else next();

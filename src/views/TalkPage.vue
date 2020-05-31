@@ -13,6 +13,7 @@
 <script>
 import TalkBox from '@/components/Talk/TalkBox.vue';
 import { EventBus } from '@/utils/bus';
+import { dateFormat } from '@/utils/dateFormat';
 
 export default {
   name: 'TalkPage',
@@ -35,6 +36,11 @@ export default {
     );
     await this.$store.state.socket.on('get_chat_data', async data => {
       console.log('[Talk] 받은 룸 데이터: ', data);
+      const new_date = new Date();
+      data.forEach(v => {
+        let return_date = dateFormat(new_date, v.createdAt, 'chat');
+        v.createdAt = return_date;
+      });
       this.talks = data;
     });
   },
