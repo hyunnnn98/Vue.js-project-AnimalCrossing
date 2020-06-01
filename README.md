@@ -81,7 +81,20 @@ Animalcross Vue 소스 코드입니다.
 
 ### 2020.05.31
 ```
+* [CREATE]
+1. Utils => validImageType, DateFormat 추가.
+
 * [UPDATE]
 1. PostPage 사진 업로드 PC / Mobile 지원 완료.
 2. MainPage flex 형태 디자인 수정.
+```
+
+### 2020.06.01
+```
+* [CREATE]
+1. 게시글 좋아요, 싫어요 기능 추가.
+2. 메인페이지 검색 기능 추가.
+
+* [UPDATE]
+1. ItemPage 라우터 삭제 -> 메인 페이지에서 모달로 View 변경.
 ```

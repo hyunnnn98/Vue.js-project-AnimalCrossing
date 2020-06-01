@@ -1,13 +1,10 @@
 <template>
   <ion-app>
-    <!-- TODO 로그인 상태에 따라 페이지 이동 -->
     <ion-vue-router></ion-vue-router>
   </ion-app>
 </template>
 
 <script>
-import { EventBus } from '@/utils/bus';
-
 export default {
   name: 'App',
   components: {},

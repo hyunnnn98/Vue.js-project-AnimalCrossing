@@ -1,38 +1,54 @@
 <template>
   <ion-content class="ion-padding post">
-    <AppHeader :head_name="this.title"></AppHeader>
+    <ItemHeader></ItemHeader>
     <ItemInfo v-if="bo_data" :item_data="this.bo_data.info"></ItemInfo>
     <span class="item-info">판매자정보</span>
     <InfoContent v-if="bo_data" :us_info="this.bo_data.info.user"></InfoContent>
     <span class="item-info">후기정보</span>
     <InfoComment></InfoComment>
-    <ItemFooter></ItemFooter>
+    <ItemFooter :bo_id="bo_id"></ItemFooter>
   </ion-content>
 </template>
 
 <script>
-import AppHeader from '@/components/common/AppHeader';
 import InfoContent from '@/components/Info/InfoContent';
 import InfoComment from '@/components/Info/InfoComment';
+import ItemHeader from '@/components/Item/ItemHeader';
 import ItemFooter from '@/components/Item/ItemFooter';
 import ItemInfo from '@/components/Item/ItemInfo';
 import { getDetailPost } from '@/api/post';
 import { dateFormat } from '@/utils/dateFormat';
+import { EventBus } from '../utils/bus';
 
 export default {
   components: {
-    AppHeader,
+    ItemHeader,
     ItemInfo,
     InfoContent,
     InfoComment,
     ItemFooter,
   },
+  props: {
+    bo_id: {
+      type: Number,
+    },
+  },
   data() {
     return {
       bo_data: '',
       title: '상세조회',
-      bo_id: this.$route.params.id,
     };
+  },
+  created() {
+    EventBus.$on('get_LikeHate', res => {
+      console.log('이벤트 버스로 받은 데이터 :', res);
+      console.log('getData: ', this.bo_data);
+      this.bo_data.info.bo_like = res.info.bo_like;
+      this.bo_data.info.bo_hate = res.info.bo_hate;
+    });
+  },
+  beforeDestroy() {
+    EventBus.$off('get_LikeHate');
   },
   async mounted() {
     const { data } = await getDetailPost(this.bo_id);
@@ -40,7 +56,6 @@ export default {
     let return_date = dateFormat(new_date, data.info.createdAt);
     data.info.createdAt = return_date;
     this.bo_data = data;
-    console.log(data);
   },
 };
 </script>
@@ -158,6 +173,13 @@ export default {
   .postInfoPage {
     width: 500px;
     margin: 0 auto;
+  }
+}
+
+@media only screen and (min-height: 600px) and (min-width: 768px) {
+  .item-modal-css {
+    --width: 80% !important;
+    --height: 95% !important;
   }
 }
 </style>

@@ -31,14 +31,8 @@ const routes = [
   {
     path: '/main',
     name: 'Main',
-    meta: { auth: true },
+    meta: { auth: true, isNeedKeepAlive: true },
     component: () => import('@/views/AppTabs.vue'),
-  },
-  {
-    path: '/main/:id',
-    name: 'Main_id',
-    meta: { auth: true },
-    component: () => import('@/views/ItemPage.vue'),
   },
   {
     path: '/post',

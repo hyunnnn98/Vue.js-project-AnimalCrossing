@@ -39,7 +39,6 @@ import CategoryTabs from '@/components/Home/CategoryTabs.vue';
 import ItemBox from '@/components/Item/ItemBox.vue';
 import ScrollControl from '@/components/Home/ScrollControl.vue';
 import { getPost, getCategory } from '@/api/post.js';
-import { EventBus } from '@/utils/bus';
 import { dateFormat } from '@/utils/dateFormat';
 
 export default {
@@ -56,12 +55,6 @@ export default {
       offset: null,
       category: [],
     };
-  },
-  created() {
-    EventBus.$on('main-reset', res => {
-      console.log('게시글 리로딩!');
-      this.refreshPost();
-    });
   },
   mounted() {
     this.refreshPost();

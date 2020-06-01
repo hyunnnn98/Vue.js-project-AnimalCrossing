@@ -24,6 +24,7 @@ function getDetailPost(bo_id) {
   });
 }
 
+// 조회수 관리
 function setPostView(bo_id) {
   return afterAuth.get('/board/view', {
     params: {
@@ -32,9 +33,32 @@ function setPostView(bo_id) {
   });
 }
 
-// // 로그아웃 API
-// function logOut() {
-//     return afterAuth.post('/');
-// }
+// 좋아요 , 싫어요
+function setLikeHate(us_id, bo_id, selected) {
+  return afterAuth.get('/board/set_likehate', {
+    params: {
+      us_id,
+      bo_id,
+      selected,
+    },
+  });
+}
 
-export { createPost, getPost, getCategory, getDetailPost, setPostView };
+// 검색 기능
+function searchPost(text) {
+  return afterAuth.get('/search', {
+    params: {
+      text,
+    },
+  });
+}
+
+export {
+  createPost,
+  getPost,
+  getCategory,
+  getDetailPost,
+  setPostView,
+  setLikeHate,
+  searchPost,
+};

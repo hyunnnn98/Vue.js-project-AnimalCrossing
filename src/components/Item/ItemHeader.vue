@@ -1,7 +1,7 @@
 <template>
   <div class="App-Header">
-    {{ head_name }}
-    <ion-icon name="arrow-back" @click="$router.go(-1)"></ion-icon>
+    상세조회
+    <ion-icon name="arrow-back" @click="modalClose"></ion-icon>
   </div>
 </template>
 
@@ -10,6 +10,11 @@ export default {
   props: {
     head_name: {
       type: String,
+    },
+  },
+  methods: {
+    modalClose() {
+      this.$ionic.modalController.dismiss();
     },
   },
 };

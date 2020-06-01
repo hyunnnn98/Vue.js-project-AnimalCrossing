@@ -6,14 +6,15 @@
     <div class="myinfo-Data">
       <ul>
         <li>
-          <span class="myinfo-title">닉네임 :</span>{{ us_info.us_nickname }}
+          <span class="myinfo-islandTitle">{{ us_info.us_islandname }}</span>
+          <span class="myinfo-island"> 섬의</span>
         </li>
         <li>
-          <span class="myinfo-title">섬 이름 :</span>{{ us_info.us_islandname }}
-          <span class="myinfo-island">섬</span>
+          <span class="myinfo-nickName">{{ us_info.us_nickname }}</span>
         </li>
         <li v-if="access_auth">
-          <span class="myinfo-title">통신코드 :</span>1234 - 1234 - 1234
+          <span class="myinfo-codeName">* 통신코드</span>
+          <span class="myinfo-code">1234 - 1234 - 1234</span>
         </li>
       </ul>
     </div>
@@ -21,6 +22,8 @@
 </template>
 
 <script>
+import store from '../../store/index';
+
 export default {
   props: {
     us_info: {
@@ -29,10 +32,10 @@ export default {
   },
   data() {
     return {
-      us_nickname: this.$store.state.us_nickname,
-      us_islandname: this.$store.state.us_islandname,
-      us_code: this.$store.state.us_code,
-      us_thumbnail: this.$store.state.us_thumbnail,
+      us_nickname: store.state.us_nickname,
+      us_islandname: store.state.us_islandname,
+      us_code: store.state.us_code,
+      us_thumbnail: store.state.us_thumbnail,
       access_auth: true,
     };
   },
@@ -46,46 +49,60 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  padding: 20px 0px;
   width: 100%;
 }
 
 .myinfo-Img {
   margin-left: 5px;
+  margin-right: 10px;
   border-radius: 20px;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border: 2px solid rgba(11, 12, 11, 0.534);
   overflow: hidden;
 }
 
 .myinfo-Data > ul {
-  /* background-color: red; */
   padding: 0px;
 }
 
 .myinfo-Data > ul > li {
-  height: 50px;
-  line-height: 50px;
+  height: 35px;
+  line-height: 35px;
   font-weight: 700;
   font-size: 1.1em;
   letter-spacing: -1px;
-  /* background-color: blue; */
 }
 
-.myinfo-title {
+.myinfo-code {
   display: inline-block;
-  width: 45px;
-  text-align: right;
+  position: relative;
+  top: -29px;
+  /* left: -55px; */
+}
+
+.myinfo-codeName {
+  display: block;
+  position: relative;
+  top: -10px;
   font-size: 0.7em;
   font-weight: 300;
   margin-right: 1em;
 }
 
+.myinfo-islandTitle {
+  color: blue;
+  font-size: 1.1em;
+  font-weight: 900;
+}
+
 .myinfo-island {
-  background-color: rgba(0, 0, 0, 0.65);
-  padding: 3px 5px;
-  border-radius: 10px;
-  color: white;
+  color: rgb(90, 90, 90);
+}
+
+.myinfo-nickName {
+  font-size: 1.2em;
 }
 
 @media (min-width: 350px) {

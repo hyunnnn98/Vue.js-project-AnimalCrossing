@@ -9,9 +9,6 @@
           @click="modalClose(false)"
         ></ion-icon>
       </ion-title>
-      <!-- <ion-tab-button>
-          <ion-label>뒤로가기</ion-label>
-        </ion-tab-button> -->
     </ion-toolbar>
 
     <ion-content class="ion-padding">

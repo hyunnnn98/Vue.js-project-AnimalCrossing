@@ -78,7 +78,7 @@ export default {
     });
   },
   mounted() {
-    // 새로운 채팅 받아오기.
+    // [초기화] 새로운 채팅 받아오기.
     this.$store.state.socket.emit('get_message', this.room_id);
   },
   beforeDestroy() {

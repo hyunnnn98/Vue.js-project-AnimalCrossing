@@ -24,9 +24,6 @@ export default {
       let modal = await this.$ionic.modalController.create({
         component: CategoryModal,
         componentProps: {
-          data: {
-            content: 'New Content',
-          },
           propsData: {
             categorys: this.category,
           },

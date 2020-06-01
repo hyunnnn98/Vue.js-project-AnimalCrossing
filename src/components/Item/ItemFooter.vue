@@ -1,30 +1,40 @@
 <template>
   <div class="pi-bottom">
-    <div class="pi-input-like">좋아요버튼</div>
-    <div class="pi-input-bad">싫어요버튼</div>
+    <div @click="busLikeHate(0)" class="pi-input-like">좋아요버튼</div>
+    <div @click="busLikeHate(1)" class="pi-input-bad">싫어요버튼</div>
     <div @click="create_room()" class="pi-input-talk">거래하기</div>
   </div>
 </template>
 
 <script>
+import { EventBus } from '@/utils/bus';
+import { setLikeHate } from '@/api/post';
+import store from '../../store/index';
+import router from '../../router/index';
+
 export default {
+  props: ['bo_id'],
   data() {
     return {
-      bo_id: this.$route.params.id,
-      us_id: this.$store.state.us_id,
+      us_id: store.state.us_id,
     };
   },
   methods: {
     async create_room() {
       console.log(this.us_id);
       console.log(this.bo_id);
-      await this.$store.commit('setSocket');
-      await this.$store.state.socket.emit(
+      await store.commit('setSocket');
+      await store.state.socket.emit(
         'create_room',
         parseInt(this.us_id),
         parseInt(this.bo_id),
       );
-      this.$router.push(`/talk/${this.bo_id}-${this.us_id}`);
+      await this.$ionic.modalController.dismiss();
+      router.push(`/talk/${this.bo_id}-${this.us_id}`);
+    },
+    async busLikeHate(selectedVal) {
+      const { data } = await setLikeHate(this.us_id, this.bo_id, selectedVal);
+      EventBus.$emit('get_LikeHate', data);
     },
   },
 };

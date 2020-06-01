@@ -1,5 +1,6 @@
 <template>
-  <li @click="get_postData(item.bo_id)" class="itembox">
+  <!-- <li @click="get_postData(item.bo_id)" class="itembox"> -->
+  <li @click="openModal(item.bo_id)" class="itembox">
     <div class="post-title">
       <span class="post-category" :class="`id_${item.bo_category}`">{{
         item.category.ca_contents
@@ -37,6 +38,8 @@
 </template>
 
 <script>
+import ItemPage from '@/views/ItemPage';
+
 import { setPostView } from '@/api/post';
 export default {
   name: 'ItemBox',
@@ -46,9 +49,24 @@ export default {
   },
   methods: {
     get_postData(bo_id) {
-      // console.log(bo_id);
       setPostView(bo_id);
       this.$router.push(`/main/${bo_id}`);
+    },
+
+    async openModal(bo_id) {
+      let modal = await this.$ionic.modalController.create({
+        component: ItemPage,
+        cssClass: 'item-modal-css',
+        componentProps: {
+          propsData: {
+            bo_id,
+          },
+        },
+      });
+
+      await modal.present();
+
+      let selectRes = await modal.onDidDismiss();
     },
   },
 };
@@ -128,7 +146,7 @@ export default {
   right: 20px;
   top: 15px;
   color: rgb(71, 71, 71);
-  font-size: 1.6em;
+  font-size: 1.8em;
   font-weight: 900;
   letter-spacing: -2px;
 }
