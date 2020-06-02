@@ -98,3 +98,9 @@ Animalcross Vue 소스 코드입니다.
 * [UPDATE]
 1. ItemPage 라우터 삭제 -> 메인 페이지에서 모달로 View 변경.
 ```
+
+### 2020.06.02
+```
+* [CREATE]
+1. TalkPage 거래 로직 완료.
+```

@@ -52,6 +52,7 @@ export default {
   },
   async mounted() {
     const { data } = await getDetailPost(this.bo_id);
+    console.log(data);
     const new_date = new Date();
     let return_date = dateFormat(new_date, data.info.createdAt);
     data.info.createdAt = return_date;

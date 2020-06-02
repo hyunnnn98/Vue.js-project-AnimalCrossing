@@ -11,19 +11,40 @@
         v-for="(chat, index) in chat_data"
         :key="index"
       >
-        <template class="cbt-sender" v-if="us_id == chat.ch_send_us_id">
+        <template v-if="us_id == chat.ch_send_us_id">
           <span class="chat read" v-if="chat.ch_read == 0">읽음</span>
           <span class="chat time">{{ chat.createdAt }}</span>
-          <p class="chat sender">{{ chat.ch_content }}</p>
         </template>
-        <template v-else>
-          <p class="chat receiver">{{ chat.ch_content }}</p>
+        <p
+          class="chat"
+          :class="[
+            chat.ch_request != 0 ? 'bcg_white' : '',
+            us_id == chat.ch_send_us_id ? 'sender' : 'receiver',
+          ]"
+        >
+          {{ chat.ch_content }}
+          <span
+            @click="trade_access"
+            v-if="chat.ch_request"
+            class="btn-request"
+          >
+            {{ chat.request.rq_content }}
+          </span>
+        </p>
+        <template v-if="us_id != chat.ch_send_us_id">
           <span class="chat time">{{ chat.createdAt }}</span>
           <span class="chat read" v-if="chat.ch_read == 0">읽음</span>
         </template>
       </li>
     </ul>
     <div class="fix-bottom">
+      <ion-buton
+        v-if="access"
+        class="btn_send"
+        @click="trade_access"
+        :class="bo_trade_status == 1 ? 'disabled' : null"
+        expand="block"
+      ></ion-buton>
       <ion-textarea
         type="text"
         :value="us_input_value"
@@ -50,31 +71,40 @@ export default {
   name: 'TalkRoom',
   data() {
     return {
+      bo_trade_status: 0,
       us_input_value: '',
       chat_data: [],
       us_id: parseInt(this.$store.state.us_id),
       room_id: this.$route.params.id,
+      access: false,
     };
   },
   created() {
-    // 초기값 채팅메시지 불러오기.
+    // [초기화]  채팅메시지 불러오기.
     this.$store.state.socket.on('get_message', res => {
       console.log('초기값 메시지', res);
+      this.bo_trade_status = res.bo_trade_status;
+      if (res.chat[0].ch_send_us_id != this.us_id) this.access = true;
       const new_date = new Date();
-      res.forEach(v => {
+      res.chat.forEach(v => {
         let return_date = dateFormat(new_date, v.createdAt, 'chat');
         v.createdAt = return_date;
       });
-      this.chat_data = res;
+      this.chat_data = res.chat;
     });
 
     // 새로운 채팅메시지 불러오기.
-    this.$store.state.socket.on('send_message', res => {
+    this.$store.state.socket.on('send_message', async res => {
       console.log('새롭게 받은 메시지', res);
       const new_date = new Date();
       let return_date = dateFormat(new_date, res.createdAt, 'chat');
       res.createdAt = return_date;
       this.chat_data.push(res);
+    });
+
+    // bo_status 상태값 바인딩 받기.
+    this.$store.state.socket.on('request_trade_access', res => {
+      this.bo_trade_status = res;
     });
   },
   mounted() {
@@ -84,6 +114,7 @@ export default {
   beforeDestroy() {
     this.$store.state.socket.off('get_message');
     this.$store.state.socket.off('send_message');
+    this.$store.state.socket.off('request_trade_access');
     this.$store.state.socket.emit('leave_room', this.us_id, this.room_id);
   },
   methods: {
@@ -97,6 +128,20 @@ export default {
         this.room_id,
         this.us_input_value,
       );
+    },
+    trade_access() {
+      console.log('클릭!');
+      let status = this.bo_trade_status;
+      let buyer_check = this.access == false && status != 4;
+      let seller_check = this.access == true && (status == 0 || status == 2);
+
+      if (buyer_check || seller_check) {
+        this.$store.state.socket.emit(
+          'request_trade_access',
+          this.us_id,
+          this.room_id,
+        );
+      }
     },
   },
 };
@@ -205,6 +250,7 @@ export default {
   background-repeat: no-repeat;
   background-position-x: 1em;
   background-position-y: 0.5em;
+  cursor: pointer;
 }
 
 .btn_send.disabled {
@@ -223,11 +269,34 @@ export default {
 .chat.receiver {
   background-color: white;
   box-shadow: 0px 3px 8px rgb(88, 88, 88);
+  white-space: pre-wrap;
 }
 .chat.sender {
   background-color: rgb(255, 232, 28);
   box-shadow: -1px 3px 8px rgb(88, 88, 88);
   text-align: left;
+  white-space: pre-wrap;
+}
+
+.btn-request {
+  display: block;
+  margin: 10px 0px 0px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgb(228, 228, 228);
+  color: rgb(46, 46, 46);
+  text-align: center;
+  font-weight: 700;
+  transition-duration: 0.5s;
+}
+
+.btn-request:hover {
+  background-color: rgb(204, 204, 204);
+}
+
+.chat.sender.bcg_white {
+  border-radius: 5px;
+  background-color: white;
 }
 
 .sender .time {

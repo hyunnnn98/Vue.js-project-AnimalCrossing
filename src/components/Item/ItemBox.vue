@@ -32,7 +32,7 @@
       <img v-else :src="item.bo_thumbnail" alt="썸네일" />
     </div>
     <div class="post-price">
-      {{ item.bo_cost }} {{ item.bo_cost_selector == 0 ? '벨' : '마일' }}
+      {{ item.bo_cost }} {{ item.bo_cost_selector == 0 ? '덩' : '마일' }}
     </div>
   </li>
 </template>

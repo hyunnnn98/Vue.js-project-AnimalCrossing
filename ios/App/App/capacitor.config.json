@@ -1,1 +1,13 @@
-{}
+{
+  "appId": "io.ionic.starter",
+  "appName": "animal-cross",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}

@@ -15,7 +15,7 @@
     <div class="pi-contents">
       <div class="pi-price">
         {{ item_data.bo_cost
-        }}<span>{{ item_data.bo_trade_value == 0 ? '덩' : '마일' }}</span>
+        }}<span>{{ item_data.bo_cost_selector == 0 ? '덩' : '마일' }}</span>
       </div>
       <div class="pi-title">{{ item_data.bo_title }}</div>
       <div class="pi-info">
