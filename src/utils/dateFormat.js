@@ -12,8 +12,8 @@ function dateFormat(now_date, date_info, type) {
     result_date =
       halfString + past_date.getHours() + ':' + past_date.getMinutes();
   } else {
-    console.log(past_date);
-    console.log('지금 시간', now_date.getHours());
+    // console.log(past_date);
+    // console.log('지금 시간', now_date.getHours());
     let hour = now_date.getHours() - past_date.getHours();
     let minutes =
       now_date.getHours() * 60 +

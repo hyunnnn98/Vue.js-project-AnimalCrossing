@@ -36,24 +36,53 @@
 </template>
 
 <script>
+import {
+  Plugins,
+  PushNotification,
+  PushNotificationToken,
+  PushNotificationActionPerformed,
+} from '@capacitor/core';
+
 export default {
   data() {
     return {
       us_email: null,
       us_password: null,
       message: null,
+      us_fcmtoken: null,
+      us_access: false,
+      device_info: null,
     };
   },
   methods: {
     async submitForm() {
-      let user_info;
       try {
-        const data = {
-          us_email: this.us_email,
-          us_password: this.us_password,
-        };
-        user_info = await this.$store.dispatch('LOGIN', data);
-        if (user_info) this.$router.push('/main');
+        const { Device } = Plugins;
+        const us_device = await Device.getInfo();
+        this.device_info = us_device.platform;
+        if (this.device_info != 'web') {
+          const { PushNotifications } = Plugins;
+          await PushNotifications.register();
+          await PushNotifications.addListener('registration', async token => {
+            this.us_fcmtoken = await token.value;
+            const m_user_data = {
+              us_email: this.us_email,
+              us_password: this.us_password,
+              us_fcmtoken: this.us_fcmtoken,
+            };
+            this.us_access = await this.$store.dispatch('LOGIN', m_user_data);
+            if (this.us_access) this.$router.push('/main');
+          });
+        } else {
+          const w_user_data = {
+            us_email: this.us_email,
+            us_password: this.us_password,
+          };
+          this.us_access = await this.$store.dispatch('LOGIN', w_user_data);
+          if (this.us_access) this.$router.push('/main');
+        }
+        // console.log('test2: ', this.us_fcmtoken);
+        // let user_info = await this.$store.dispatch('LOGIN', data);
       } catch (err) {
         console.log('[임시] 로그인 실패!', err.message);
         this.message = err.message;

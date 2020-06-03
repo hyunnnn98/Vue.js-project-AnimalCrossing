@@ -81,6 +81,7 @@ router.beforeEach((to, from, next) => {
       .then(res => {
         // console.log(res);
         store.commit('setUserInfo', res.data.info);
+        store.state.socket.emit('get_info', store.state.us_id);
         // console.log('체크체크!');
         next();
       })

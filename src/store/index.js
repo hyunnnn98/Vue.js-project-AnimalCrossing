@@ -64,26 +64,6 @@ export default new Vuex.Store({
     setSocketCheck(state) {
       state.socket_check = !state.socket_check;
     },
-    // on(state, payload) {
-    //   console.log('on 들어왔음!');
-    //   let aa;
-    //   state.socket
-    //     .on(payload.name)
-    //     .then(res => {
-    //       console.log(res);
-    //       return res;
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     });
-    //   // return aa;
-    // },
-    // emit(state, payload) {
-    //   const socket_io = state.socket;
-    //   console.log('emit 들어왔음!');
-    //   // console.log('emit', payload.name, payload.data);
-    //   return socket_io.emit(payload.name, payload.data);
-    // },
   },
   actions: {
     async LOGIN({ commit }, user_data) {

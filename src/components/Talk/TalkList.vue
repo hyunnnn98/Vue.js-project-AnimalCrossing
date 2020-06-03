@@ -82,6 +82,7 @@ export default {
   created() {
     // [초기화]  채팅메시지 불러오기.
     this.$store.state.socket.on('get_message', res => {
+      if (res === false) this.$router.push('/main');
       console.log('초기값 메시지', res);
       this.bo_trade_status = res.bo_trade_status;
       if (res.chat[0].ch_send_us_id != this.us_id) this.access = true;
@@ -109,7 +110,7 @@ export default {
   },
   mounted() {
     // [초기화] 새로운 채팅 받아오기.
-    this.$store.state.socket.emit('get_message', this.room_id);
+    this.$store.state.socket.emit('get_message', this.us_id, this.room_id);
   },
   beforeDestroy() {
     this.$store.state.socket.off('get_message');

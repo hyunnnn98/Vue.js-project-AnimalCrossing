@@ -170,10 +170,6 @@ export default {
   overflow-x: scroll;
 }
 
-.post-Picture::-webkit-scrollbar {
-  /* display: none; Chrome, Safari, Opera */
-}
-
 .post-Picture > li {
   flex-shrink: 0;
   width: 100px;

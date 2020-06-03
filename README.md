@@ -104,3 +104,9 @@ Animalcross Vue 소스 코드입니다.
 * [CREATE]
 1. TalkPage 거래 로직 완료.
 ```
+
+### 2020.06.03
+```
+* [CREATE]
+1. Mobile FCM 적용 => Message push 테스트 완료.
+```

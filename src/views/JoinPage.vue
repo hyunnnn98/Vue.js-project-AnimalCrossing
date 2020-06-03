@@ -7,7 +7,6 @@
 
 <script>
 import UserJoin from '@/components/User/UserJoin';
-import { joinUser } from '@/api/auth';
 
 export default {
   name: 'PassportPage',

@@ -57,6 +57,8 @@
 </template>
 
 <script>
+import { joinUser } from '@/api/auth';
+
 export default {
   data() {
     return {

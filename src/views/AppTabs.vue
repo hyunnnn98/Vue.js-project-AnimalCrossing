@@ -56,6 +56,12 @@ import { EventBus } from '@/utils/bus';
 
 export default {
   name: 'TabPage',
+  components: {
+    HomeMain,
+    TalkMain,
+    PostPage,
+    InfoPage,
+  },
   data() {
     return {
       talk_count: 0,
@@ -69,8 +75,6 @@ export default {
 
     this.$store.state.socket.on('send_message_notification', data => {
       console.log('[APP] 받은 룸 소식: ', data);
-      alert(data);
-      // this.talk_count = data;
     });
   },
   beforeDestroy() {
@@ -85,14 +89,6 @@ export default {
       console.log('받은 룸 데이터: ', data);
     });
     await this.$store.state.socket.emit('get_read_count', us_id);
-  },
-  methods: {},
-
-  components: {
-    HomeMain,
-    TalkMain,
-    PostPage,
-    InfoPage,
   },
 };
 </script>

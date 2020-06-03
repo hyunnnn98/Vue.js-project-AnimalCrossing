@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "283466347522",
+    "firebase_url": "https://animal-crossing-9e465.firebaseio.com",
+    "project_id": "animal-crossing-9e465",
+    "storage_bucket": "animal-crossing-9e465.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283466347522:android:579e3999d5759ac661231b",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283466347522-9fav2qb1gus6thhd8pv6jss7rtnfnrhb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJ-N3sZ9mkDL6TKwjF6DLgYMjOLATBC3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283466347522-9fav2qb1gus6thhd8pv6jss7rtnfnrhb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
