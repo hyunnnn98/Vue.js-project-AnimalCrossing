@@ -21,6 +21,7 @@ export default new Vuex.Store({
     us_islandname: '',
     us_code: '',
     us_thumbnail: '',
+    us_grant: '',
     // *** socket.io ***
     socket: '',
   },
@@ -36,6 +37,7 @@ export default new Vuex.Store({
       state.us_islandname = info.us_islandname;
       state.us_code = info.us_code;
       state.us_thumbnail = info.us_thumbnail;
+      state.us_grant = info.us_grant;
     },
     clearUserInfo(state) {
       state.us_id = '';
@@ -43,6 +45,7 @@ export default new Vuex.Store({
       state.us_islandname = '';
       state.us_code = '';
       state.us_thumbnail = '';
+      state.us_grant = '';
     },
     setToken(state, token) {
       state.us_logintoken = token;

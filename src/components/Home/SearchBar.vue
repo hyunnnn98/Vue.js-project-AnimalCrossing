@@ -1,5 +1,6 @@
 <template>
   <div class="searchInput">
+    <ion-icon name="list" @click="openModal"></ion-icon>
     <ion-item>
       <ion-input
         :value="myInput"
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+import CategoryModal from './CategoryModal.vue';
 import { searchPost } from '@/api/post';
 
 export default {
@@ -27,6 +29,11 @@ export default {
       myInput: '',
       searchedPosts: '',
     };
+  },
+  props: {
+    category: {
+      type: Array,
+    },
   },
   methods: {
     handelClick() {
@@ -38,6 +45,20 @@ export default {
       const { data } = await searchPost(this.myInput);
       console.log('검색된 데이터 :', data.info);
       this.searchedPosts = data.info;
+    },
+    async openModal() {
+      let modal = await this.$ionic.modalController.create({
+        component: CategoryModal,
+        componentProps: {
+          propsData: {
+            categorys: this.category,
+          },
+        },
+      });
+
+      await modal.present();
+
+      let selectRes = await modal.onDidDismiss();
     },
   },
 };
@@ -51,6 +72,10 @@ export default {
   z-index: 10000;
 }
 
+.searchInput input[type='text'] {
+  text-indent: 35px;
+}
+
 .search {
   position: absolute;
   top: 7px;
@@ -62,5 +87,15 @@ export default {
   background-size: contain;
   cursor: pointer;
   z-index: 20000;
+}
+
+.searchInput ion-icon {
+  z-index: 20000;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  margin-top: 0.7em;
+  margin-left: 1em;
+  cursor: pointer;
 }
 </style>

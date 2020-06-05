@@ -11,7 +11,7 @@
     </li>
     <li v-else @click="handleFileUpload"></li>
     <li @click="submit_thumbnail(i)" v-for="(picture, i) in imageUrl" :key="i">
-      <img :class="`i_${i}`" :src="imageUrl[i] ? imageUrl[i] : null" />
+      <img class="post-imgs" :src="imageUrl[i] ? imageUrl[i] : null" />
     </li>
   </ul>
 </template>
@@ -20,6 +20,7 @@
 import { EventBus } from '@/utils/bus';
 import { valideImageType } from '@/utils/valideImageType';
 import { Plugins, CameraSource, CameraResultType } from '@capacitor/core';
+import axios from 'axios';
 const { Camera } = Plugins;
 const { Device } = Plugins;
 
@@ -54,7 +55,6 @@ export default {
       this.imageUrl = [];
       this.blobs = [];
       await imgs.forEach(async (v, index) => {
-        // console.log(v.im_location);
         this.imageUrl.push(v.im_location);
         await this.toDataUrl(v.im_location, this.blobs, this.b64toBlob);
       });
@@ -93,19 +93,14 @@ export default {
           this.blobs.push(blob);
         } catch (err) {
           console.log('err', err);
-          // alert('err: ' + err);
         }
       } else {
         const image = this.$refs.uploadImageFile.files[0];
-        // console.log(image);
-        if (!valideImageType(image)) {
-          console.warn('invalide image file type');
-          return;
-        }
+        if (!valideImageType(image)) return;
+
         let reader = new FileReader();
         /* reader 시작시 함수 구현 */
         reader.onload = e => {
-          // this.uploadImageFile = e.target.result;
           this.imageUrl.push(e.target.result);
         };
         reader.readAsDataURL(image);
@@ -131,7 +126,7 @@ export default {
       this.blobs.splice(index_number, 1);
     },
     b64toBlob(b64Data, contentType, sliceSize) {
-      console.log('b64Data', b64Data);
+      // console.log('b64Data', b64Data);
       contentType = contentType || '';
       sliceSize = sliceSize || 512;
 
@@ -164,22 +159,26 @@ export default {
       this.formData = new FormData();
     },
     async toDataUrl(url, array, b64toBlob) {
-      var xhr = new XMLHttpRequest();
-      xhr.onload = function() {
-        var reader = new FileReader();
-        reader.onloadend = async function() {
-          let dataUrl = await reader.result;
-          let block = dataUrl.split(';');
-          let contentType = block[0].split(':')[1]; // In this case "image/gif"
-          let realData = block[1].split(',')[1]; // In this case "iVBORw0KGg...."
-          let result = await b64toBlob(realData, contentType);
-          array.push(result);
-        };
-        reader.readAsDataURL(xhr.response);
-      };
-      xhr.open('GET', url);
-      xhr.responseType = 'blob';
-      xhr.send();
+      axios
+        .get(url, {
+          responseType: 'blob',
+          crossDomain: true,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
+        })
+        .then(function(response) {
+          const reader = new window.FileReader();
+          reader.readAsDataURL(response.data);
+          reader.onload = async function() {
+            let dataUrl = await reader.result;
+            let block = dataUrl.split(';');
+            let contentType = block[0].split(':')[1]; // In this case "image/gif"
+            let realData = block[1].split(',')[1]; // In this case "iVBORw0KGg...."
+            let result = await b64toBlob(realData, contentType);
+            array.push(result);
+          };
+        });
     },
     submit_thumbnail(index_number) {
       console.log(index_number);

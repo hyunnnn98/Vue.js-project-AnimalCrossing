@@ -1,6 +1,6 @@
 <template>
   <div class="home-main">
-    <SearchBar></SearchBar>
+    <SearchBar :category="category"></SearchBar>
     <div class="home-body">
       //TODO ion-refresher 추가하기.
       <!-- <ion-content>
@@ -15,14 +15,14 @@
         </ion-refresher>
       </ion-content> -->
       <NoticeTabs></NoticeTabs>
-      <CategoryTabs :category="category"></CategoryTabs>
+      <!-- <CategoryTabs :category="category"></CategoryTabs> -->
       <ul class="item-container">
         <ItemBox
           v-for="(item, index) in items"
           :key="index"
           :item="item"
         ></ItemBox>
-        <li @click="new_post(offset)" class="itme-ad">
+        <li @click="new_post(offset, ca_id)" class="itme-ad">
           다음페이지로 넘어가기
         </li>
         <li class="itme-ad">광고영역</li>
@@ -35,7 +35,6 @@
 <script>
 import SearchBar from '@/components/Home/SearchBar.vue';
 import NoticeTabs from '@/components/Home/NoticeTabs.vue';
-import CategoryTabs from '@/components/Home/CategoryTabs.vue';
 import ItemBox from '@/components/Item/ItemBox.vue';
 import ScrollControl from '@/components/Home/ScrollControl.vue';
 import { getPost, getCategory } from '@/api/post.js';
@@ -46,25 +45,33 @@ export default {
   components: {
     SearchBar,
     NoticeTabs,
-    CategoryTabs,
     ItemBox,
     ScrollControl,
   },
   data() {
     return {
       items: [],
-      offset: null,
       category: [],
+      offset: -1,
+      ca_id: 0,
     };
   },
   created() {
     // 게시글 새로고침
     EventBus.$on('refresh-post', res => {
-      this.refreshPost();
+      console.log('test1');
+      this.offset = -1;
+      this.refreshPost(0);
+    });
+
+    EventBus.$on('ca_id_Change', ca_id => {
+      this.ca_id = ca_id;
+      this.offset = -1;
+      this.refreshPost(ca_id);
     });
   },
   mounted() {
-    this.refreshPost();
+    this.refreshPost(0);
     getCategory()
       .then(res => {
         this.category = res.data.info;
@@ -74,8 +81,12 @@ export default {
       });
   },
   methods: {
-    refreshPost() {
-      getPost()
+    refreshPost(ca_id) {
+      console.log('최종 카테고리', ca_id);
+      getPost({
+        offset: this.offset,
+        ca_id,
+      })
         .then(async res => {
           await this.set_date(res.data.info.board);
           console.log(res.data);
@@ -88,16 +99,16 @@ export default {
     },
     set_date(posts_date) {
       const now_date = new Date();
-      // 여기서 for문 시작.
       posts_date.forEach(v => {
         v.createdAt = dateFormat(now_date, v.createdAt);
       });
-
-      //TODO 시간 값 계산해서 나타내기
     },
-    async new_post(offset) {
+    async new_post(offset, ca_id) {
       try {
-        const res = await getPost({ offset });
+        const res = await getPost({
+          offset,
+          ca_id,
+        });
         if (res) {
           await this.set_date(res.data.info.board);
           for (let item of res.data.info.board) {
@@ -113,6 +124,7 @@ export default {
   },
   beforeDestroy() {
     EventBus.$off('refresh-post');
+    EventBus.$off('ca_id_Change');
   },
 };
 </script>

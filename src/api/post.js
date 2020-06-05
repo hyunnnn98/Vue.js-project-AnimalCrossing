@@ -6,8 +6,8 @@ function createPost(post_data) {
 }
 
 // 새로운 글 불러오기 API
-function getPost(offset) {
-  return afterAuth.post('/', offset);
+function getPost(post_data) {
+  return afterAuth.post('/', post_data);
 }
 
 // 게시글 삭제 API
@@ -19,6 +19,16 @@ function deletePost(bo_id, us_id) {
     },
   });
 }
+
+// 게시글 업데이트 API
+function updatePost(post_data) {
+  return afterAuth.post('/board/update', post_data);
+}
+
+//TODO 인기 카테고리 가져오기
+// function getPopCategory() {
+//   return afterAuth.get('/get_category');
+// }
 
 // 카테고리 가져오기
 function getCategory() {
@@ -83,4 +93,5 @@ export {
   searchPost,
   showPost,
   deletePost,
+  updatePost,
 };

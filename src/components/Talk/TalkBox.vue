@@ -24,6 +24,13 @@ export default {
   },
   methods: {
     join_room() {
+      if (this.$store.state.us_grant === -1) {
+        alert(
+          '위험한 유저로 신고 처리되어, 거래 서비스 이용이 불가합니다. \n1:1 게시판을 이용해 신고내역을 확인해주세요.',
+        );
+        return;
+      }
+
       this.$router.push(`/talk/${this.room_data.ch_room_id}`);
       this.$store.state.socket.emit(
         'join_room',

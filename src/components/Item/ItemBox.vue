@@ -62,9 +62,7 @@ export default {
         },
       });
 
-      await modal.present();
-
-      let selectRes = await modal.onDidDismiss();
+      modal.present();
     },
   },
 };

@@ -42,7 +42,6 @@ export default {
   },
   created() {
     EventBus.$on('category_list', category => {
-      this.category = category;
       console.log('이벤트버스로 받은 카테고리:', category);
     });
   },
@@ -50,6 +49,7 @@ export default {
     selectMenu(menu) {
       console.log(menu);
       this.select = menu;
+      EventBus.$emit('ca_id_Change', menu);
       this.modalClose(true);
     },
     modalClose(selectCategory) {

@@ -1,11 +1,6 @@
 <template>
   <div class="Category">
     <ion-icon name="list" @click="openModal"></ion-icon>
-    <!-- <div class="Top_Category">
-      <span>입양 / 분양</span>
-      <span>아이템</span>
-      <span>무주식</span>
-    </div> -->
   </div>
 </template>
 
@@ -33,9 +28,6 @@ export default {
       await modal.present();
 
       let selectRes = await modal.onDidDismiss();
-
-      if (selectRes.data && selectRes.data.success)
-        alert(JSON.stringify(selectRes, null, 2));
     },
   },
 };

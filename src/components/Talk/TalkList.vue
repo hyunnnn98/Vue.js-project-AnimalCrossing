@@ -2,8 +2,8 @@
   <div class="talk-list">
     <div class="fix-header">
       <ion-icon name="arrow-back" @click="$router.push('/talk')" />
-      <span>코코하세요</span>
-      <ion-icon name="search" @click="$router.push('/talk')" />
+      <span>사기거래에 주의하세요!!</span>
+      <img src="../../imgs/alert.png" alt="신고" @click="report_modal" />
     </div>
     <ul>
       <li
@@ -66,6 +66,7 @@
 
 <script>
 import { dateFormat } from '@/utils/dateFormat';
+import TalkReportModal from './TalkReportModal';
 
 export default {
   name: 'TalkRoom',
@@ -147,6 +148,20 @@ export default {
         );
       }
     },
+    async report_modal() {
+      let modal = await this.$ionic.modalController.create({
+        component: TalkReportModal,
+        cssClass: 'talk-modal-css',
+        componentProps: {
+          propsData: {
+            us_id: this.us_id,
+            room_id: this.room_id,
+          },
+        },
+      });
+
+      modal.present();
+    },
   },
 };
 </script>
@@ -203,20 +218,23 @@ export default {
   text-align: center;
   font-weight: bold;
   font-size: 1.3em;
-  letter-spacing: -2px;
+  letter-spacing: -1px;
   z-index: 100;
+  color: black;
 }
 
 .fix-header ion-icon {
   margin-right: 0.5em;
+  font-weight: bold;
+  font-size: 1.3em;
 }
 
-.fix-header ion-icon:nth-child(3) {
-  /* background-color: red; */
+.fix-header img {
+  width: 30px;
+  height: 30px;
   position: absolute;
-  top: 7px;
-  right: 10px;
-  font-size: 1.5em;
+  top: 5px;
+  right: 15px;
 }
 
 .fix-bottom {
@@ -329,5 +347,17 @@ export default {
   font-size: 0.7em;
   top: -9px;
   right: 38px;
+}
+
+.talk-modal-css {
+  --width: 80% !important;
+  --height: 95% !important;
+}
+
+@media only screen and (min-height: 600px) and (min-width: 768px) {
+  .talk-modal-css {
+    --width: 50% !important;
+    --height: 95% !important;
+  }
 }
 </style>

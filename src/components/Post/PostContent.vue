@@ -59,8 +59,8 @@
         </ion-item>
       </li>
       <li>
-        <ion-button shape="block" color="success" @click="submit_post">
-          작성 완료
+        <ion-button shape="block" color="success" @click="submit_post(bo_type)">
+          {{ bo_btn }}
         </ion-button>
       </li>
     </ul>
@@ -69,7 +69,7 @@
 
 <script>
 import { EventBus } from '@/utils/bus';
-import { createPost, getDetailPost } from '@/api/post';
+import { createPost, getDetailPost, updatePost } from '@/api/post';
 
 export default {
   name: 'post-content',
@@ -82,6 +82,9 @@ export default {
       bo_cost: '',
       bo_cost_selector: 0,
       bo_thumbnail: 6,
+      bo_id: null,
+      bo_type: null,
+      bo_btn: '작성 완료',
     };
   },
   async created() {
@@ -106,9 +109,11 @@ export default {
     EventBus.$off('thumbnail_change');
   },
   methods: {
-    async submit_post() {
+    async submit_post(bo_type) {
       try {
-        let post_data = await {
+        let result;
+
+        let post_data = {
           bo_trade_value: this.bo_trade_value,
           bo_title: this.bo_title,
           bo_category: this.bo_category,
@@ -118,9 +123,15 @@ export default {
           bo_thumbnail: this.bo_thumbnail,
           bo_us_id: this.$store.state.us_id,
         };
+        if (bo_type === 'update') {
+          post_data.bo_id = this.bo_id;
+          result = await updatePost(post_data);
+        } else {
+          result = await createPost(post_data);
+        }
+        console.log('test1', result.data);
         // 1. 게시글 데이터 먼저 서버 전송.
         // 2. 사진 데이터 이벤트버스로 전송.
-        const result = await createPost(post_data);
         if (result) {
           EventBus.$emit('send_imgs', result.data.info);
           EventBus.$emit('refresh-post');
@@ -139,6 +150,9 @@ export default {
       this.bo_cost = '';
       this.bo_cost_selector = '';
       this.bo_thumbnail = 6;
+      this.bo_type = null;
+      this.bo_id = null;
+      this.bo_btn = '작성 완료';
     },
     async post_control(bo_id) {
       let _id = await this.$route.params.id;
@@ -150,6 +164,7 @@ export default {
           .then(res => {
             EventBus.$emit('update_imgs', res.data.info.image);
             const data = res.data.info;
+            this.bo_id = data.bo_id;
             this.bo_trade_value = data.bo_trade_value;
             this.bo_title = data.bo_title;
             this.bo_category = data.bo_category;
@@ -157,6 +172,8 @@ export default {
             this.bo_cost = data.bo_cost;
             this.bo_cost_selector = data.bo_cost_selector;
             this.bo_thumbnail = data.bo_thumbnail;
+            this.bo_type = 'update';
+            this.bo_btn = '수정 완료';
           })
           .catch(err => {
             this.$router.push('/post');
