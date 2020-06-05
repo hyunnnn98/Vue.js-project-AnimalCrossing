@@ -10,6 +10,16 @@ function getPost(offset) {
   return afterAuth.post('/', offset);
 }
 
+// 게시글 삭제 API
+function deletePost(bo_id, us_id) {
+  return afterAuth.delete('/board/destroy', {
+    params: {
+      bo_id,
+      us_id,
+    },
+  });
+}
+
 // 카테고리 가져오기
 function getCategory() {
   return afterAuth.post('/get_category');
@@ -20,6 +30,16 @@ function getDetailPost(bo_id) {
   return afterAuth.get('/board/detail/', {
     params: {
       bo_id,
+    },
+  });
+}
+
+// 게시글 공개,비공개
+function showPost(bo_id, bo_show) {
+  return afterAuth.get('/board/show', {
+    params: {
+      bo_id,
+      bo_show,
     },
   });
 }
@@ -61,4 +81,6 @@ export {
   setPostView,
   setLikeHate,
   searchPost,
+  showPost,
+  deletePost,
 };

@@ -40,6 +40,7 @@ import ItemBox from '@/components/Item/ItemBox.vue';
 import ScrollControl from '@/components/Home/ScrollControl.vue';
 import { getPost, getCategory } from '@/api/post.js';
 import { dateFormat } from '@/utils/dateFormat';
+import { EventBus } from '@/utils/bus';
 
 export default {
   components: {
@@ -55,6 +56,12 @@ export default {
       offset: null,
       category: [],
     };
+  },
+  created() {
+    // 게시글 새로고침
+    EventBus.$on('refresh-post', res => {
+      this.refreshPost();
+    });
   },
   mounted() {
     this.refreshPost();
@@ -84,25 +91,6 @@ export default {
       // 여기서 for문 시작.
       posts_date.forEach(v => {
         v.createdAt = dateFormat(now_date, v.createdAt);
-        // past_date = new Date(element.createdAt);
-        // result_hour =
-        //   (now_date.getTime() - past_date.getTime()) / (1000 * 60 * 60 * 24);
-
-        // if (result_hour > 1) {
-        //   result_date =
-        //     past_date.getMonth() + 1 + '월 ' + past_date.getDate() + '일';
-        // } else {
-        //   let hour = now_date.getHours() - past_date.getHours();
-        //   let minutes =
-        //     now_date.getHours() * 60 +
-        //     now_date.getMinutes() -
-        //     (past_date.getHours() * 60 + past_date.getMinutes());
-        //   hour > 0
-        //     ? (result_date = hour + '시간전')
-        //     : (result_date = minutes + '분전');
-        // }
-        // console.log(result_date);
-        // v.createdAt = result_date;
       });
 
       //TODO 시간 값 계산해서 나타내기
@@ -111,9 +99,7 @@ export default {
       try {
         const res = await getPost({ offset });
         if (res) {
-          // console.log(res);
           await this.set_date(res.data.info.board);
-          //TODO 새로운 게시글 this.items에 추가하기.
           for (let item of res.data.info.board) {
             this.items.push(item);
           }
@@ -124,6 +110,9 @@ export default {
         console.log(err);
       }
     },
+  },
+  beforeDestroy() {
+    EventBus.$off('refresh-post');
   },
 };
 </script>

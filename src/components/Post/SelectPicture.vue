@@ -11,12 +11,7 @@
     </li>
     <li v-else @click="handleFileUpload"></li>
     <li @click="submit_thumbnail(i)" v-for="(picture, i) in imageUrl" :key="i">
-      <!-- <ion-icon
-        @click="deleteUrl(i)"
-        class="delete-picture"
-        name="close-circle"
-      ></ion-icon> -->
-      <img :src="imageUrl[i] ? imageUrl[i] : null" />
+      <img :class="`i_${i}`" :src="imageUrl[i] ? imageUrl[i] : null" />
     </li>
   </ul>
 </template>
@@ -47,10 +42,28 @@ export default {
   created() {
     EventBus.$on('send_imgs', async bo_id => {
       await this.image_submit(bo_id);
+      this.init_post();
+    });
+
+    EventBus.$on('post_init', res => {
+      this.init_post();
+    });
+
+    EventBus.$on('update_imgs', async imgs => {
+      console.log('이미지 버스 도착!');
       this.imageUrl = [];
       this.blobs = [];
-      this.formData.delete('img');
+      await imgs.forEach(async (v, index) => {
+        // console.log(v.im_location);
+        this.imageUrl.push(v.im_location);
+        await this.toDataUrl(v.im_location, this.blobs, this.b64toBlob);
+      });
     });
+  },
+  beforeDestroy() {
+    EventBus.$off('send_imgs');
+    EventBus.$off('update_imgs');
+    EventBus.$off('post_init');
   },
   methods: {
     async handleFileUpload() {
@@ -75,6 +88,7 @@ export default {
           let realData = block[1].split(',')[1]; // In this case "iVBORw0KGg...."
           let blob = this.b64toBlob(realData, contentType);
 
+          console.log('this.blobs: ', this.blobs);
           // 생성된 blob 객체 배열 저장
           this.blobs.push(blob);
         } catch (err) {
@@ -83,8 +97,7 @@ export default {
         }
       } else {
         const image = this.$refs.uploadImageFile.files[0];
-
-        console.log(image);
+        // console.log(image);
         if (!valideImageType(image)) {
           console.warn('invalide image file type');
           return;
@@ -104,6 +117,7 @@ export default {
         this.formData.append('img', item);
       });
       try {
+        console.log('마지막 this.blobs: ', this.blobs);
         const req = new XMLHttpRequest();
         req.open('POST', 'https://server.anicro.org/board/image', true);
         req.setRequestHeader('bo_id', bo_id);
@@ -117,6 +131,7 @@ export default {
       this.blobs.splice(index_number, 1);
     },
     b64toBlob(b64Data, contentType, sliceSize) {
+      console.log('b64Data', b64Data);
       contentType = contentType || '';
       sliceSize = sliceSize || 512;
 
@@ -142,6 +157,29 @@ export default {
 
       let blob = new Blob(byteArrays, { type: contentType });
       return blob;
+    },
+    init_post() {
+      this.imageUrl = [];
+      this.blobs = [];
+      this.formData = new FormData();
+    },
+    async toDataUrl(url, array, b64toBlob) {
+      var xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = async function() {
+          let dataUrl = await reader.result;
+          let block = dataUrl.split(';');
+          let contentType = block[0].split(':')[1]; // In this case "image/gif"
+          let realData = block[1].split(',')[1]; // In this case "iVBORw0KGg...."
+          let result = await b64toBlob(realData, contentType);
+          array.push(result);
+        };
+        reader.readAsDataURL(xhr.response);
+      };
+      xhr.open('GET', url);
+      xhr.responseType = 'blob';
+      xhr.send();
     },
     submit_thumbnail(index_number) {
       console.log(index_number);

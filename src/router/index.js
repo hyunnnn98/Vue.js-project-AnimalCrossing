@@ -41,6 +41,12 @@ const routes = [
     component: () => import('@/views/AppTabs.vue'),
   },
   {
+    path: '/post/:id',
+    name: 'Post',
+    meta: { auth: true },
+    component: () => import('@/views/AppTabs.vue'),
+  },
+  {
     path: '/talk',
     name: 'Talk',
     meta: { auth: true },

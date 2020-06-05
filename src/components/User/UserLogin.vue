@@ -61,8 +61,10 @@ export default {
         const us_device = await Device.getInfo();
         this.device_info = us_device.platform;
         if (this.device_info != 'web') {
+          // 모바일 전용
           const { PushNotifications } = Plugins;
           await PushNotifications.register();
+          // FCM 토큰 발급
           await PushNotifications.addListener('registration', async token => {
             this.us_fcmtoken = await token.value;
             const m_user_data = {
@@ -74,6 +76,7 @@ export default {
             if (this.us_access) this.$router.push('/main');
           });
         } else {
+          // 웹 전용
           const w_user_data = {
             us_email: this.us_email,
             us_password: this.us_password,
@@ -81,8 +84,6 @@ export default {
           this.us_access = await this.$store.dispatch('LOGIN', w_user_data);
           if (this.us_access) this.$router.push('/main');
         }
-        // console.log('test2: ', this.us_fcmtoken);
-        // let user_info = await this.$store.dispatch('LOGIN', data);
       } catch (err) {
         console.log('[임시] 로그인 실패!', err.message);
         this.message = err.message;

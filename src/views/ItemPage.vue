@@ -6,7 +6,7 @@
     <InfoContent v-if="bo_data" :us_info="this.bo_data.info.user"></InfoContent>
     <span class="item-info">후기정보</span>
     <InfoComment></InfoComment>
-    <ItemFooter :bo_id="bo_id"></ItemFooter>
+    <ItemFooter v-if="bo_data" :us_id="us_id" :item_data="this.bo_data.info" />
   </ion-content>
 </template>
 
@@ -29,13 +29,14 @@ export default {
     ItemFooter,
   },
   props: {
-    bo_id: {
-      type: Number,
-    },
+    bo_id: { type: Number },
+    us_id: { type: Number },
   },
   data() {
     return {
       bo_data: '',
+      bo_us_id: '',
+      bo_show: '',
       title: '상세조회',
     };
   },
@@ -57,6 +58,8 @@ export default {
     let return_date = dateFormat(new_date, data.info.createdAt);
     data.info.createdAt = return_date;
     this.bo_data = data;
+    this.bo_us_id = data.info.bo_us_id;
+    this.bo_show = data.info.bo_show;
   },
 };
 </script>
@@ -125,39 +128,6 @@ export default {
   background-color: rgb(245, 245, 245);
   padding: 10px 20px;
   line-height: 25px;
-}
-
-.pi-bottom {
-  display: inline-flex;
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  height: 50px;
-  /* padding: 10px; */
-  width: 100%;
-  margin: 0px;
-  z-index: 100;
-  /* background-color: red; */
-}
-
-.pi-input-like {
-  background-image: url('../imgs/like.png');
-  flex-grow: 1;
-}
-
-.pi-input-bad {
-  background-image: url('../imgs/bad.png');
-  flex-grow: 1;
-}
-
-.pi-input-talk {
-  flex-grow: 4;
-  background-color: rgb(102, 202, 102);
-  color: white;
-  font-size: 1.7em;
-  letter-spacing: -2px;
-  text-align: center;
-  line-height: 50px;
 }
 
 .item-info {

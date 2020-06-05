@@ -69,7 +69,7 @@
 
 <script>
 import { EventBus } from '@/utils/bus';
-import { createPost } from '@/api/post';
+import { createPost, getDetailPost } from '@/api/post';
 
 export default {
   name: 'post-content',
@@ -84,11 +84,26 @@ export default {
       bo_thumbnail: 6,
     };
   },
-  created() {
+  async created() {
     EventBus.$on('thumbnail_change', index_number => {
       console.log('바뀐 썸네일은?', index_number);
       this.bo_thumbnail = index_number;
     });
+
+    EventBus.$on('post_update', bo_id => {
+      this.post_control(bo_id);
+    });
+
+    EventBus.$on('post_init', res => {
+      this.init_post();
+    });
+    // 처음 마운트 될 경우 파람스 보고 게시글 초기화.
+    this.post_control();
+  },
+  beforeDestroy() {
+    EventBus.$off('post_update');
+    EventBus.$off('post_init');
+    EventBus.$off('thumbnail_change');
   },
   methods: {
     async submit_post() {
@@ -103,23 +118,56 @@ export default {
           bo_thumbnail: this.bo_thumbnail,
           bo_us_id: this.$store.state.us_id,
         };
+        // 1. 게시글 데이터 먼저 서버 전송.
+        // 2. 사진 데이터 이벤트버스로 전송.
         const result = await createPost(post_data);
-        if (result) EventBus.$emit('send_imgs', result.data.info);
+        if (result) {
+          EventBus.$emit('send_imgs', result.data.info);
+          EventBus.$emit('refresh-post');
+        }
         this.init_post();
-        EventBus.$emit('main-reset');
         this.$router.push('/main');
       } catch (err) {
         console.log(err);
       }
     },
     init_post() {
-      this.bo_trade_value = '';
+      this.bo_trade_value = 1;
       this.bo_title = '';
-      this.bo_category = '';
+      this.bo_category = 1;
       this.bo_content = '';
       this.bo_cost = '';
       this.bo_cost_selector = '';
-      this.bo_us_id = '';
+      this.bo_thumbnail = 6;
+    },
+    async post_control(bo_id) {
+      let _id = await this.$route.params.id;
+      if (_id == null && bo_id != null) _id = bo_id;
+
+      if (_id != null) {
+        console.log('_id가 null이 아닐경우');
+        getDetailPost(_id)
+          .then(res => {
+            EventBus.$emit('update_imgs', res.data.info.image);
+            const data = res.data.info;
+            this.bo_trade_value = data.bo_trade_value;
+            this.bo_title = data.bo_title;
+            this.bo_category = data.bo_category;
+            this.bo_content = data.bo_content;
+            this.bo_cost = data.bo_cost;
+            this.bo_cost_selector = data.bo_cost_selector;
+            this.bo_thumbnail = data.bo_thumbnail;
+          })
+          .catch(err => {
+            this.$router.push('/post');
+            this.init_post();
+          });
+      } else {
+        this.init_post();
+      }
+
+      // console.log('_id가 null일경우!');
+      // this.init_post();
     },
     trade(number) {
       console.log('클릭이벤트 발생!', number);

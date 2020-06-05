@@ -31,7 +31,6 @@ export default new Vuex.Store({
   },
   mutations: {
     setUserInfo(state, info) {
-      console.log(info);
       state.us_id = info.us_id;
       state.us_nickname = info.us_nickname;
       state.us_islandname = info.us_islandname;

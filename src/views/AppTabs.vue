@@ -27,7 +27,7 @@
           <ion-label>홈</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="/post">
+        <ion-tab-button @click="post_init" tab="/post">
           <ion-icon name="create"></ion-icon>
           <ion-label>글작성</ion-label>
         </ion-tab-button>
@@ -68,18 +68,13 @@ export default {
     };
   },
   created() {
+    // [APP] 받은 메세지 개수
     this.$store.state.socket.on('get_read_count', data => {
-      console.log('[APP] 받은 메세지 개수: ', data);
       this.talk_count = data;
-    });
-
-    this.$store.state.socket.on('send_message_notification', data => {
-      console.log('[APP] 받은 룸 소식: ', data);
     });
   },
   beforeDestroy() {
     this.$store.state.socket.off('get_read_count');
-    this.$store.state.socket.off('send_message_notification');
   },
   async mounted() {
     const us_id = this.$store.state.us_id;
@@ -89,6 +84,11 @@ export default {
       console.log('받은 룸 데이터: ', data);
     });
     await this.$store.state.socket.emit('get_read_count', us_id);
+  },
+  methods: {
+    post_init() {
+      EventBus.$emit('post_init');
+    },
   },
 };
 </script>

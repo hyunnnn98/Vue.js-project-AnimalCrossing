@@ -110,3 +110,21 @@ Animalcross Vue 소스 코드입니다.
 * [CREATE]
 1. Mobile FCM 적용 => Message push 테스트 완료.
 ```
+
+### 2020.06.03
+```
+* [CREATE]
+1. PostPage 게시글 공개/비공개, 삭제 기능 추가.
+```
+
+### 2020.06.04
+```
+* [CREATE]
+1. PostPage 게시글 수정 기능 추가.
+```
+
+### 2020.06.05
+```
+* [CREATE]
+1. Build a PWA With Vue & Ionic
+```

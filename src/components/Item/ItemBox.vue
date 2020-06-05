@@ -1,5 +1,4 @@
 <template>
-  <!-- <li @click="get_postData(item.bo_id)" class="itembox"> -->
   <li @click="openModal(item.bo_id)" class="itembox">
     <div class="post-title">
       <span class="post-category" :class="`id_${item.bo_category}`">{{
@@ -48,18 +47,17 @@ export default {
     return {};
   },
   methods: {
-    get_postData(bo_id) {
-      setPostView(bo_id);
-      this.$router.push(`/main/${bo_id}`);
-    },
-
     async openModal(bo_id) {
+      await setPostView(bo_id);
+      const us_id = this.$store.state.us_id;
+
       let modal = await this.$ionic.modalController.create({
         component: ItemPage,
         cssClass: 'item-modal-css',
         componentProps: {
           propsData: {
             bo_id,
+            us_id,
           },
         },
       });

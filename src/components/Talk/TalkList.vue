@@ -129,8 +129,11 @@ export default {
         this.room_id,
         this.us_input_value,
       );
+
+      this.us_input_value = '';
     },
     trade_access() {
+      // 거래 관련 알림 전송 컨트롤
       console.log('클릭!');
       let status = this.bo_trade_status;
       let buyer_check = this.access == false && status != 4;
