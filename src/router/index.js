@@ -39,16 +39,6 @@ const routes = [
     name: 'Post',
     meta: { auth: true },
     component: () => import('@/views/AppTabs.vue'),
-    beforeEnter(to, from, next) {
-      if (store.state.us_grant === -1) {
-        alert(
-          '위험한 유저로 신고 처리되어, 거래 서비스 이용이 불가합니다. \n1:1 게시판을 이용해 신고내역을 확인해주세요.',
-        );
-        next('/main');
-      } else {
-        next();
-      }
-    },
   },
   {
     path: '/post/:id',

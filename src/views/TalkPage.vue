@@ -12,7 +12,6 @@
 
 <script>
 import TalkBox from '@/components/Talk/TalkBox.vue';
-import { EventBus } from '@/utils/bus';
 import { dateFormat } from '@/utils/dateFormat';
 
 export default {
@@ -28,12 +27,7 @@ export default {
   beforeDestroy() {
     this.$store.state.socket.off('get_chat_data');
   },
-  async mounted() {
-    // 채팅 데이터 업데이트.
-    await this.$store.state.socket.emit(
-      'get_chat_data',
-      this.$store.state.us_id,
-    );
+  async created() {
     await this.$store.state.socket.on('get_chat_data', async data => {
       console.log('[Talk] 받은 룸 데이터: ', data);
       const new_date = new Date();
@@ -43,6 +37,14 @@ export default {
       });
       this.talks = data;
     });
+  },
+  async mounted() {
+    // 채팅 데이터 업데이트.
+    await this.$store.state.socket.emit(
+      'get_chat_data',
+      this.$store.state.us_id,
+    );
+    console.log('TALK 데이터 요청 보내기!');
   },
 };
 </script>

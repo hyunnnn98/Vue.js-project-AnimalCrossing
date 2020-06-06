@@ -40,16 +40,7 @@ export default {
       if (store.state.us_grant === -1) {
         let msg =
           '위험한 유저로 신고 처리되어, 거래 서비스 이용이 불가합니다. \n1:1 게시판을 이용해 신고내역을 확인해주세요.';
-        toastController(this.$ionic, msg);
-        // const toast = await this.$ionic.toastController.create({
-        //   message:
-        //     '위험한 유저로 신고 처리되어, 거래 서비스 이용이 불가합니다. \n1:1 게시판을 이용해 신고내역을 확인해주세요.',
-        // });
-        // await toast.present();
-
-        // alert(
-        //   '위험한 유저로 신고 처리되어, 거래 서비스 이용이 불가합니다. \n1:1 게시판을 이용해 신고내역을 확인해주세요.',
-        // );
+        toastController(this.$ionic, msg, 'warning');
         return;
       }
 

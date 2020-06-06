@@ -48,15 +48,16 @@
       <ion-textarea
         type="text"
         :value="us_input_value"
+        :disabled="other_us_grant == -1"
         @input="us_input_value = $event.target.value"
-        clear-on-edit="true"
         placeholder="채팅을 입력해주세요."
+        clear-on-edit="true"
       ></ion-textarea>
       <ion-buton
         class="btn_send"
         @click="send_message"
-        :disabled="!us_input_value"
-        :class="!us_input_value ? 'disabled' : null"
+        :disabled="!us_input_value || other_us_grant == -1"
+        :class="!us_input_value || other_us_grant == -1 ? 'disabled' : null"
         type="submit"
         expand="block"
       ></ion-buton>
@@ -66,6 +67,7 @@
 
 <script>
 import { dateFormat } from '@/utils/dateFormat';
+import { toastController } from '@/utils/toastController';
 import TalkReportModal from './TalkReportModal';
 
 export default {
@@ -78,14 +80,25 @@ export default {
       us_id: parseInt(this.$store.state.us_id),
       room_id: this.$route.params.id,
       access: false,
+      other_us_grant: null,
     };
   },
   created() {
     // [초기화]  채팅메시지 불러오기.
     this.$store.state.socket.on('get_message', res => {
       if (res === false) this.$router.push('/main');
-      console.log('초기값 메시지', res);
+      this.other_us_grant = res.us_grant;
       this.bo_trade_status = res.bo_trade_status;
+
+      if (this.other_us_grant === -1) {
+        console.log('여기!');
+        this.us_input_value = '2차 사기로 확산방지로 채팅을 제한합니다.';
+        toastController(
+          this.$ionic,
+          '(주의) 사기 거래로 신고된 유저입니다.',
+          'danger',
+        );
+      }
       if (res.chat[0].ch_send_us_id != this.us_id) this.access = true;
       const new_date = new Date();
       res.chat.forEach(v => {
@@ -122,7 +135,7 @@ export default {
   methods: {
     send_message() {
       //TODO 다른 유저가 채팅방 무단 침입 막기.
-      if (this.us_input_value == '') return;
+      if (this.us_input_value == '' || this.other_us_grant === -1) return;
       // 새로운 채팅메시지 보내기.
       this.$store.state.socket.emit(
         'send_message',
@@ -350,14 +363,15 @@ export default {
 }
 
 .talk-modal-css {
-  --width: 80% !important;
-  --height: 95% !important;
+  --width: 100% !important;
+  --height: 100% !important;
 }
 
 @media only screen and (min-height: 600px) and (min-width: 768px) {
   .talk-modal-css {
     --width: 50% !important;
     --height: 95% !important;
+    --max-width: 600px;
   }
 }
 </style>

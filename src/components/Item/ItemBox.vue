@@ -6,7 +6,7 @@
       }}</span>
       {{ item.bo_title }}
     </div>
-    <div class="post-contents">
+    <div v-if="item" class="post-contents">
       <span class="post-contents post_user">
         <span class="post-contents nick_name">{{ item.user.us_nickname }}</span>
         <span class="post-contents rank">{{ item.user.us_grant }}</span>
@@ -43,9 +43,7 @@ import { setPostView } from '@/api/post';
 export default {
   name: 'ItemBox',
   props: ['item'],
-  data() {
-    return {};
-  },
+
   methods: {
     async openModal(bo_id) {
       await setPostView(bo_id);

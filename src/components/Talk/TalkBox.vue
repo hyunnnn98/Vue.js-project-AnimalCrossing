@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { toastController } from '@/utils/toastController';
+
 export default {
   props: {
     room_data: {
@@ -25,9 +27,9 @@ export default {
   methods: {
     join_room() {
       if (this.$store.state.us_grant === -1) {
-        alert(
-          '위험한 유저로 신고 처리되어, 거래 서비스 이용이 불가합니다. \n1:1 게시판을 이용해 신고내역을 확인해주세요.',
-        );
+        let msg =
+          '위험한 유저로 신고 처리되어, 거래 서비스 이용이 불가합니다. \n1:1 게시판을 이용해 신고내역을 확인해주세요.';
+        toastController(this.$ionic, msg, 'warning');
         return;
       }
 

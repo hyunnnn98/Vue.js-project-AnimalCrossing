@@ -18,7 +18,7 @@
 
 <script>
 import { EventBus } from '@/utils/bus';
-import { valideImageType } from '@/utils/valideImageType';
+import { valideImageType, b64toBlob } from '@/utils/imgControl';
 import { Plugins, CameraSource, CameraResultType } from '@capacitor/core';
 import axios from 'axios';
 const { Camera } = Plugins;
@@ -37,8 +37,8 @@ export default {
   },
   async mounted() {
     this.formData = new FormData();
-    const data = await Device.getInfo();
-    this.device_info = await data.platform;
+    const { platform } = await Device.getInfo();
+    this.device_info = platform;
   },
   created() {
     EventBus.$on('send_imgs', async bo_id => {
@@ -56,7 +56,7 @@ export default {
       this.blobs = [];
       await imgs.forEach(async (v, index) => {
         this.imageUrl.push(v.im_location);
-        await this.toDataUrl(v.im_location, this.blobs, this.b64toBlob);
+        await this.toDataUrl(v.im_location, this.blobs, b64toBlob);
       });
     });
   },
@@ -86,7 +86,7 @@ export default {
           let block = dataUrl.split(';');
           let contentType = block[0].split(':')[1]; // In this case "image/gif"
           let realData = block[1].split(',')[1]; // In this case "iVBORw0KGg...."
-          let blob = this.b64toBlob(realData, contentType);
+          let blob = b64toBlob(realData, contentType);
 
           console.log('this.blobs: ', this.blobs);
           // 생성된 blob 객체 배열 저장
@@ -111,6 +111,7 @@ export default {
       await this.blobs.forEach((item, index) => {
         this.formData.append('img', item);
       });
+      console.log(this.formData);
       try {
         console.log('마지막 this.blobs: ', this.blobs);
         const req = new XMLHttpRequest();
@@ -124,34 +125,6 @@ export default {
     deleteUrl(index_number) {
       this.imageUrl.splice(index_number, 1);
       this.blobs.splice(index_number, 1);
-    },
-    b64toBlob(b64Data, contentType, sliceSize) {
-      // console.log('b64Data', b64Data);
-      contentType = contentType || '';
-      sliceSize = sliceSize || 512;
-
-      let byteCharacters = atob(b64Data);
-      let byteArrays = [];
-
-      for (
-        let offset = 0;
-        offset < byteCharacters.length;
-        offset += sliceSize
-      ) {
-        let slice = byteCharacters.slice(offset, offset + sliceSize);
-
-        let byteNumbers = new Array(slice.length);
-        for (let i = 0; i < slice.length; i++) {
-          byteNumbers[i] = slice.charCodeAt(i);
-        }
-
-        let byteArray = new Uint8Array(byteNumbers);
-
-        byteArrays.push(byteArray);
-      }
-
-      let blob = new Blob(byteArrays, { type: contentType });
-      return blob;
     },
     init_post() {
       this.imageUrl = [];

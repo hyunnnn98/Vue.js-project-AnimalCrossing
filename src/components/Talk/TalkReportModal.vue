@@ -1,19 +1,10 @@
 <template>
   <div class="modal-category">
-    <ion-toolbar>
-      <ion-title class="modal-title">
-        신고하기
-        <ion-icon
-          class="backUrl"
-          name="close-circle"
-          @click="modalClose()"
-        ></ion-icon>
-      </ion-title>
-    </ion-toolbar>
+    <ModalHeader :modal_title="title"></ModalHeader>
 
-    <ion-content class="ion-padding">
+    <ion-content class="ion-padding ta-body">
       <ion-label position="floating">
-        * 허위 신고에 대한 처벌은 엄중히 처리합니다.
+        <span>*</span> 허위 신고에 대한 처벌은 엄중히 처리합니다.
       </ion-label>
       <ion-textarea
         placeholder="당시 상황을 자세히 적어주세요."
@@ -21,7 +12,12 @@
         :value="bl_content"
         @input="bl_content = $event.target.value"
       ></ion-textarea>
-      <ion-button shape="block" color="danger" @click="submit_post()">
+      <ion-button
+        shape="block"
+        fill="outline"
+        color="danger"
+        @click="submit_post()"
+      >
         신고 접수
       </ion-button>
     </ion-content>
@@ -30,11 +26,17 @@
 
 <script>
 import store from '../../store/index';
+import router from '../../router/index';
+import ModalHeader from '@/components/common/ModalHeader';
 
 export default {
   props: ['us_id', 'room_id'],
+  components: {
+    ModalHeader,
+  },
   data() {
     return {
+      title: '신고하기',
       bl_content: '',
     };
   },
@@ -43,6 +45,7 @@ export default {
       this.$ionic.modalController.dismiss();
     },
     submit_post() {
+      //TODO 토스트메세지 통한 벨리데이션 검사.
       console.log('클릭!');
       store.state.socket.emit(
         'set_blacklist',
@@ -50,6 +53,7 @@ export default {
         this.room_id,
         this.bl_content,
       );
+      router.push('/talk');
       this.modalClose();
     },
   },
@@ -58,7 +62,7 @@ export default {
 
 <style>
 .modal-category {
-  padding: 20px 10px;
+  padding: 20px 5px;
 }
 
 .modal-category ion-title {
@@ -81,12 +85,16 @@ export default {
 }
 
 .talk-textarea {
-  border: 1.5px solid rgb(121, 121, 121);
+  border: 1.5px solid #e0e0e0;
   margin-bottom: 1em;
 }
 
 .talk-textarea > textarea {
   height: 400px;
   text-indent: 0px;
+}
+
+.ta-body span {
+  color: rgb(255, 102, 0);
 }
 </style>
