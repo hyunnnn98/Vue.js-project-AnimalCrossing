@@ -1,6 +1,6 @@
 {
   "appId": "io.ionic.starter",
-  "appName": "animal-cross",
+  "appName": "거래해요 동물의숲",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "dist",

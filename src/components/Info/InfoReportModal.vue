@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-category">
+  <div class="modal-info">
     <ModalHeader :modal_title="title"></ModalHeader>
 
     <ion-content class="ion-padding qu-body">
@@ -110,53 +110,4 @@ export default {
 };
 </script>
 
-<style>
-.modal-category {
-  padding: 20px 5px;
-}
-
-.modal-category ion-title {
-  text-align: center;
-  height: 30px;
-  line-height: 20px;
-  font-weight: bold;
-  font-size: 1.3em;
-  letter-spacing: -2px;
-}
-
-.backUrl {
-  position: absolute;
-  top: 0px;
-  right: 10px;
-  font-size: 1.3em;
-  cursor: pointer;
-  color: rgb(0, 0, 0);
-}
-
-.info-textarea {
-  border: 1.5px solid #e0e0e0;
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
-.info-textarea > textarea {
-  height: 350px;
-  text-indent: 0px;
-}
-
-.qu-body span {
-  color: rgb(255, 102, 0);
-}
-
-.talk-modal-css {
-  --width: 100% !important;
-  --height: 100% !important;
-}
-
-@media only screen and (min-height: 600px) and (min-width: 768px) {
-  .talk-modal-css {
-    --width: 50% !important;
-    --height: 95% !important;
-  }
-}
-</style>
+<style></style>

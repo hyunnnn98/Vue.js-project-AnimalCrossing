@@ -1,9 +1,9 @@
 <template>
   <div class="myMenu">
-    <button @click="logout_submit">로그아웃</button>
-    <button @click="reportCreate_modal">1:1 문의하기</button>
-    <button @click="reportList_modal">1:1 문의내역</button>
-    <button @click="reportList_modal">공지사항</button>
+    <div @click="logout_submit">로그아웃</div>
+    <div @click="reportCreate_modal">1:1 문의하기</div>
+    <div @click="reportList_modal">1:1 문의내역</div>
+    <div @click="reportList_modal">공지사항</div>
   </div>
 </template>
 
@@ -50,15 +50,4 @@ export default {
 };
 </script>
 
-<style>
-.myMenu {
-  margin-top: 0.5em;
-  background-color: rgba(197, 197, 197, 0.061);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 20px 0px;
-  width: 100%;
-}
-</style>
+<style></style>

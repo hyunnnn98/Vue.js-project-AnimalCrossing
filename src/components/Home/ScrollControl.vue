@@ -1,5 +1,10 @@
 <template>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab
+    @click="scollToTop()"
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+  >
     <ion-fab-button size="small" color="success">
       <ion-icon name="arrow-up"></ion-icon>
     </ion-fab-button>
@@ -7,5 +12,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    scollToTop() {
+      const tag = document.querySelector('.home-body');
+      console.log('최상단으로 이동!', tag);
+      tag.scrollToTop(400);
+    },
+  },
+};
 </script>

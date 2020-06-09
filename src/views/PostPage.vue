@@ -31,10 +31,5 @@ export default {
 </script>
 
 <style>
-@media (min-width: 520px) {
-  .postPage {
-    width: 500px;
-    margin: 0 auto;
-  }
-}
+@import url('../css/POST.css');
 </style>

@@ -1,0 +1,21 @@
+.ani-btn {
+  border: 3px solid rgb(53, 53, 53);
+  border-radius: 8px;
+  padding: 10px 20px;
+  text-align: center;
+  transition-duration: 1s;
+  background-color: rgb(255, 255, 255);
+  color: black;
+  /* font-weight: 700; */
+}
+
+.ani-btn.success {
+  border: 3px solid rgb(63, 221, 97);
+  background-color: rgb(63, 221, 97);
+  color: white;
+}
+
+/* .ani-btn.success:hover {
+  background-color: rgb(63, 221, 97);
+  color: white;
+} */

@@ -1,21 +1,12 @@
 <template>
-  <div class="home-main">
+  <ion-content class="home-main">
     <SearchBar :category="category"></SearchBar>
-    <div class="home-body">
-      //TODO ion-refresher 추가하기.
-      <!-- <ion-content>
-        <ion-refresher
-          @ionRefresh="doRefresh($event)"
-          slot="fixed"
-          pull-factor="0.5"
-          pull-min="100"
-          pull-max="200"
-        >
-          <ion-refresher-content></ion-refresher-content>
-        </ion-refresher>
-      </ion-content> -->
+    <ion-content
+      class="home-body"
+      :scrollEvents="true"
+      @ionScroll="logScrolling($event)"
+    >
       <NoticeTabs></NoticeTabs>
-      <!-- <CategoryTabs :category="category"></CategoryTabs> -->
       <ul class="item-container">
         <ItemBox
           v-for="(item, index) in items"
@@ -27,9 +18,9 @@
         </li>
         <li class="itme-ad">광고영역</li>
       </ul>
-    </div>
+    </ion-content>
     <ScrollControl></ScrollControl>
-  </div>
+  </ion-content>
 </template>
 
 <script>
@@ -81,6 +72,9 @@ export default {
       });
   },
   methods: {
+    logScrolling(event) {
+      console.log(event);
+    },
     refreshPost(ca_id) {
       console.log('최종 카테고리', ca_id);
       getPost({
@@ -130,45 +124,5 @@ export default {
 </script>
 
 <style>
-.item-container {
-  display: flex;
-  flex-wrap: wrap;
-  background-color: rgb(233, 232, 232);
-  width: 100%;
-}
-
-.item-container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
-}
-
-.home-body {
-  overflow-y: scroll;
-  max-width: none;
-  max-height: 100%;
-  min-width: 100%;
-  min-height: 100%;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translateX(-50%) translateY(-50%);
-}
-
-.home-body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
-}
-
-.itme-ad {
-  display: block;
-  width: 100%;
-  color: white;
-  text-align: center;
-  background-color: #558bee;
-  margin: 5px 3px;
-  padding: 10px;
-}
-
-.item-container > li:nth-last-child(2) {
-  border-radius: 8px;
-}
+@import url('../css/HOME.css');
 </style>

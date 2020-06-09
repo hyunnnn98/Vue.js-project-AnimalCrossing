@@ -22,3 +22,22 @@ export default {
   },
 };
 </script>
+
+<style>
+ion-title {
+  font-family: '뽀로로';
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  font-size: 4em;
+  color: white;
+}
+
+.backUrl {
+  position: absolute;
+  right: 20px;
+  font-size: 25px !important;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+}
+</style>

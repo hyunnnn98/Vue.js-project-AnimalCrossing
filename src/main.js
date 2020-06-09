@@ -6,7 +6,8 @@ import store from './store';
 import IonicVue from '@ionic/vue';
 import '@ionic/core/css/core.css';
 import '@ionic/core/css/ionic.bundle.css';
-import '@/css/reset.css';
+import '@/css/_RESET.css';
+import '@/css/_BTN.css';
 
 Vue.config.productionTip = false;
 

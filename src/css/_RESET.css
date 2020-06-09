@@ -56,5 +56,10 @@ textarea[disabled]{padding:11px; font-size:16px; color:#666; font-weight:normal;
 
 @font-face { 
     font-family: '여기어때 잘난체'; 
-    src: url(Jalnan.ttf) format('truetype'); 
+    src: url(font/Jalnan.ttf) format('truetype'); 
+}
+
+@font-face { 
+    font-family: '뽀로로'; 
+    src: url(font/뽀로로.ttf) format('truetype'); 
 }

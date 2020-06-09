@@ -1,0 +1,191 @@
+/* HomePage 기본 구조 CSS */
+.item-container {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: rgb(233, 232, 232);
+  width: 100%;
+}
+
+.item-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+.home-body {
+  overflow-y: scroll;
+  max-width: none;
+  max-height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.home-body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+.itme-ad {
+  display: block;
+  width: 100%;
+  color: white;
+  text-align: center;
+  background-color: #558bee;
+  margin: 5px 3px;
+  padding: 10px;
+}
+
+.item-container > li:nth-last-child(2) {
+  border-radius: 8px;
+}
+
+/* SearchBar CSS */
+.searchInput {
+  position: absolute;
+  width: 100%;
+  background-color: white !important;
+  z-index: 10000;
+}
+
+.searchInput input[type='text'] {
+  text-indent: 35px;
+}
+
+.search {
+  position: absolute;
+  top: 7px;
+  right: 15px;
+  height: 32px;
+  width: 32px;
+  color: white;
+  background-image: url('../imgs/search.png');
+  background-size: contain;
+  cursor: pointer;
+  z-index: 20000;
+}
+
+.searchInput ion-icon {
+  z-index: 20000;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  margin-top: 0.7em;
+  margin-left: 1em;
+  cursor: pointer;
+}
+
+/* NotiveTabs CSS */
+.Notice {
+  border-bottom: 1px solid #e0e0e0;
+  background-image: url('../imgs/logo.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-top: 2em;
+  height: 200px;
+}
+
+/* CategoryModal CSS */
+.modal-category {
+  padding: 0px;
+}
+
+.category-header {
+  margin-top: 2em;
+  --color: rgb(0, 0, 0);
+  --background: #50b174;
+}
+
+.category-body {
+  --color: #707070;
+  --background: url('../imgs/modal_bcg.png');
+  --padding: 0px;
+}
+
+.category-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 30px;
+  width: 350px;
+  max-width: 350px;
+  height: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #50b174;
+}
+
+.category-ul {
+  background-color: #ffffff;
+  margin: 4em auto 0px;
+  padding: 20px 20px;
+  border-radius: 20px;
+  max-width: 350px;
+  height: 400px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.category-ul > li {
+  text-align: center;
+  flex-basis: 30%;
+  font-weight: bold !important;
+}
+
+.category-ul h4 {
+  padding-top: 0.4em;
+  font-size: 14px;
+}
+
+.category-ul > li:nth-child(1) > p {
+  /* flex-basis: 100%; */
+  background-image: url('../imgs/tanuki.png');
+}
+
+.category-ul > li:nth-child(2) > p {
+  background-image: url('../imgs/입양.png');
+  background-color: #a3d97a;
+}
+
+.category-ul > li:nth-child(3) > p {
+  background-color: #ffb8d0;
+  background-image: url('../imgs/무주식.png');
+}
+
+.category-ul > li:nth-child(4) > p {
+  background-image: url('../imgs/아이템.png');
+  background-color: #7ad9d6;
+}
+
+.category-ul > li:nth-child(5) > p {
+  background-image: url('../imgs/만지작.png');
+  background-color: #d9947a;
+}
+
+.category-ul > li:nth-child(6) > p {
+  background-image: url('../imgs/알바.png');
+  background-color: #897ad9;
+}
+
+.category-ul > li:nth-child(7) > p {
+  background-image: url('../imgs/무료나눔.png');
+  background-color: #5fd48a;
+}
+
+.category-ul > li > p:nth-child(n) {
+  width: 80px;
+  height: 80px;
+  border-radius: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.category-modal-css {
+  --width: 100% !important;
+  --height: 100% !important;
+}

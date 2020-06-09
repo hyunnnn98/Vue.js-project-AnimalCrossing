@@ -59,9 +59,9 @@
         </ion-item>
       </li>
       <li>
-        <ion-button shape="block" color="success" @click="submit_post(bo_type)">
+        <div class="ani-btn success" @click="submit_post(bo_type)">
           {{ bo_btn }}
-        </ion-button>
+        </div>
       </li>
     </ul>
   </div>
@@ -231,115 +231,4 @@ export default {
 };
 </script>
 
-<style>
-.post-Content {
-  padding: 0px 10px 10px 10px;
-}
-
-.post-Content::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
-}
-
-.thumbnail-info {
-  width: 270px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 3px 0px 3px;
-  background-color: rgba(0, 0, 0, 0.76);
-  color: white;
-  border-radius: 50px;
-}
-
-.set-post {
-  margin-top: 2em;
-}
-
-.content {
-  border: 0px;
-  border-radius: 0px;
-  height: 70px;
-  font-size: 1.1em;
-  letter-spacing: -1px;
-  --padding-start: -10px;
-  --highlight-height: 0px;
-}
-
-.content:hover {
-  border: 0px;
-}
-
-.content input[type='text'],
-.content input[type='number'] {
-  text-indent: 5px !important;
-  /* background-color: red; */
-}
-
-.postPage .native-input.sc-ion-input-md {
-  padding-bottom: 0px;
-}
-
-.content span {
-  color: rgb(255, 102, 0);
-}
-
-.post_content ion-item {
-  height: 150px;
-}
-
-.post-textarea > textarea {
-  height: 120px;
-  text-indent: 0px;
-  /* overflow: hidden; */
-  /* padding: 5px 5px; */
-}
-
-/* 판매 / 구매 / 교환 버튼 */
-.set-buttons {
-  margin-top: 1em;
-  display: flex;
-  justify-content: space-between;
-  /* background-color: red; */
-}
-
-.set-buttons > li {
-  text-align: center;
-  /* width: 30%; */
-  /* background-color: blue; */
-  width: 30%;
-  height: 30px;
-  line-height: 30px;
-  border-radius: 5px;
-  font-weight: 900;
-  transition: 0.5s;
-}
-
-.set-buttons > li:nth-child(1) {
-  border: 1px solid rgb(255, 138, 4);
-  background-color: rgba(255, 138, 4, 0.767);
-  color: white;
-}
-
-.set-buttons > li:nth-child(2) {
-  border: 1px solid rgb(255, 86, 86);
-  background-color: rgba(255, 86, 86, 0.092);
-  color: rgb(255, 86, 86);
-}
-
-.set-buttons > li:nth-child(3) {
-  border: 1px solid rgb(86, 230, 29);
-  background-color: rgba(86, 230, 29, 0.092);
-  color: rgb(86, 230, 29);
-}
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type='number'] {
-  -moz-appearance: textfield;
-}
-</style>
+<style></style>

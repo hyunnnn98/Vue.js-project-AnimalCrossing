@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-category">
+  <div class="modal-reportList">
     <ModalHeader :modal_title="title"></ModalHeader>
 
     <ion-content class="ion-padding qu-body">
@@ -33,10 +33,6 @@
             class="qu-content"
           >
             {{ list.answer.an_content }}
-            <!-- 문의주신 내용 확인 결과, 000님의 거래 내역이 확인되어 사기로~
-            동해물과백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세
-            -거래해요 동물의숲 운영진- -->
-            <!-- {{ list.}} -->
           </div>
         </li>
       </ul>
@@ -79,68 +75,4 @@ export default {
 };
 </script>
 
-<style>
-.modal-category {
-  padding: 20px 5px;
-}
-
-.modal-category ion-title {
-  text-align: center;
-  height: 30px;
-  line-height: 20px;
-  font-weight: bold;
-  font-size: 1.3em;
-  letter-spacing: -2px;
-}
-
-.backUrl {
-  position: absolute;
-  top: 0px;
-  right: 10px;
-  font-size: 1.3em;
-  cursor: pointer;
-  color: rgb(0, 0, 0);
-}
-
-.qu-body span {
-  color: rgb(255, 102, 0);
-}
-
-.qu-list li {
-  padding: 10px;
-  border-bottom: 1px solid rgb(189, 189, 189);
-}
-
-.qu-title > span {
-  display: inline-block;
-  color: rgb(255, 255, 255);
-  background-color: rgb(52, 209, 99);
-  border-radius: 5px;
-  padding: 5px;
-  width: 70px;
-  margin-right: 0.5em;
-  text-align: center;
-}
-
-.qu-title > span.qu-ye {
-  background-color: rgb(243, 94, 25);
-}
-
-.qu-content {
-  background-color: rgb(241, 241, 241);
-  margin-top: 0.5em;
-  padding: 15px 5px;
-}
-
-.talk-modal-css {
-  --width: 100% !important;
-  --height: 100% !important;
-}
-
-@media only screen and (min-height: 600px) and (min-width: 768px) {
-  .talk-modal-css {
-    --width: 50% !important;
-    --height: 95% !important;
-  }
-}
-</style>
+<style></style>

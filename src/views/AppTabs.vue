@@ -23,23 +23,23 @@
     <template slot="bottom">
       <ion-tab-bar>
         <ion-tab-button tab="/main">
-          <ion-icon name="home"></ion-icon>
-          <ion-label>홈</ion-label>
+          <img class="main_ico" src="../imgs/main_home.png" alt="거래소" />
+          <ion-label>거래소</ion-label>
         </ion-tab-button>
 
         <ion-tab-button @click="post_init" tab="/post">
-          <ion-icon name="create"></ion-icon>
+          <img class="main_ico" src="../imgs/main_post.png" alt="글작성" />
           <ion-label>글작성</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="/talk">
-          <ion-icon name="chatbubbles"></ion-icon>
+          <img class="main_ico" src="../imgs/main_talk.png" alt="유리병편지" />
           <ion-badge>{{ this.talk_count }}</ion-badge>
-          <ion-label>채팅</ion-label>
+          <ion-label>유리병 편지</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="/info">
-          <ion-icon name="information-circle"></ion-icon>
+          <img class="main_ico" src="../imgs/main_info.png" alt="내정보" />
           <ion-label>내정보</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
@@ -93,4 +93,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.main_ico {
+  width: 30px;
+}
+
+ion-badge {
+  top: 10px;
+  left: 70px;
+  --background: rgb(6, 202, 46);
+}
+</style>

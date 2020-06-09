@@ -10,7 +10,7 @@
       ></ion-input>
     </ion-item>
     <div class="search" @click="handelClick"></div>
-    <ul>
+    <ul v-if="myInput != ''">
       <li v-for="(post, index) in searchedPosts" :key="index">
         {{ post.bo_title }}
       </li>
@@ -37,8 +37,7 @@ export default {
   },
   methods: {
     handelClick() {
-      alert(this.myInput);
-      this.myInput = '';
+      //TODO 검색버튼 말고 새로고침 버튼으로 넣으면 어떨까?
     },
     async getPostItem(key) {
       // console.log(key);
@@ -49,6 +48,7 @@ export default {
     async openModal() {
       let modal = await this.$ionic.modalController.create({
         component: CategoryModal,
+        cssClass: 'category-modal-css',
         componentProps: {
           propsData: {
             categorys: this.category,
@@ -64,38 +64,4 @@ export default {
 };
 </script>
 
-<style>
-.searchInput {
-  position: absolute;
-  width: 100%;
-  background-color: white !important;
-  z-index: 10000;
-}
-
-.searchInput input[type='text'] {
-  text-indent: 35px;
-}
-
-.search {
-  position: absolute;
-  top: 7px;
-  right: 15px;
-  height: 32px;
-  width: 32px;
-  color: white;
-  background-image: url('../../imgs/search.png');
-  background-size: contain;
-  cursor: pointer;
-  z-index: 20000;
-}
-
-.searchInput ion-icon {
-  z-index: 20000;
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  margin-top: 0.7em;
-  margin-left: 1em;
-  cursor: pointer;
-}
-</style>
+<style></style>

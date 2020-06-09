@@ -31,9 +31,19 @@ export default {
     await this.$store.state.socket.on('get_chat_data', async data => {
       console.log('[Talk] 받은 룸 데이터: ', data);
       const new_date = new Date();
-      data.forEach(v => {
+      data.forEach(async v => {
         let return_date = dateFormat(new_date, v.createdAt, 'chat');
         v.createdAt = return_date;
+        // 내용 길이 제한.
+        if (v.ch_content.length > 12) {
+          v.ch_content = (await v.ch_content.substring(0, 12)) + '..';
+        }
+        // 제목 길이 제한.
+        if (v.board.bo_title.length > 12) {
+          let return_title = (await v.board.bo_title.substring(0, 7)) + '..';
+          v.board.bo_title = return_title;
+        }
+        // console.log('타이틀 :', return_title);
       });
       this.talks = data;
     });
@@ -50,25 +60,5 @@ export default {
 </script>
 
 <style>
-.talk {
-  overflow-y: scroll;
-  max-width: none;
-  max-height: 100%;
-  min-width: 100%;
-  min-height: 100%;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translateX(-50%) translateY(-50%);
-  background-color: rgb(255, 255, 255);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 0px 5px;
-}
-
-.talk::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
-}
+@import url('../css/TALK.css');
 </style>

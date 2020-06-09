@@ -1,0 +1,235 @@
+.info {
+  width: 100%;
+  height: 100%;
+}
+
+/* InfoContent CSS */
+.myinfo-bcg {
+  padding: 20px 10px;
+  background-color: #fff9e4;
+  border-radius: 10px;
+}
+
+.myinfo {
+  background-color: #f8f8f0;
+  background-image: url('../imgs/pattern.png');
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 20px 0px;
+  width: 100%;
+}
+
+.myinfo-title {
+  color: #ecb4a7;
+  font-weight: 900;
+  text-align: center;
+  padding-bottom: 1em;
+}
+
+.myinfo-Img {
+  margin-left: 30px;
+  margin-right: 20px;
+  border-radius: 20px;
+  width: 130px;
+  height: 130px;
+  box-shadow: 1px 2px 5px rgba(125, 125, 125, 0.527);
+  overflow: hidden;
+  text-align: center;
+  background-color: #f9f7de;
+}
+
+.myinfo-Img img {
+  width: 100%;
+}
+
+.myinfo-Data > ul {
+  padding: 0px;
+}
+
+.myinfo-Data > ul > li {
+  width: 250px;
+  height: 35px;
+  line-height: 35px;
+  font-weight: 700;
+  font-size: 1.1em;
+  letter-spacing: -1px;
+  border-bottom: 2px solid #fef2d8;
+  margin-bottom: 0.3em;
+}
+
+.myinfo-code {
+  display: inline-block;
+  position: relative;
+  top: -29px;
+}
+
+.myinfo-codeName {
+  display: block;
+  position: relative;
+  top: -10px;
+  font-size: 0.7em;
+  font-weight: 300;
+  margin-right: 1em;
+}
+
+.myinfo-update {
+  display: inline-block;
+  position: relative;
+  width: 20px;
+  left: 5px;
+  top: -30.5px;
+  cursor: pointer;
+}
+
+.myinfo-islandTitle {
+  color: #7e4303;
+  font-size: 1.2em;
+  font-weight: 900;
+}
+
+.myinfo-island {
+  color: #7e725e;
+}
+
+.myinfo-nickName {
+  font-size: 1.2em;
+}
+
+/* InfoTrade CSS */
+.myTrade {
+  margin-top: 0.5em;
+  background-color: #fff9e4;
+  border-radius: 10px;
+  padding: 10px 10px;
+}
+
+/* InfoReview CSS */
+.myReview {
+  margin-top: 0.5em;
+  background-color: #fff9e4;
+  border-radius: 10px;
+  padding: 10px 10px;
+}
+
+.info-review {
+  padding: 5px 0;
+}
+
+.info-date {
+  text-align: right;
+  font-weight: 700;
+}
+
+/* InfoMenu CSS */
+.myMenu {
+  margin-top: 0.5em;
+  background-color: #fff9e4;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px 0px;
+  width: 100%;
+}
+
+.myMenu > div {
+  width: 100px;
+  font-weight: 900;
+  text-align: center;
+  background-color: #5cc2b8;
+  color: #dcfeff;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+/* InfoReportModal CSS */
+.modal-info {
+  padding: 20px 5px;
+}
+
+.info-textarea {
+  border: 1.5px solid #e0e0e0;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.info-textarea > textarea {
+  height: 350px;
+  text-indent: 0px;
+}
+
+/* InfoReportListModal CSS */
+.modal-reportList {
+  padding: 20px 5px;
+}
+
+.qu-body span {
+  color: rgb(255, 102, 0);
+}
+
+.qu-list li {
+  padding: 10px;
+  border-bottom: 1px solid rgb(189, 189, 189);
+}
+
+.qu-title > span {
+  display: inline-block;
+  color: rgb(255, 255, 255);
+  background-color: rgb(52, 209, 99);
+  border-radius: 5px;
+  padding: 5px;
+  width: 70px;
+  margin-right: 0.5em;
+  text-align: center;
+}
+
+.qu-title > span.qu-ye {
+  background-color: rgb(243, 94, 25);
+}
+
+.qu-content {
+  background-color: rgb(241, 241, 241);
+  margin-top: 0.5em;
+  padding: 15px 5px;
+}
+
+.talk-modal-css {
+  --width: 100% !important;
+  --height: 100% !important;
+}
+
+/* InfoUpdateCodeModal CSS */
+.modal-updateCode {
+  padding: 20px 5px;
+}
+
+.code-modal-css {
+  --width: 100% !important;
+  --height: 30% !important;
+}
+
+@media only screen and (min-height: 600px) and (min-width: 768px) {
+  .code-modal-css {
+    --width: 50% !important;
+    --height: 30% !important;
+    --max-width: 600px;
+  }
+  .talk-modal-css {
+    --width: 50% !important;
+    --height: 95% !important;
+  }
+}
+
+@media (min-width: 350px) {
+  .myinfo-Data {
+    margin-right: 20px;
+  }
+}
+
+@media (min-width: 520px) {
+  .info-page {
+    width: 500px;
+    margin: 0 auto;
+  }
+}

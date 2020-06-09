@@ -1,11 +1,11 @@
 <template>
   <li v-if="room_data" @click="join_room" class="talk-box">
     <div class="talk-avater">
-      <img :src="`${room_data.board.user.us_thumbnail}`" alt="썸네일" />
+      <img :src="`${room_data.user.us_thumbnail}`" alt="썸네일" />
     </div>
     <div class="talk-content">
       <p class="talk-title">{{ room_data.board.bo_title }}</p>
-      <p class="talk-nickname">{{ room_data.board.user.us_nickname }}</p>
+      <p class="talk-nickname">{{ room_data.user.us_nickname }}</p>
       <p class="talk-lastcontent">{{ room_data.ch_content }}</p>
     </div>
     <div class="talk-info">
@@ -45,52 +45,4 @@ export default {
 };
 </script>
 
-<style>
-.talk-box {
-  flex: 1;
-  margin: 5px 0;
-  width: 100%;
-  height: 80px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.talk-avater {
-  width: 80px !important;
-  height: 100%;
-  border-radius: 25px;
-  overflow: hidden;
-}
-
-.talk-avater img {
-  width: 80px !important;
-  height: auto;
-}
-
-.talk-content {
-  flex-grow: 4;
-  padding: 10px;
-}
-
-.talk-info {
-  text-align: right;
-  width: 150px;
-  padding: 10px 20px;
-}
-
-.talk-nickname {
-  color: black;
-  font-weight: 900;
-  margin: 5px 0px;
-}
-
-.talk-title {
-  display: inline-block;
-  padding: 1px 10px;
-  background-color: rgb(143, 143, 143);
-  color: white;
-  text-align: center;
-  border-radius: 10px;
-  font-size: 0.9em;
-}
-</style>
+<style></style>

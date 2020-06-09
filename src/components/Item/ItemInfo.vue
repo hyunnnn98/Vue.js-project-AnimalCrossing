@@ -46,21 +46,4 @@ export default {
 };
 </script>
 
-<style>
-.pi-imgs {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  transition-duration: 0.5s;
-  background-color: black;
-}
-
-.pi-imgs:hover {
-  max-width: 100%;
-  height: 100%;
-}
-
-.pi-imgs img {
-  width: auto;
-}
-</style>
+<style></style>

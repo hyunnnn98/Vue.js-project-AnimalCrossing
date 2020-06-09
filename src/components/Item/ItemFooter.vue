@@ -2,15 +2,24 @@
   <div class="itemFooter">
     <div v-if="this.item_data.bo_us_id == us_id" class="pi-bottom">
       <div @click="post_show" class="pi-input-show">
-        {{ this.pi_show }}
+        게시글 {{ this.pi_show }}
       </div>
       <div @click="post_delete" class="pi-input-delete">삭제</div>
       <div @click="post_edit" class="pi-input-modify">수정</div>
     </div>
     <div v-else class="pi-bottom">
-      <div @click="busLikeHate(0)" class="pi-input-like">좋아요버튼</div>
-      <div @click="busLikeHate(1)" class="pi-input-bad">싫어요버튼</div>
-      <div @click="create_room()" class="pi-input-talk">거래하기</div>
+      <div @click="busLikeHate(0)" class="pi-input-like">
+        <img src="../../imgs/like_1.png" alt="" />
+        좋아요
+      </div>
+      <div @click="busLikeHate(1)" class="pi-input-bad">
+        <img src="../../imgs/bad_1.png" alt="" />
+        싫어요
+      </div>
+      <div @click="create_room()" class="pi-input-talk">
+        <img src="../../imgs/main_home.png" alt="" />
+        거래하기
+      </div>
     </div>
   </div>
 </template>
@@ -63,11 +72,11 @@ export default {
     },
     async post_delete() {
       const result = await deletePost(this.item_data.bo_id, this.us_id);
+      //TODO alert 걷어내기!
       if (result) alert('게시물이 삭제되었습니다!');
       else alert('잘못된 접근입니다.!');
       await this.$ionic.modalController.dismiss();
       EventBus.$emit('refresh-post');
-      //TODO 메인페이지 게시글 리로딩
     },
     async post_show() {
       this.pi_show == '공개'
@@ -88,50 +97,4 @@ export default {
 };
 </script>
 
-<style>
-.pi-bottom {
-  display: inline-flex;
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  height: 50px;
-  line-height: 50px;
-  width: 100%;
-  margin: 0px;
-  z-index: 100;
-  text-align: center;
-}
-
-.pi-input-like {
-  background-image: url('../../imgs/like.png');
-  flex-grow: 1;
-}
-
-.pi-input-bad {
-  background-image: url('../../imgs/bad.png');
-  flex-grow: 1;
-}
-
-.pi-input-talk {
-  flex-grow: 4;
-  background-color: rgb(102, 202, 102);
-  color: white;
-  font-size: 1.7em;
-  letter-spacing: -2px;
-}
-
-.pi-input-show {
-  flex-grow: 1;
-  background-color: rgba(251, 227, 12, 0.657);
-}
-
-.pi-input-delete {
-  flex-grow: 1;
-  background-color: rgba(255, 0, 0, 0.554);
-}
-
-.pi-input-modify {
-  flex-grow: 1;
-  background-color: rgba(38, 255, 0, 0.582);
-}
-</style>
+<style></style>

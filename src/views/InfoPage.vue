@@ -1,10 +1,12 @@
 <template>
   <ion-content class="ion-padding info">
-    <AppHeader :head_name="title"></AppHeader>
-    <InfoContent :us_info="us_info" :us_id="us_id"></InfoContent>
-    <InfoTrade></InfoTrade>
-    <InfoComment></InfoComment>
-    <InfoMenu></InfoMenu>
+    <div class="info-page">
+      <AppHeader :head_name="title"></AppHeader>
+      <InfoContent :us_info="us_info" :us_id="us_id"></InfoContent>
+      <InfoTrade></InfoTrade>
+      <InfoReview :us_id="us_id"></InfoReview>
+      <InfoMenu></InfoMenu>
+    </div>
   </ion-content>
 </template>
 
@@ -12,12 +14,12 @@
 import AppHeader from '@/components/common/AppHeader';
 import InfoContent from '@/components/Info/InfoContent';
 import InfoTrade from '@/components/Info/InfoTrade';
-import InfoComment from '@/components/Info/InfoComment';
+import InfoReview from '@/components/Info/InfoReview';
 import InfoMenu from '@/components/Info/InfoMenu';
 
 export default {
   name: 'InfoPage',
-  components: { AppHeader, InfoContent, InfoTrade, InfoComment, InfoMenu },
+  components: { AppHeader, InfoContent, InfoTrade, InfoReview, InfoMenu },
   data() {
     return {
       title: '내정보',
@@ -33,9 +35,5 @@ export default {
 </script>
 
 <style>
-.info {
-  width: 100%;
-  height: 100%;
-  background-color: rgb(255, 255, 255);
-}
+@import url('../css/INFO.css');
 </style>

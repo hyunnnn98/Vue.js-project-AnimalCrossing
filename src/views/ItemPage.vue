@@ -1,19 +1,19 @@
 <template>
   <ion-content class="ion-padding post">
-    <ItemHeader></ItemHeader>
+    <AppHeader :head_name="title"></AppHeader>
     <ItemInfo v-if="bo_data" :item_data="this.bo_data.info"></ItemInfo>
     <span class="item-info">판매자정보</span>
     <InfoContent v-if="bo_data" :us_info="this.bo_data.info.user"></InfoContent>
     <span class="item-info">후기정보</span>
-    <InfoComment></InfoComment>
+    <InfoReview v-if="bo_data" :us_id="bo_us_id"></InfoReview>
     <ItemFooter v-if="bo_data" :us_id="us_id" :item_data="this.bo_data.info" />
   </ion-content>
 </template>
 
 <script>
 import InfoContent from '@/components/Info/InfoContent';
-import InfoComment from '@/components/Info/InfoComment';
-import ItemHeader from '@/components/Item/ItemHeader';
+import InfoReview from '@/components/Info/InfoReview';
+import AppHeader from '@/components/common/AppHeader';
 import ItemFooter from '@/components/Item/ItemFooter';
 import ItemInfo from '@/components/Item/ItemInfo';
 import { getDetailPost } from '@/api/post';
@@ -22,10 +22,10 @@ import { EventBus } from '../utils/bus';
 
 export default {
   components: {
-    ItemHeader,
+    AppHeader,
     ItemInfo,
     InfoContent,
-    InfoComment,
+    InfoReview,
     ItemFooter,
   },
   props: {
@@ -65,92 +65,5 @@ export default {
 </script>
 
 <style>
-.post {
-  --padding-bottom: 60px;
-}
-
-.post::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
-}
-
-.pi-contents {
-  margin-top: 1em;
-  letter-spacing: -1px;
-}
-
-.pi-contents > div:nth-child(n) {
-  margin-bottom: 0.5em;
-}
-
-.pi-imgs {
-  width: 100%;
-  height: 280px;
-  margin: 0 auto;
-}
-
-.pi-imgs > img {
-  width: 100%;
-  height: 100%;
-  max-width: 480px;
-}
-
-.pi-title {
-  letter-spacing: -2px;
-  font-weight: 700;
-  font-size: 1.5em;
-}
-
-.pi-price {
-  letter-spacing: -2px;
-  font-size: 2em;
-  font-weight: 900;
-}
-
-.pi-price > span {
-  letter-spacing: -1px;
-  background: black;
-  color: white;
-  border-radius: 10px;
-  padding: 3px 7px;
-  font-size: 0.7em;
-  position: relative;
-  top: -3px;
-  left: 5px;
-}
-
-.pi-info > span:nth-child(n) {
-  margin-right: 0.4em;
-}
-
-.pi-content {
-  border-radius: 5px;
-  margin-top: 2em;
-  background-color: rgb(245, 245, 245);
-  padding: 10px 20px;
-  line-height: 25px;
-}
-
-.item-info {
-  position: relative;
-  background-color: black;
-  color: white;
-  padding: 5px;
-  border-radius: 5px;
-  top: 10px;
-  left: 10px;
-}
-
-@media (min-width: 520px) {
-  .postInfoPage {
-    width: 500px;
-    margin: 0 auto;
-  }
-}
-
-@media only screen and (min-height: 600px) and (min-width: 768px) {
-  .item-modal-css {
-    --width: 80% !important;
-    --height: 95% !important;
-  }
-}
+@import url('../css/ITEM.css');
 </style>

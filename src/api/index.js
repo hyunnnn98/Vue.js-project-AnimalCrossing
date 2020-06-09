@@ -20,4 +20,5 @@ function createInstanceWithAuth(url) {
 export const instance = createInstance();
 export const afterAuth = createInstanceWithAuth('');
 export const reportAuth = createInstanceWithAuth('user');
+export const reviewAuth = createInstanceWithAuth('review');
 // export const

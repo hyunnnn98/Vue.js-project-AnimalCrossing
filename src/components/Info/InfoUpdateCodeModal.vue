@@ -1,15 +1,16 @@
 <template>
-  <div class="modal-category">
+  <div class="modal-updateCode">
     <ModalHeader :modal_title="title"></ModalHeader>
 
     <ion-content class="ion-padding qu-body">
       <ion-item>
         <ion-label><span>*</span> 통신코드</ion-label>
         <ion-input
+          type="number"
           :value="us_code"
           @input="us_code = $event.target.value"
           clear-on-edit="true"
-          placeholder="- 는 생락하고 입력해주세요."
+          placeholder="- 는 생략하고 입력해주세요."
         ></ion-input>
       </ion-item>
       <ion-button shape="block" color="tertiary" @click="update_code()">
@@ -50,54 +51,4 @@ export default {
 };
 </script>
 
-<style>
-.modal-category {
-  padding: 20px 5px;
-}
-
-.modal-category ion-title {
-  text-align: center;
-  height: 30px;
-  line-height: 20px;
-  font-weight: bold;
-  font-size: 1.3em;
-  letter-spacing: -2px;
-}
-
-.backUrl {
-  position: absolute;
-  top: 0px;
-  right: 10px;
-  font-size: 1.3em;
-  cursor: pointer;
-  color: rgb(0, 0, 0);
-}
-
-.info-textarea {
-  border: 1.5px solid #e0e0e0;
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
-.info-textarea > textarea {
-  height: 350px;
-  text-indent: 0px;
-}
-
-.qu-body span {
-  color: rgb(255, 102, 0);
-}
-
-.code-modal-css {
-  --width: 100% !important;
-  --height: 35% !important;
-}
-
-@media only screen and (min-height: 600px) and (min-width: 768px) {
-  .code-modal-css {
-    --width: 50% !important;
-    --height: 35% !important;
-    --max-width: 600px;
-  }
-}
-</style>
+<style></style>

@@ -1,0 +1,276 @@
+.post {
+  --padding-bottom: 60px;
+}
+
+.post::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+/* 아이템 인포 관련 CSS */
+.pi-contents {
+  margin-top: 1em;
+  letter-spacing: -1px;
+}
+
+.pi-contents > div:nth-child(n) {
+  margin-bottom: 0.5em;
+}
+
+.pi-imgs {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition-duration: 0.5s;
+  background-color: black;
+}
+
+.pi-imgs:hover {
+  max-width: 100%;
+  height: 100%;
+}
+
+.pi-imgs img {
+  width: auto;
+}
+
+.pi-imgs {
+  width: 100%;
+  height: 280px;
+  margin: 0 auto;
+}
+
+.pi-title {
+  letter-spacing: -2px;
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+.pi-price {
+  letter-spacing: -2px;
+  font-size: 2em;
+  font-weight: 900;
+}
+
+.pi-price > span {
+  letter-spacing: -1px;
+  background: black;
+  color: white;
+  border-radius: 10px;
+  padding: 3px 7px;
+  font-size: 0.7em;
+  position: relative;
+  top: -3px;
+  left: 5px;
+}
+
+.pi-info > span:nth-child(n) {
+  margin-right: 0.4em;
+}
+
+.pi-content {
+  border-radius: 5px;
+  margin-top: 2em;
+  background-color: #fff9e4;
+  padding: 10px 20px;
+  line-height: 25px;
+}
+
+.item-info {
+  position: relative;
+  background-color: #76b767;
+  color: #f4f6e8;
+  padding: 5px;
+  border-radius: 5px;
+  top: 10px;
+  left: 10px;
+}
+
+/* 아이템 FOOTER 관련 CSS */
+.pi-bottom {
+  display: inline-flex;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  height: 40px;
+  line-height: 40px;
+  width: 100%;
+  margin: 0px;
+  z-index: 100;
+  text-align: center;
+  color: white;
+}
+
+.pi-bottom img {
+  width: 25px;
+  position: relative;
+  top: -3px;
+}
+
+.pi-input-like {
+  width: 150px;
+  background-color: rgb(245, 126, 126);
+}
+
+.pi-input-bad {
+  width: 150px;
+  background-color: rgb(115, 167, 251);
+}
+
+.pi-input-talk {
+  flex-grow: 1;
+  background-color: rgb(102, 202, 102);
+  color: white;
+  font-size: 1.2em;
+  letter-spacing: -1px;
+}
+
+.pi-input-show {
+  width: 150px;
+  background-color: rgb(115, 167, 251);
+}
+
+.pi-input-delete {
+  width: 150px;
+  background-color: rgb(245, 126, 126);
+}
+
+.pi-input-modify {
+  flex-grow: 1;
+  background-color: rgb(102, 202, 102);
+}
+
+/* 아이템 박스 관련 CSS */
+.itembox {
+  position: relative;
+  flex-grow: 1;
+  width: 350px;
+  height: 80px;
+  margin: 5px 3px;
+  padding: 10px 10px;
+  background: white;
+  box-shadow: 0 20px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 3px;
+  letter-spacing: -1px;
+}
+
+.post-title {
+  font-size: 1.3em;
+  font-weight: 900;
+  padding: 5px 0;
+  color: rgb(73, 73, 73);
+}
+
+.post-category {
+  font-size: 0.9em;
+  padding: 4px 5px;
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+}
+
+.post-category.id_1 {
+  background-color: rgb(240, 70, 3);
+}
+
+.post-category.id_2 {
+  background-color: rgb(3, 211, 107);
+}
+
+.post-category.id_4 {
+  background-color: rgb(162, 91, 221);
+}
+
+.post-contents.post_info,
+.post-contents.post_user {
+  position: absolute;
+  bottom: 13px;
+}
+
+.post-contents.post_user > span {
+  margin-right: 0.5em;
+}
+
+.post-contents.post_info {
+  right: 20px;
+}
+
+.post-contents.rank {
+  color: rgb(240, 240, 3);
+}
+
+.post-contents.like > img,
+.post-contents.bad > img {
+  padding-right: 3px;
+}
+
+.post-contents.time {
+  padding: 0px 10px;
+}
+
+.post-price {
+  font-family: '여기어때 잘난체';
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  color: rgb(71, 71, 71);
+  font-size: 1.8em;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+.post-thumbnail {
+  display: none;
+  width: 110px;
+  height: 110px;
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  border: 2px solid rgb(160, 160, 160);
+  overflow: hidden;
+}
+
+.post-thumbnail > img {
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 710px) {
+  .itembox {
+    width: 300px;
+    height: 200px;
+  }
+
+  .post-price {
+    font-size: 2.2em;
+    top: 130px;
+  }
+
+  .post-thumbnail {
+    display: block;
+  }
+
+  .post-category {
+    position: absolute;
+    top: -15px;
+    left: 10px;
+    padding: 2px 5px;
+  }
+
+  .post-category {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 520px) {
+  .postInfoPage {
+    width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 520px) {
+  .item-modal-css {
+    --width: 520px !important;
+    --height: 95% !important;
+  }
+}
