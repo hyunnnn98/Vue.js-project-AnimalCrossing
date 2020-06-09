@@ -8,6 +8,7 @@
 
 /* 아이템 인포 관련 CSS */
 .pi-contents {
+  padding: 5px 10px;
   margin-top: 1em;
   letter-spacing: -1px;
 }
@@ -107,12 +108,12 @@
 }
 
 .pi-input-like {
-  width: 150px;
+  width: 100px;
   background-color: rgb(245, 126, 126);
 }
 
 .pi-input-bad {
-  width: 150px;
+  width: 100px;
   background-color: rgb(115, 167, 251);
 }
 
@@ -125,12 +126,12 @@
 }
 
 .pi-input-show {
-  width: 150px;
+  width: 100px;
   background-color: rgb(115, 167, 251);
 }
 
 .pi-input-delete {
-  width: 150px;
+  width: 100px;
   background-color: rgb(245, 126, 126);
 }
 

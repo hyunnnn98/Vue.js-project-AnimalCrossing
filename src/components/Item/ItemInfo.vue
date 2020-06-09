@@ -4,7 +4,7 @@
       <ion-slides>
         <ion-slide v-if="item_data.image.length == 0">
           <img
-            src="https://deac-project.s3.ap-northeast-2.amazonaws.com/web-source/icon.png"
+            src="https://deac-project.s3.ap-northeast-2.amazonaws.com/web-source/basic.png"
           />
         </ion-slide>
         <ion-slide v-else v-for="(img, index) in item_data.image" :key="index">

@@ -10,7 +10,7 @@
     </div>
     <div class="talk-info">
       {{ room_data.createdAt }}
-      <p v-if="room_data.ch_read">{{ room_data.ch_read }}</p>
+      <p class="talk-read" v-if="room_data.ch_read">{{ room_data.ch_read }}</p>
     </div>
   </li>
 </template>

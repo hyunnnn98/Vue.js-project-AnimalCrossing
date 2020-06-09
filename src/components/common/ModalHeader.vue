@@ -24,17 +24,21 @@ export default {
 </script>
 
 <style>
+ion-toolbar {
+  height: 100px;
+}
+
 ion-title {
   font-family: '뽀로로';
   text-align: center;
-  height: 50px;
-  line-height: 50px;
-  font-size: 4em;
-  color: white;
+  line-height: 100px;
+  font-size: 3.5em;
+  color: rgb(0, 0, 0);
 }
 
 .backUrl {
   position: absolute;
+  top: 0px;
   right: 20px;
   font-size: 25px !important;
   cursor: pointer;

@@ -1,5 +1,5 @@
 <template>
-  <ion-content class="ion-padding post">
+  <ion-content class="post">
     <AppHeader :head_name="title"></AppHeader>
     <ItemInfo v-if="bo_data" :item_data="this.bo_data.info"></ItemInfo>
     <span class="item-info">판매자정보</span>
@@ -52,7 +52,7 @@ export default {
     EventBus.$off('get_LikeHate');
   },
   async mounted() {
-    const { data } = await getDetailPost(this.bo_id);
+    const { data } = await getDetailPost(this.bo_id, this.us_id);
     console.log(data);
     const new_date = new Date();
     let return_date = dateFormat(new_date, data.info.createdAt);

@@ -1,24 +1,29 @@
 /* TALK 페이지 기본 틀 */
 .talk {
   overflow-y: scroll;
-  max-width: none;
+  /* max-width: none;
   max-height: 100%;
   min-width: 100%;
-  min-height: 100%;
   position: absolute;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translateX(-50%) translateY(-50%);
-  background-color: rgb(255, 255, 255);
+  transform: translateX(-50%) translateY(-50%); */
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 0px 5px;
+  /* padding: 5px 10px; */
 }
 
 .talk::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera*/
+}
+
+.talk-wrap {
+  background-color: #f8f8f0;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
 .talk-box {
@@ -31,6 +36,7 @@
 }
 
 .talk-avater {
+  background-color: white;
   width: 80px !important;
   height: 100%;
   border-radius: 25px;
@@ -49,8 +55,9 @@
 
 .talk-info {
   text-align: right;
-  width: 100px;
-  padding: 10px 20px 0px 0px;
+  width: 80px;
+  padding: 10px 5px 0px 0px;
+  font-weight: 700;
 }
 
 .talk-nickname {
@@ -61,12 +68,22 @@
 
 .talk-title {
   display: inline-block;
-  padding: 1px 10px;
-  background-color: rgb(143, 143, 143);
+  padding: 2px 10px;
+  background-color: #A0C261;
   color: white;
   text-align: center;
   border-radius: 10px;
   font-size: 0.9em;
+}
+
+.talk-read {
+  display: inline-block;
+  padding: 3px 7px;
+  background-color: #FFBA63;
+  color: white;
+  border-radius: 15px;
+  margin-top: 0.3em;
+  font-weight: 900;
 }
 
 /* TALK 채팅방 CSS */
@@ -96,8 +113,6 @@
 .talk-list > ul > li {
   flex: 1;
   padding: 10px;
-  /* border-bottom: 1px solid black; */
-  /* width: 50%; */
 }
 
 .talk-list > ul > li > p {
@@ -257,14 +272,6 @@
   --height: 100% !important;
 }
 
-@media only screen and (min-height: 600px) and (min-width: 768px) {
-  .talk-modal-css {
-    --width: 50% !important;
-    --height: 95% !important;
-    --max-width: 600px;
-  }
-}
-
 /* TALK 리포트 모달 */
 .modal-report {
   padding: 20px 5px;
@@ -302,10 +309,23 @@
   --height: 30% !important;
 }
 
+@media (min-width: 520px) {
+  .talk {
+    width: 500px;
+    margin: 0 auto;
+  }
+}
+
 @media only screen and (min-height: 600px) and (min-width: 768px) {
   .code-modal-css {
     --width: 50% !important;
     --height: 30% !important;
+    --max-width: 600px;
+  }
+
+  .talk-modal-css {
+    --width: 50% !important;
+    --height: 95% !important;
     --max-width: 600px;
   }
 }

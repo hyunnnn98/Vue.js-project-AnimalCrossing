@@ -36,10 +36,11 @@ function getCategory() {
 }
 
 // 상세 정보데이터 가져오기
-function getDetailPost(bo_id) {
+function getDetailPost(bo_id, us_id) {
   return afterAuth.get('/board/detail/', {
     params: {
       bo_id,
+      us_id,
     },
   });
 }
@@ -83,6 +84,19 @@ function searchPost(text) {
   });
 }
 
+// 과거 판매했던 기록 불러오기
+function getTradeData(us_id, bo_trade_value) {
+  return afterAuth.get('/get_trade_data', {
+    params: {
+      us_id,
+      bo_trade_value,
+    },
+  });
+}
+
+// 과거 구매했던 기록 불러오기
+// 과거 교환했던 기록 불러오기
+
 export {
   createPost,
   getPost,
@@ -94,4 +108,5 @@ export {
   showPost,
   deletePost,
   updatePost,
+  getTradeData,
 };

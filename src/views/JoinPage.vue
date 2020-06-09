@@ -19,7 +19,7 @@ export default {
 <style>
 .passport {
   /* margin: 10px; */
-  --background: rgb(3, 194, 19);
+  --background: #f8f8f0;
 }
 
 .passport ion-icon {
@@ -28,52 +28,16 @@ export default {
 }
 
 .passport-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border: 2px solid rgb(3, 194, 19);
-  padding: 10px;
   border-radius: 10px;
   background-color: white;
-}
-
-.passport-container > h2 {
-  font-weight: 900;
-  font-size: 1.5em;
-  text-align: center;
-  margin-bottom: 2em;
+  padding: 0 50px 0 50px;
 }
 
 .passport-container > ul {
   flex: 1;
 }
 
-.passport-container > ul > li:nth-child(1) {
-  text-align: center;
-  padding: 10px;
-  background-color: rgb(0, 0, 0);
-  border-radius: 50px;
-  color: white;
-  margin: 10px 20px;
-}
-
-.passport-container > ul > li:nth-child(2) {
-  width: 150px;
-  height: 150px;
-  margin: 0 auto;
-  /* background-color: yellowgreen; */
-  border: 2px solid black;
-  border-radius: 15px;
-  margin-bottom: 2em;
-}
-
-.passport-container > ul > li:nth-child(3) {
-  /* background-color: teal; */
-  /* width: 50%; */
-  padding: 10px;
-}
-
-.passport-container > ul > li:nth-child(3) > div:nth-child(n) {
+.passport-container > ul > li {
   margin-bottom: 2em;
   /* background-color: red; */
 }
@@ -89,23 +53,9 @@ export default {
   letter-spacing: -1px;
 }
 
-.passport-container input[type='number'] {
-  font-size: 1.4em;
-}
-
-.passport-img {
-  height: 128px;
-  margin: 10px 10px 10px 10px;
-  border-radius: 15px;
-  border: 2px solid black;
-  background-image: url('../imgs/tanuki.png');
-  background-size: cover;
-  /* background-color: teal; */
-}
-
-@media (min-width: 520px) {
+@media (min-width: 500px) {
   .passport-container {
-    width: 520px;
+    width: 500px;
     margin: 0 auto;
   }
 }

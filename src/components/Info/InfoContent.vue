@@ -1,35 +1,41 @@
 <template>
-  <div class="myinfo-bcg">
+  <div class="myinfo-main info-bcg">
     <p class="myinfo-title">-- PASSPORT --</p>
-    <!-- <img src="../../imgs/info_passport.png" alt=""> -->
     <div class="myinfo">
-      <div
-        @change="us_id != null ? updateThumbnail() : null"
-        v-if="device_info == 'web'"
-        class="myinfo-Img"
-      >
-        <label for="postImageFileOpenInput">
+      <div class="myinfo-imgwrap">
+        <div
+          @change="us_id != null ? updateThumbnail() : null"
+          v-if="device_info == 'web'"
+          class="myinfo-Img"
+        >
+          <label for="postImageFileOpenInput">
+            <img :src="`${us_info.us_thumbnail}`" alt="썸네일" />
+          </label>
+          <input
+            type="file"
+            id="postImageFileOpenInput"
+            ref="uploadImageFile"
+            accept="image/png, image/jpeg"
+          />
+        </div>
+        <div
+          v-else
+          class="myinfo-Img"
+          @click="us_id != null ? updateThumbnail() : null"
+        >
           <img :src="`${us_info.us_thumbnail}`" alt="썸네일" />
-        </label>
-        <input
-          type="file"
-          id="postImageFileOpenInput"
-          ref="uploadImageFile"
-          accept="image/png, image/jpeg"
-        />
-      </div>
-      <div
-        v-else
-        class="myinfo-Img"
-        @click="us_id != null ? updateThumbnail() : null"
-      >
-        <img :src="`${us_info.us_thumbnail}`" alt="썸네일" />
+        </div>
       </div>
       <div class="myinfo-Data">
         <ul>
           <li>
-            <span class="myinfo-islandTitle">{{ us_info.us_islandname }}</span>
-            <span class="myinfo-island"> 섬</span>
+            <span class="myinfo-island">
+              <img src="../../imgs/green_island.png" alt="그린섬" />
+            </span>
+            <span class="myinfo-islandTitle">
+              {{ us_info.us_islandname }}섬
+            </span>
+            <!-- <span class="myinfo-island"></span> -->
           </li>
           <li>
             <span class="myinfo-nickName">{{ us_info.us_nickname }}</span>

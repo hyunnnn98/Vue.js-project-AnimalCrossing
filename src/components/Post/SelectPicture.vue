@@ -12,12 +12,14 @@
     <li v-else @click="handleFileUpload"></li>
     <li @click="submit_thumbnail(i)" v-for="(picture, i) in imageUrl" :key="i">
       <img class="post-imgs" :src="imageUrl[i] ? imageUrl[i] : null" />
+      <span class="delete-picture" @click="deleteUrl(i)">삭제</span>
     </li>
   </ul>
 </template>
 
 <script>
 import { EventBus } from '@/utils/bus';
+import { toastController } from '@/utils/toastController';
 import { valideImageType, b64toBlob } from '@/utils/imgControl';
 import { Plugins, CameraSource, CameraResultType } from '@capacitor/core';
 import axios from 'axios';
@@ -67,6 +69,12 @@ export default {
   },
   methods: {
     async handleFileUpload() {
+      if (this.imageUrl.length == 5)
+        return toastController(
+          this.$ionic,
+          '사진은 최대 5장까지 가능합니다.',
+          'danger',
+        );
       // DeviceInfo 보고 사용자 구분하기
       if (this.device_info != 'web') {
         try {

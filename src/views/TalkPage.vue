@@ -1,27 +1,33 @@
 <template>
-  <div class="talk">
-    <ul v-if="talks">
-      <TalkBox
-        :room_data="talk"
-        v-for="(talk, index) in talks"
-        :key="index"
-      ></TalkBox>
-    </ul>
-  </div>
+  <ion-content>
+    <div class="talk">
+      <AppHeader :head_name="title"></AppHeader>
+      <ul class="talk-wrap" v-if="talks">
+        <TalkBox
+          :room_data="talk"
+          v-for="(talk, index) in talks"
+          :key="index"
+        ></TalkBox>
+      </ul>
+    </div>
+  </ion-content>
 </template>
 
 <script>
+import AppHeader from '@/components/common/AppHeader';
 import TalkBox from '@/components/Talk/TalkBox.vue';
 import { dateFormat } from '@/utils/dateFormat';
 
 export default {
   name: 'TalkPage',
   components: {
+    AppHeader,
     TalkBox,
   },
   data() {
     return {
       talks: null,
+      title: '유리병 편지',
     };
   },
   beforeDestroy() {

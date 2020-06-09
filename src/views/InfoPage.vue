@@ -1,5 +1,5 @@
 <template>
-  <ion-content class="ion-padding info">
+  <ion-content class="info">
     <div class="info-page">
       <AppHeader :head_name="title"></AppHeader>
       <InfoContent :us_info="us_info" :us_id="us_id"></InfoContent>

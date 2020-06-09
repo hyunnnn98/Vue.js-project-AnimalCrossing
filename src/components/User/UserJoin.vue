@@ -2,55 +2,58 @@
   <div class="passport-container">
     <ul>
       <li>
-        나만의 썸네일 사진을 변경해보세요!
+        <h1>회원가입</h1>
       </li>
       <li>
-        <div class="passport-img"></div>
-      </li>
-      <li>
-        <div>
-          <p>이메일</p>
-          <input
+        <ion-item class="join-ion-item-custom">
+          <ion-label position="stacked">이메일</ion-label>
+          <ion-input
             type="text"
             :value="us_email"
             @input="us_email = $event.target.value"
-          />
-        </div>
-        <div>
-          <p>비밀번호</p>
-          <input
+          ></ion-input>
+        </ion-item>
+        <ion-item class="join-ion-item-custom">
+          <ion-label position="stacked">비밀번호</ion-label>
+          <ion-input
             type="password"
             :value="us_password"
             @input="us_password = $event.target.value"
-          />
-        </div>
-        <div>
-          <p>이름</p>
-          <input
+          ></ion-input>
+        </ion-item>
+        <ion-item class="join-ion-item-custom">
+          <ion-label position="stacked">이름</ion-label>
+          <ion-input
             type="text"
             :value="us_nickname"
             @input="us_nickname = $event.target.value"
-          />
-        </div>
-        <div>
-          <p>섬 이름</p>
-          <input
+          ></ion-input>
+        </ion-item>
+        <ion-item class="join-ion-item-custom">
+          <ion-label position="stacked">섬 이름</ion-label>
+          <ion-input
             type="text"
             :value="us_islandname"
             @input="us_islandname = $event.target.value"
-          />
-        </div>
-        <div>
-          <p>통신코드</p>
-          <input
+          ></ion-input>
+        </ion-item>
+        <ion-item class="join-ion-item-custom">
+          <ion-label position="stacked">통신코드</ion-label>
+          <ion-input
             type="number"
             :value="us_code"
             @input="us_code = $event.target.value"
-          />
-        </div>
+          ></ion-input>
+        </ion-item>
       </li>
     </ul>
-    <ion-button shape="block" color="danger" @click="submit">
+    <ion-button
+      class="btn-custom"
+      size="large"
+      shape="block"
+      color="danger"
+      @click="submit"
+    >
       등록하기
     </ion-button>
   </div>
@@ -91,4 +94,33 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+h1 {
+  margin-bottom: 100px;
+  font-family: '뽀로로';
+  font-size: 30px;
+  text-align: center;
+  color: #7e693a;
+}
+
+.passport-container {
+  background-color: rgba(255, 255, 255, 0) !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.join-ion-item-custom {
+  margin-top: 30px;
+  --background: rgba(255, 255, 255, 0) !important;
+  --background-focused: rgba(255, 255, 255, 0) !important;
+}
+
+.btn-custom {
+  font-size: 20px;
+  margin-top: 100px;
+  --border-radius: 50px;
+  font-family: '뽀로로';
+}
+</style>

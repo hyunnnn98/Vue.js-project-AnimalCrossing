@@ -27,4 +27,10 @@ function dateFormat(now_date, date_info, type) {
   return result_date;
 }
 
-export { dateFormat };
+function review_Format(re_createdAt) {
+  const date = new Date(re_createdAt);
+
+  return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+}
+
+export { dateFormat, review_Format };

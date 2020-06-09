@@ -1,5 +1,5 @@
 <template>
-  <div class="myMenu">
+  <div class="myMenu info-bcg">
     <div @click="logout_submit">로그아웃</div>
     <div @click="reportCreate_modal">1:1 문의하기</div>
     <div @click="reportList_modal">1:1 문의내역</div>

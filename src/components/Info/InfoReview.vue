@@ -1,23 +1,13 @@
 <template>
-  <ul class="myReview">
-    <li class="talk-box">
+  <ul class="myReview info-bcg">
+    <li class="talk-box" v-for="(review, i) of review_info" :key="i">
       <div class="talk-avater">
-        <img src="../../imgs/tanuki.png" alt="썸네일" />
+        <img :src="`${review.user.us_thumbnail}`" alt="썸네일" />
       </div>
       <div class="talk-content">
-        <p class="talk-title">너굴**</p>
-        <p class="info-review">싸게 거래해주네요!!</p>
-        <p class="info-date">2020년 05월 02일</p>
-      </div>
-    </li>
-    <li class="talk-box">
-      <div class="talk-avater">
-        <img src="../../imgs/tanuki.png" alt="썸네일" />
-      </div>
-      <div class="talk-content">
-        <p class="talk-title">개발*****</p>
-        <p class="info-review">싸게 거래해주네요!!</p>
-        <p class="info-date">2020년 05월 02일</p>
+        <p class="talk-title">{{ review.user.us_nickname }}</p>
+        <p class="info-review">{{ review.rv_content }}</p>
+        <p class="info-date">{{ review.createdAt }}</p>
       </div>
     </li>
   </ul>
@@ -25,12 +15,22 @@
 
 <script>
 import { getReview } from '@/api/review';
+import { review_Format } from '@/utils/dateFormat';
 
 export default {
   props: ['us_id'],
+  data() {
+    return {
+      review_info: '',
+    };
+  },
   async mounted() {
     const { data } = await getReview(this.us_id);
-    console.log(data);
+    await data.info.forEach(v => {
+      v.createdAt = review_Format(v.createdAt);
+    });
+
+    this.review_info = data.info;
   },
 };
 </script>

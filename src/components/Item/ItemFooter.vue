@@ -16,9 +16,16 @@
         <img src="../../imgs/bad_1.png" alt="" />
         싫어요
       </div>
-      <div @click="create_room()" class="pi-input-talk">
+      <div
+        v-if="!item_data.chat_exist"
+        @click="create_room()"
+        class="pi-input-talk"
+      >
         <img src="../../imgs/main_home.png" alt="" />
         거래하기
+      </div>
+      <div v-else @click="join_room()" class="pi-input-talk">
+        <img src="../../imgs/main_home.png" alt="" />채팅하기
       </div>
     </div>
   </div>
@@ -45,6 +52,10 @@ export default {
       : (this.pi_show = '비공개');
   },
   methods: {
+    join_room() {
+      this.$ionic.modalController.dismiss();
+      router.push(`/talk/${this.item_data.bo_id}-${this.us_id}`);
+    },
     async create_room() {
       if (store.state.us_grant === -1) {
         let msg =

@@ -1,12 +1,11 @@
 .ani-btn {
-  border: 3px solid rgb(53, 53, 53);
+  border: 1px solid rgb(53, 53, 53);
   border-radius: 8px;
   padding: 10px 20px;
   text-align: center;
   transition-duration: 1s;
   background-color: rgb(255, 255, 255);
   color: black;
-  /* font-weight: 700; */
 }
 
 .ani-btn.success {
@@ -15,6 +14,24 @@
   color: white;
 }
 
+.ani-btn.danger {
+  border: 3px solid rgb(231, 33, 59);
+  background-color: rgb(231, 33, 59);
+  color: white;
+}
+
+.ani-btn.sky {
+  border: 3px solid rgb(7, 112, 233);
+  background-color: rgb(7, 112, 233);
+  color: white;
+}
+
+.custom-btn {
+  font-family: "뽀로로";
+  font-size: 20px;
+  margin-top: 20px;
+  --border-radius: 50px;
+}
 /* .ani-btn.success:hover {
   background-color: rgb(63, 221, 97);
   color: white;

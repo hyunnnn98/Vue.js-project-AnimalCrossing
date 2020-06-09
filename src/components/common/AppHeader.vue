@@ -1,7 +1,7 @@
 <template>
   <div class="App-Header">
     <ion-icon name="arrow-back" @click="go_back"> </ion-icon>
-    {{ head_name }}
+    <p>{{ head_name }}</p>
   </div>
 </template>
 
@@ -15,8 +15,10 @@ export default {
   methods: {
     go_back() {
       try {
+        console.log('여기로빠짐!1');
         this.$router.go(-1);
       } catch (error) {
+        console.log('여기로빠짐!2');
         this.$ionic.modalController.dismiss();
       }
     },
@@ -28,16 +30,25 @@ export default {
 .App-Header {
   background-color: #76b767;
   color: #eef3d2;
-  text-align: center;
+  text-align: left;
   width: 100%;
   max-width: 520px;
-  height: 30px;
-  line-height: 32px;
+  height: 50px;
+  min-height: 50px;
+  /* line-height: 37px; */
   font-weight: bold;
   font-size: 1.3em;
-  border-radius: 18px 8px 8px 18px;
+  /* border-radius: 18px 8px 8px 18px; */
   letter-spacing: -2px;
   margin-bottom: 0.5em;
+}
+
+.App-Header p {
+  position: relative;
+  top: 0.8em;
+  left: 10px;
+  display: inline-block;
+  /* left: 45%; */
 }
 
 .App-Header ion-icon {
@@ -45,9 +56,10 @@ export default {
   color: #76b767;
   float: left;
   border-radius: 50px;
-  margin-top: 0.15em;
+  margin-top: 0.8em;
   margin-left: 0.3em;
   width: 25px;
   height: 25px;
+  cursor: pointer;
 }
 </style>

@@ -56,6 +56,24 @@
             @input="bo_cost = $event.target.value"
             clear-on-edit="true"
           ></ion-input>
+          <transition name="fade">
+            <span
+              :key="0"
+              @click="change_cost(0)"
+              v-if="bo_cost_selector"
+              class="post_cost_selector"
+            >
+              마일
+            </span>
+            <span
+              :key="1"
+              @click="change_cost(1)"
+              v-else
+              class="post_cost_selector"
+            >
+              덩
+            </span>
+          </transition>
         </ion-item>
       </li>
       <li>
@@ -110,6 +128,9 @@ export default {
     EventBus.$off('thumbnail_change');
   },
   methods: {
+    change_cost(cost) {
+      this.bo_cost_selector = cost;
+    },
     async submit_post(bo_type) {
       if (this.$store.state.us_grant === -1) {
         let msg =
@@ -155,7 +176,7 @@ export default {
       this.bo_category = 1;
       this.bo_content = '';
       this.bo_cost = '';
-      this.bo_cost_selector = '';
+      this.bo_cost_selector = 0;
       this.bo_thumbnail = 6;
       this.bo_type = null;
       this.bo_id = null;

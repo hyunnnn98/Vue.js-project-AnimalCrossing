@@ -1,5 +1,5 @@
 <template>
-  <ion-content class="ion-padding post">
+  <ion-content class="post">
     <div class="postPage">
       <AppHeader :head_name="this.title"></AppHeader>
       <SelectPicture></SelectPicture>

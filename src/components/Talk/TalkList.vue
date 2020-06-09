@@ -160,7 +160,10 @@ export default {
     trade_access() {
       // 거래 관련 알림 전송 컨트롤
       let status = this.bo_trade_status;
-      if (this.access == false && status === 4) return this.review_modal();
+      if (this.access == false && status === 4) {
+        this.bo_trade_status++;
+        return this.review_modal();
+      }
 
       console.log('클릭!');
       let buyer_check = this.access == false && status != 4;

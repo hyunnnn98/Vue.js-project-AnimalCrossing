@@ -93,6 +93,45 @@
   color: rgb(86, 230, 29);
 }
 
+.change-cost-enter-active {
+  transition: all .3s ease;
+}
+.change-cost-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.change-cost-enter, .change-cost-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.fade-enter-active {
+    transition: all 0.5s ease;
+}
+.fade-leave-active {
+    transition: all 0.5s cubic-bezier(1, 1, 1.8, 3);
+}
+.fade-enter,
+.fade-leave-to {
+    transform: translateX(3vw);
+    opacity: 0
+}
+
+.post_cost_selector {
+  border: 2px solid rgb(3, 91, 163);
+  border-radius: 13px;
+  font-weight: 700;
+  width: 45px;
+  padding: 3px 0px;
+  text-align: center;
+  color: rgb(0, 0, 0) !important;
+  position: absolute;
+  top: 24px;
+  right: 20px;
+  z-index: 100000;
+
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -108,7 +147,8 @@ input[type='number'] {
 /* SelectPicture CSS */
 .post-Picture {
   padding: 10px;
-  margin-top: 1em;
+  margin-top: 0.8em;
+  margin-bottom: 0.3em;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -126,7 +166,7 @@ input[type='number'] {
 }
 
 .post-Picture > li > img {
-  width: auto;
+  width: 100%;
   height: 100%;
 }
 
@@ -160,12 +200,18 @@ input[type='file'] {
 
 /*TODO 삭제 관련 CSS 수정해야 함. */
 .delete-picture {
-  float: right;
-  padding: 5px;
-  font-size: 1.5em;
-  color: rgb(184, 20, 20);
+  position: relative;
+  background-color: rgb(179, 13, 13);
+  color: rgb(255, 255, 255);
+  width: 30px;
+  height: 30px;
+  top: -93px;
+  left: 60px;
+  padding: 3px 5px;
+  border-radius: 10px;
+  font-size: 0.8em;
   cursor: pointer;
-  z-index: 100;
+  z-index: 1000000;
 }
 
 

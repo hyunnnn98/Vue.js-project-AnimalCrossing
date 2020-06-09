@@ -4,39 +4,51 @@
 }
 
 /* InfoContent CSS */
-.myinfo-bcg {
+.info-bcg {
+  background-color: #f8f8f0;
+}
+
+.myinfo-main{
   padding: 20px 10px;
-  background-color: #fff9e4;
   border-radius: 10px;
+  color: #4c4314;
 }
 
 .myinfo {
   background-color: #f8f8f0;
-  background-image: url('../imgs/pattern.png');
+  background-image: url('../imgs/pattern1.png');
   border-radius: 5px;
   display: flex;
   align-items: center;
+  justify-content: space-around;
   padding: 20px 0px;
   width: 100%;
 }
 
 .myinfo-title {
-  color: #ecb4a7;
+  color: #579fcf;
   font-weight: 900;
   text-align: center;
   padding-bottom: 1em;
 }
 
-.myinfo-Img {
-  margin-left: 30px;
-  margin-right: 20px;
+.myinfo-imgwrap {
+    margin-left: 20px;
+  margin-right: 15px;
+  background-color: #fcf9db;
+  padding: 7px;
   border-radius: 20px;
-  width: 130px;
-  height: 130px;
-  box-shadow: 1px 2px 5px rgba(125, 125, 125, 0.527);
+}
+
+.myinfo-Img {
+
+  border-radius: 20px;
+  min-width: 110px;
+  width: 110px;
+  height: 110px;
   overflow: hidden;
   text-align: center;
-  background-color: #f9f7de;
+  background-color: #ffffff;
 }
 
 .myinfo-Img img {
@@ -48,14 +60,14 @@
 }
 
 .myinfo-Data > ul > li {
-  width: 250px;
+  width: 100%;
   height: 35px;
   line-height: 35px;
   font-weight: 700;
   font-size: 1.1em;
   letter-spacing: -1px;
-  border-bottom: 2px solid #fef2d8;
-  margin-bottom: 0.3em;
+  border-bottom: 2px solid #f1f6e1;
+  margin-bottom: 0.5em;
 }
 
 .myinfo-code {
@@ -67,7 +79,8 @@
 .myinfo-codeName {
   display: block;
   position: relative;
-  top: -10px;
+  top: -14px;
+  left: -3px;
   font-size: 0.7em;
   font-weight: 300;
   margin-right: 1em;
@@ -82,24 +95,18 @@
   cursor: pointer;
 }
 
-.myinfo-islandTitle {
-  color: #7e4303;
-  font-size: 1.2em;
+.myinfo-island img{
+  width: 20px;
+}
+
+.myinfo-islandTitle, .myinfo-nickName .myinfo-code {
+  /* font-size: 1.1em; */
   font-weight: 900;
-}
-
-.myinfo-island {
-  color: #7e725e;
-}
-
-.myinfo-nickName {
-  font-size: 1.2em;
 }
 
 /* InfoTrade CSS */
 .myTrade {
   margin-top: 0.5em;
-  background-color: #fff9e4;
   border-radius: 10px;
   padding: 10px 10px;
 }
@@ -107,7 +114,6 @@
 /* InfoReview CSS */
 .myReview {
   margin-top: 0.5em;
-  background-color: #fff9e4;
   border-radius: 10px;
   padding: 10px 10px;
 }
@@ -124,23 +130,25 @@
 /* InfoMenu CSS */
 .myMenu {
   margin-top: 0.5em;
-  background-color: #fff9e4;
+  background-color: #f8f8f0;
   border-radius: 10px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   padding: 20px 0px;
   width: 100%;
 }
 
 .myMenu > div {
-  width: 100px;
+  width: 98%;
   font-weight: 900;
   text-align: center;
   background-color: #5cc2b8;
   color: #dcfeff;
   padding: 10px;
-  border-radius: 20px;
+  border-radius: 10px;
+  margin-bottom: 1em;
 }
 
 /* InfoReportModal CSS */
