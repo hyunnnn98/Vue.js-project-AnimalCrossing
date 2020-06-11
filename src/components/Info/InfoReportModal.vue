@@ -30,7 +30,7 @@
         </ion-select>
       </ion-item>
 
-      <ion-item v-if="re_category == '계정정지'">
+      <ion-item class="qu-category" v-if="re_category == '계정정지'">
         <ion-label><span>*</span> 신고당한 게시글</ion-label>
         <ion-select
           interface="popover"
@@ -69,7 +69,7 @@
 import store from '../../store/index';
 import ModalHeader from '@/components/common/ModalHeader';
 import { createReport, getBlacklist } from '@/api/report';
-import { toastController } from '@/utils/toastController';
+import { toastErrorController } from '@/utils/toastController';
 
 export default {
   props: ['us_id'],
@@ -102,9 +102,12 @@ export default {
       };
       if (this.re_category == '계정정지') data.re_bl_id = this.re_bl_id;
       console.log('getData: ', data);
-      const result = await createReport(data);
-      if (result) this.$ionic.modalController.dismiss();
-      else toastController('네트워크 에러로 1:1 문의 전송에 실패했습니다.');
+      try {
+        await createReport(data);
+        this.$ionic.modalController.dismiss();
+      } catch (err) {
+        toastErrorController(this.$ionic, err);
+      }
     },
   },
 };

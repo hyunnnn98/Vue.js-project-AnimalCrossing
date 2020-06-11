@@ -1,4 +1,8 @@
 /* PostContent CSS */
+.post {
+  --padding-bottom: 0px;
+}
+
 .post-Content {
   padding: 0px 10px 10px 10px;
 }
@@ -118,18 +122,17 @@
 }
 
 .post_cost_selector {
-  border: 2px solid rgb(3, 91, 163);
-  border-radius: 13px;
+  background-color: rgb(57, 126, 47);
+  color: white !important;
+  border-radius: 20px;
   font-weight: 700;
   width: 45px;
-  padding: 3px 0px;
+  padding: 5px 0px;
   text-align: center;
-  color: rgb(0, 0, 0) !important;
   position: absolute;
   top: 24px;
   right: 20px;
   z-index: 100000;
-
 }
 
 /* Chrome, Safari, Edge, Opera */

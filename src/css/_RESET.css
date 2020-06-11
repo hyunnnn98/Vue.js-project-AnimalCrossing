@@ -51,6 +51,18 @@ input[type=email][disabled]{background:#eaeaea; border-color:#c0c0c0; color:#666
 textarea[readonly],
 textarea[disabled]{padding:11px; font-size:16px; color:#666; font-weight:normal; line-height:140%; height:78px; background:#eaeaea;border:1px solid #c0c0c0;}
 
+ion-item {
+  --padding-start: 0px;
+  --background-focused: rgba(255, 255, 255, 0) !important;
+}
+
+.ionic_toast {
+  --border-radius : 10px;
+  --width : 100%;
+  --max-width	: 450px;
+  text-align: center;
+}
+
 .clear {clear:both;}
 .clear:after { content:""; display:block; clear:both;}
 

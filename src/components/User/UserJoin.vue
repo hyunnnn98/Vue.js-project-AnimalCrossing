@@ -1,5 +1,5 @@
 <template>
-  <div class="passport-container">
+  <div class="user-container">
     <ul>
       <li>
         <h1>회원가입</h1>
@@ -46,21 +46,18 @@
           ></ion-input>
         </ion-item>
       </li>
+      <li>
+        <div @click="submit" class="ani-btn success">
+          등록하기
+        </div>
+      </li>
     </ul>
-    <ion-button
-      class="btn-custom"
-      size="large"
-      shape="block"
-      color="danger"
-      @click="submit"
-    >
-      등록하기
-    </ion-button>
   </div>
 </template>
 
 <script>
 import { joinUser } from '@/api/auth';
+import { toastController, toastErrorController } from '@/utils/toastController';
 
 export default {
   data() {
@@ -83,11 +80,15 @@ export default {
       };
       joinUser(data)
         .then(res => {
-          console.log(res);
+          toastController(
+            this.$ionic,
+            '입력하신 이메일로 인증 메일을 전송합니다. \n인증이 끝난 후 부터 로그인이 가능합니다.',
+            'success',
+          );
           this.$router.replace('/login');
         })
         .catch(err => {
-          console.log(err);
+          toastErrorController(this.$ionic, err);
         });
     },
   },
@@ -96,30 +97,21 @@ export default {
 
 <style>
 h1 {
-  margin-bottom: 100px;
+  margin-top: 1em;
+  margin-bottom: 1em;
   font-family: '뽀로로';
   font-size: 30px;
   text-align: center;
   color: #7e693a;
 }
 
-.passport-container {
-  background-color: rgba(255, 255, 255, 0) !important;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 .join-ion-item-custom {
   margin-top: 30px;
-  --background: rgba(255, 255, 255, 0) !important;
-  --background-focused: rgba(255, 255, 255, 0) !important;
 }
 
 .btn-custom {
   font-size: 20px;
-  margin-top: 100px;
+  margin-top: 1em;
   --border-radius: 50px;
   font-family: '뽀로로';
 }

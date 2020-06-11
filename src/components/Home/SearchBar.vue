@@ -21,6 +21,7 @@
 <script>
 import CategoryModal from './CategoryModal.vue';
 import { searchPost } from '@/api/post';
+import { toastErrorController } from '@/utils/toastController';
 
 export default {
   name: 'SearchBar',
@@ -41,9 +42,12 @@ export default {
     },
     async getPostItem(key) {
       // console.log(key);
-      const { data } = await searchPost(this.myInput);
-      console.log('검색된 데이터 :', data.info);
-      this.searchedPosts = data.info;
+      try {
+        const { data } = await searchPost(this.myInput);
+        this.searchedPosts = data.info;
+      } catch (err) {
+        toastErrorController(this.$ionic, err);
+      }
     },
     async openModal() {
       let modal = await this.$ionic.modalController.create({

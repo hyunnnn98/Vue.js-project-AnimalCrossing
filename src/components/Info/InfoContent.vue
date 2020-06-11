@@ -58,7 +58,8 @@
 
 <script>
 import store from '../../store/index';
-import InfoUpdateCodeModal from './InfoUpdateCodeModal';
+import InfoCodeModal from './InfoCodeModal';
+import { toastErrorController } from '@/utils/toastController';
 import { Plugins, CameraSource, CameraResultType } from '@capacitor/core';
 import { valideImageType, b64toBlob } from '@/utils/imgControl';
 const { Camera } = Plugins;
@@ -105,9 +106,8 @@ export default {
         );
         req.setRequestHeader('us_id', this.us_id);
         req.send(this.formData);
-      } catch (error) {
-        // alert 걷어내기
-        alert(error);
+      } catch (err) {
+        toastErrorController(this.$ionic, err);
       }
       this.initForm();
     },
@@ -157,7 +157,7 @@ export default {
     },
     async updateCode() {
       let modal = await this.$ionic.modalController.create({
-        component: InfoUpdateCodeModal,
+        component: InfoCodeModal,
         cssClass: 'code-modal-css',
         componentProps: {
           propsData: {

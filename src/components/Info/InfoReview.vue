@@ -16,6 +16,7 @@
 <script>
 import { getReview } from '@/api/review';
 import { review_Format } from '@/utils/dateFormat';
+import { toastErrorController } from '@/utils/toastController';
 
 export default {
   props: ['us_id'],
@@ -25,12 +26,16 @@ export default {
     };
   },
   async mounted() {
-    const { data } = await getReview(this.us_id);
-    await data.info.forEach(v => {
-      v.createdAt = review_Format(v.createdAt);
-    });
+    try {
+      const { data } = await getReview(this.us_id);
+      await data.info.forEach(v => {
+        v.createdAt = review_Format(v.createdAt);
+      });
 
-    this.review_info = data.info;
+      this.review_info = data.info;
+    } catch (err) {
+      toastErrorController(this.$ionic, err);
+    }
   },
 };
 </script>

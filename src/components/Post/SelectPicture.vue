@@ -19,7 +19,7 @@
 
 <script>
 import { EventBus } from '@/utils/bus';
-import { toastController } from '@/utils/toastController';
+import { toastController, toastErrorController } from '@/utils/toastController';
 import { valideImageType, b64toBlob } from '@/utils/imgControl';
 import { Plugins, CameraSource, CameraResultType } from '@capacitor/core';
 import axios from 'axios';
@@ -126,8 +126,8 @@ export default {
         req.open('POST', 'https://server.anicro.org/board/image', true);
         req.setRequestHeader('bo_id', bo_id);
         req.send(this.formData);
-      } catch (error) {
-        alert(error);
+      } catch (err) {
+        toastErrorController(this.$ionic, err);
       }
     },
     deleteUrl(index_number) {

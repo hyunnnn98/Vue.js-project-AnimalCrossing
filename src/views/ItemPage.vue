@@ -44,8 +44,9 @@ export default {
     EventBus.$on('get_LikeHate', res => {
       console.log('이벤트 버스로 받은 데이터 :', res);
       console.log('getData: ', this.bo_data);
-      this.bo_data.info.bo_like = res.info.bo_like;
-      this.bo_data.info.bo_hate = res.info.bo_hate;
+      this.bo_data.info.bo_like = res.info.data.bo_like;
+      this.bo_data.info.bo_hate = res.info.data.bo_hate;
+      this.bo_data.info.likehate = res.info.check;
     });
   },
   beforeDestroy() {

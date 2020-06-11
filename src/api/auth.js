@@ -22,4 +22,19 @@ function authCheck(userData) {
   return afterAuth.post('/auth/token_check', userData);
 }
 
-export { joinUser, loginUser, logOut, authCheck };
+// 비밀번호 찾기
+function getPassword(us_email) {
+  return afterAuth.get('/auth/set_temp_password', {
+    params: {
+      us_email,
+    },
+  });
+}
+
+// 비밀번호 변경
+// 유저아이디 us_id, 기존패스워드 us_password, 새로운패스워드 _us_password
+function updatePassword(new_password) {
+  return afterAuth.post('/auth/update_password', new_password);
+}
+
+export { joinUser, loginUser, logOut, authCheck, getPassword, updatePassword };

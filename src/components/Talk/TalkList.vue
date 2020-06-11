@@ -52,7 +52,7 @@
         v-if="access"
         class="btn_send"
         @click="trade_access"
-        :class="bo_trade_status == 1 ? 'disabled' : null"
+        :class="ro_trade_status == 1 ? 'disabled' : null"
         expand="block"
       ></ion-buton>
       <ion-textarea
@@ -85,11 +85,11 @@ export default {
   name: 'TalkRoom',
   data() {
     return {
-      bo_trade_status: 0,
+      ro_trade_status: 0,
       us_input_value: '',
       chat_data: [],
       us_id: parseInt(this.$store.state.us_id),
-      room_id: this.$route.params.id,
+      ch_ro_id: this.$route.params.id,
       access: false,
       other_us_grant: null,
     };
@@ -100,7 +100,7 @@ export default {
       console.log(res);
       if (res === false) this.$router.push('/main');
       this.other_us_grant = res.us_grant;
-      this.bo_trade_status = res.bo_trade_status;
+      this.ro_trade_status = res.ro_trade_status;
 
       if (this.other_us_grant === -1) {
         console.log('여기!');
@@ -131,18 +131,18 @@ export default {
 
     // bo_status 상태값 바인딩 받기.
     this.$store.state.socket.on('request_trade_access', res => {
-      this.bo_trade_status = res;
+      this.ro_trade_status = res;
     });
   },
   mounted() {
     // [초기화] 새로운 채팅 받아오기.
-    this.$store.state.socket.emit('get_message', this.us_id, this.room_id);
+    this.$store.state.socket.emit('get_message', this.us_id, this.ch_ro_id);
   },
   beforeDestroy() {
     this.$store.state.socket.off('get_message');
     this.$store.state.socket.off('send_message');
     this.$store.state.socket.off('request_trade_access');
-    this.$store.state.socket.emit('leave_room', this.us_id, this.room_id);
+    this.$store.state.socket.emit('leave_room', this.us_id, this.ch_ro_id);
   },
   methods: {
     send_message() {
@@ -151,7 +151,7 @@ export default {
       this.$store.state.socket.emit(
         'send_message',
         this.us_id,
-        this.room_id,
+        this.ch_ro_id,
         this.us_input_value,
       );
 
@@ -159,9 +159,10 @@ export default {
     },
     trade_access() {
       // 거래 관련 알림 전송 컨트롤
-      let status = this.bo_trade_status;
+      let status = this.ro_trade_status;
+      console.log(this.ro_trade_status);
       if (this.access == false && status === 4) {
-        this.bo_trade_status++;
+        this.ro_trade_status++;
         return this.review_modal();
       }
 
@@ -176,7 +177,7 @@ export default {
         this.$store.state.socket.emit(
           'request_trade_access',
           this.us_id,
-          this.room_id,
+          this.ch_ro_id,
         );
       }
     },
@@ -187,7 +188,7 @@ export default {
         componentProps: {
           propsData: {
             us_id: this.us_id,
-            room_id: this.room_id,
+            ch_ro_id: this.ch_ro_id,
           },
         },
       });
@@ -200,7 +201,7 @@ export default {
         componentProps: {
           propsData: {
             us_id: this.us_id,
-            room_id: this.room_id,
+            ch_ro_id: this.ch_ro_id,
           },
         },
       });

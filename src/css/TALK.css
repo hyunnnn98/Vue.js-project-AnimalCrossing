@@ -300,6 +300,15 @@
   color: rgb(255, 102, 0);
 }
 
+.qu-start-point {
+  text-align: center;
+}
+
+.qu-start-point li {
+  display: inline-block;
+  margin-right: 0.3em;
+}
+
 .code-modal-css input[type='text'] {
   text-indent: 5px !important;
 }

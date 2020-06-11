@@ -2,7 +2,7 @@
   <ion-content>
     <div class="talk">
       <AppHeader :head_name="title"></AppHeader>
-      <ul class="talk-wrap" v-if="talks">
+      <ul v-if="talks" class="talk-wrap">
         <TalkBox
           :room_data="talk"
           v-for="(talk, index) in talks"
@@ -45,11 +45,11 @@ export default {
           v.ch_content = (await v.ch_content.substring(0, 12)) + '..';
         }
         // 제목 길이 제한.
-        if (v.board.bo_title.length > 12) {
-          let return_title = (await v.board.bo_title.substring(0, 7)) + '..';
-          v.board.bo_title = return_title;
+        if (v.board == null) {
+          v.board = { bo_title: '삭제된 게시글입니다' };
+        } else if (v.board.bo_title.length > 12) {
+          v.board.bo_title = (await v.board.bo_title.substring(0, 7)) + '..';
         }
-        // console.log('타이틀 :', return_title);
       });
       this.talks = data;
     });

@@ -6,6 +6,7 @@
   transition-duration: 1s;
   background-color: rgb(255, 255, 255);
   color: black;
+  margin: 1em 0px;
 }
 
 .ani-btn.success {

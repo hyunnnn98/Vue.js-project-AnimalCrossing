@@ -29,6 +29,15 @@ const routes = [
     },
   },
   {
+    path: '/findPW',
+    name: 'FindPW',
+    component: () => import('@/views/PasswordPage.vue'),
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isLogin) next('/main');
+      else next();
+    },
+  },
+  {
     path: '/main',
     name: 'Main',
     meta: { auth: true, isNeedKeepAlive: true },

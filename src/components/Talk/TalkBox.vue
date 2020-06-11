@@ -32,12 +32,11 @@ export default {
         toastController(this.$ionic, msg, 'warning');
         return;
       }
-
-      this.$router.push(`/talk/${this.room_data.ch_room_id}`);
+      this.$router.push(`/talk/${this.room_data.ch_ro_id}`);
       this.$store.state.socket.emit(
         'join_room',
         this.$store.state.us_id,
-        this.room_data.ch_room_id,
+        this.room_data.ch_ro_id,
       );
       this.$store.state.socket.emit('get_read_count', this.$store.state.us_id);
     },

@@ -1,5 +1,5 @@
 <template>
-  <div class="LoginBody">
+  <div class="user-container">
     <img src="../../imgs/logo.png" alt="logo" />
     <ul>
       <li>
@@ -34,20 +34,12 @@
       </li>
       <li v-if="message" class="warning">{{ message }}</li>
       <li>
-        <ion-button
-          class="custom-btn"
-          size="large"
-          shape="block"
-          color="success"
-          @click="submitForm"
-        >
-          로그인
-        </ion-button>
+        <div @click="submitForm" class="ani-btn success">로그인</div>
       </li>
       <li>
         <div class="login_footer">
           <span @click="$router.push('/passport')">회원가입</span>
-          <span @click="$router.push('/passport')">비밀번호 찾기</span>
+          <span @click="$router.push('/findPW')">비밀번호 찾기</span>
         </div>
       </li>
     </ul>
@@ -104,8 +96,7 @@ export default {
           if (this.us_access) this.$router.push('/main');
         }
       } catch (err) {
-        console.log('[임시] 로그인 실패!', err.message);
-        this.message = err.message;
+        this.message = err.response.data.message;
       }
     },
   },
@@ -113,24 +104,12 @@ export default {
 </script>
 
 <style>
-.LoginBody {
-  width: 100%;
-  height: 70%;
-  z-index: 1;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0) !important;
-}
-
 .login-label > img {
   width: 20px;
 }
 
 .login-item {
   --background: rgba(255, 255, 255, 0) !important;
-  --background-focused: rgba(255, 255, 255, 0) !important;
 }
 
 .login-label {
@@ -138,12 +117,13 @@ export default {
 }
 
 .login-input {
-  letter-spacing: 0.5px;
+  letter-spacing: 0.9px;
   --padding-bottom: 0px;
   margin-left: -95px;
 }
 
 .login_footer {
+  margin-right: 1em;
   float: right;
   font-size: 14px;
   font-family: '뽀로로';

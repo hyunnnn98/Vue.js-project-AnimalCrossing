@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { toastErrorController } from '@/utils/toastController';
 import { getTradeData } from '@/api/post';
 
 export default {
@@ -35,17 +36,16 @@ export default {
   },
   methods: {
     async get_past_trade(trade_value) {
-      // if (trade_value === this.bo_trade_value) {
-      //   this.td_contents = [];
-      //   this.bo_trade_value = 0;
-      //   return;
-      // }
       this.bo_trade_value = trade_value;
-      const { data } = await getTradeData(this.$store.state.us_id, trade_value);
-      console.log(data);
-      // 같은 번호 들어올 시 this.td_contents 초기화.
-      // 번호별로 category data 다르게 바인딩.
-      this.td_contents = data.info;
+      try {
+        const { data } = await getTradeData(
+          this.$store.state.us_id,
+          trade_value,
+        );
+        this.td_contents = data.info;
+      } catch (err) {
+        toastErrorController(this.$ionic, err);
+      }
     },
   },
 };
@@ -93,6 +93,10 @@ export default {
   height: 100px;
   max-height: 150px;
   overflow-y: scroll;
+}
+
+.trade-content::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
 }
 
 .trade-no-content {

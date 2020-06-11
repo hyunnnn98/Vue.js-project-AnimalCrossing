@@ -44,7 +44,7 @@
 import store from '../../store/index';
 import ModalHeader from '@/components/common/ModalHeader';
 import { getReport } from '@/api/report';
-import { toastController } from '@/utils/toastController';
+import { toastErrorController } from '@/utils/toastController';
 
 export default {
   props: ['us_id'],
@@ -62,9 +62,13 @@ export default {
     };
   },
   async mounted() {
-    const { data } = await getReport(store.state.us_id);
-    this.re_lists = data.info;
-    console.log(data.info);
+    try {
+      const { data } = await getReport(store.state.us_id);
+      this.re_lists = data.info;
+      console.log(data.info);
+    } catch (err) {
+      toastErrorController(this.$ionic, err);
+    }
   },
   methods: {
     change_view(_id) {

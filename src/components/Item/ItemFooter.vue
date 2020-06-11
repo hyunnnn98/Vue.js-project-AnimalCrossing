@@ -8,11 +8,19 @@
       <div @click="post_edit" class="pi-input-modify">수정</div>
     </div>
     <div v-else class="pi-bottom">
-      <div @click="busLikeHate(0)" class="pi-input-like">
+      <div
+        @click="busLikeHate(0)"
+        class="pi-input-like"
+        :class="`${item_data.likehate}`"
+      >
         <img src="../../imgs/like_1.png" alt="" />
         좋아요
       </div>
-      <div @click="busLikeHate(1)" class="pi-input-bad">
+      <div
+        @click="busLikeHate(1)"
+        class="pi-input-bad"
+        :class="`${item_data.likehate}`"
+      >
         <img src="../../imgs/bad_1.png" alt="" />
         싫어요
       </div>
@@ -33,7 +41,7 @@
 
 <script>
 import { EventBus } from '@/utils/bus';
-import { toastController } from '@/utils/toastController';
+import { toastController, toastErrorController } from '@/utils/toastController';
 import { setLikeHate, showPost, deletePost } from '@/api/post';
 import store from '../../store/index';
 import router from '../../router/index';
@@ -54,7 +62,8 @@ export default {
   methods: {
     join_room() {
       this.$ionic.modalController.dismiss();
-      router.push(`/talk/${this.item_data.bo_id}-${this.us_id}`);
+      console.log('test1', this.item_data);
+      router.push(`/talk/${this.item_data.ch_ro_id}`);
     },
     async create_room() {
       if (store.state.us_grant === -1) {
@@ -70,8 +79,11 @@ export default {
         parseInt(this.us_id),
         parseInt(this.item_data.bo_id),
       );
-      await this.$ionic.modalController.dismiss();
-      router.push(`/talk/${this.item_data.bo_id}-${this.us_id}`);
+      store.state.socket.on('create_room', async res => {
+        console.log('res: ', res);
+        await this.$ionic.modalController.dismiss();
+        router.push(`/talk/${res}`);
+      });
     },
     async busLikeHate(selectedVal) {
       const { data } = await setLikeHate(
@@ -82,22 +94,27 @@ export default {
       EventBus.$emit('get_LikeHate', data);
     },
     async post_delete() {
-      const result = await deletePost(this.item_data.bo_id, this.us_id);
-      //TODO alert 걷어내기!
-      if (result) alert('게시물이 삭제되었습니다!');
-      else alert('잘못된 접근입니다.!');
-      await this.$ionic.modalController.dismiss();
-      EventBus.$emit('refresh-post');
+      try {
+        const result = await deletePost(this.item_data.bo_id, this.us_id);
+        toastController(this.$ionic, '게시물이 삭제되었습니다!', 'success');
+        await this.$ionic.modalController.dismiss();
+        EventBus.$emit('refresh-post');
+      } catch (err) {
+        toastErrorController(this.$ionic, err);
+      }
     },
     async post_show() {
       this.pi_show == '공개'
         ? (this.pi_show = '비공개')
         : (this.pi_show = '공개');
-      const result = await showPost(
-        this.item_data.bo_id,
-        this.item_data.bo_show,
-      );
-      if (!result) alert('잘못된 접근입니다.!');
+      try {
+        const result = await showPost(
+          this.item_data.bo_id,
+          this.item_data.bo_show,
+        );
+      } catch (err) {
+        toastErrorController(this.$ionic, err);
+      }
     },
     post_edit() {
       EventBus.$emit('post_update', this.item_data.bo_id);

@@ -4,6 +4,7 @@
     <div @click="reportCreate_modal">1:1 문의하기</div>
     <div @click="reportList_modal">1:1 문의내역</div>
     <div @click="reportList_modal">공지사항</div>
+    <div @click="password_modal">비밀번호 변경</div>
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 import { logOut } from '@/api/auth';
 import InfoReportModal from './InfoReportModal';
 import InfoReportListModal from './InfoReportListModal';
+import InfoPasswordModal from './InfoPasswordModal';
 
 export default {
   methods: {
@@ -38,6 +40,18 @@ export default {
       let modal = await this.$ionic.modalController.create({
         component: InfoReportListModal,
         cssClass: 'talk-modal-css',
+        componentProps: {
+          propsData: {
+            us_id: this.$store.state.us_id,
+          },
+        },
+      });
+      modal.present();
+    },
+    async password_modal() {
+      let modal = await this.$ionic.modalController.create({
+        component: InfoPasswordModal,
+        cssClass: 'code-modal-css',
         componentProps: {
           propsData: {
             us_id: this.$store.state.us_id,

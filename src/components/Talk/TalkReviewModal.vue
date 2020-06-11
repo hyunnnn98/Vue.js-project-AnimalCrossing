@@ -3,6 +3,18 @@
     <ModalHeader :modal_title="title"></ModalHeader>
 
     <ion-content class="ion-padding qu-body">
+      <ul class="qu-start-point">
+        <p>별점으로 거래만족도를 표현해주세요.</p>
+        <li
+          @click="rate_up(index)"
+          v-for="(rate, index) of rv_rates"
+          :key="index"
+        >
+          <img v-if="rate == 0" src="../../imgs/star_on.png" alt="" />
+          <img v-else src="../../imgs/star_off.png" alt="" />
+        </li>
+        <!-- <li v-for=""></li> -->
+      </ul>
       <ion-item>
         <ion-label position="floating"><span>*</span> 한줄평 남기기</ion-label>
         <ion-input
@@ -22,10 +34,10 @@
 <script>
 import ModalHeader from '@/components/common/ModalHeader';
 import { createReview } from '@/api/review';
-import { toastController } from '@/utils/toastController';
+import { toastController, toastErrorController } from '@/utils/toastController';
 
 export default {
-  props: ['us_id', 'room_id'],
+  props: ['us_id', 'ch_ro_id'],
   components: {
     ModalHeader,
   },
@@ -33,20 +45,41 @@ export default {
     return {
       title: '거래후기 작성',
       rv_content: '',
-      rv_rate: '',
+      rv_rates: [0, 0, 0, 0, 0],
+      rv_rate: 5,
     };
   },
   methods: {
     async update_review() {
       //TODO 리뷰 평점 버튼 만들기.
-      const result = await createReview({
-        us_id: this.us_id,
-        ch_room_id: this.room_id,
-        rv_content: this.rv_content,
-        rv_rate: this.rv_rate,
-      });
-      if (result) this.$ionic.modalController.dismiss();
-      else toastController('네트워크 에러로 1:1 문의 전송에 실패했습니다.');
+      try {
+        const result = await createReview({
+          us_id: this.us_id,
+          ro_id: this.ch_ro_id,
+          rv_content: this.rv_content,
+          rv_rate: this.rv_rate,
+        });
+        toastController(
+          this.$ionic,
+          '거래 후기 작성을 완료하였습니다!',
+          'success',
+        );
+        this.$ionic.modalController.dismiss();
+      } catch (err) {
+        toastErrorController(this.$ionic, err);
+      }
+    },
+    rate_up(number) {
+      console.log('number: ', number);
+      this.rv_rates = [0, 0, 0, 0, 0];
+      this.rv_rate = 5;
+      for (let i = 0; i < 5; i++) {
+        if (i <= number) this.rv_rates[i] = 0;
+        else {
+          this.rv_rates[i] = 1;
+          this.rv_rate--;
+        }
+      }
     },
   },
 };

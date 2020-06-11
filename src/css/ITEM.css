@@ -109,11 +109,20 @@
 
 .pi-input-like {
   width: 100px;
+  background-color: rgb(149, 149, 149);
+}
+
+.pi-input-like.pi-like-clicked {
   background-color: rgb(245, 126, 126);
 }
 
 .pi-input-bad {
   width: 100px;
+  border-left: 2px solid rgb(245, 245, 245);
+  background-color: rgb(149, 149, 149);
+}
+
+.pi-input-bad.pi-bad-clicked {
   background-color: rgb(115, 167, 251);
 }
 

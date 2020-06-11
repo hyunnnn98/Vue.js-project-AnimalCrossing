@@ -88,7 +88,7 @@
 <script>
 import { EventBus } from '@/utils/bus';
 import { createPost, getDetailPost, updatePost } from '@/api/post';
-import { toastController } from '@/utils/toastController';
+import { toastController, toastErrorController } from '@/utils/toastController';
 
 export default {
   name: 'post-content',
@@ -151,23 +151,29 @@ export default {
           bo_thumbnail: this.bo_thumbnail,
           bo_us_id: this.$store.state.us_id,
         };
-        if (bo_type === 'update') {
-          post_data.bo_id = this.bo_id;
-          result = await updatePost(post_data);
-        } else {
-          result = await createPost(post_data);
-        }
-        console.log('test1', result.data);
-        // 1. 게시글 데이터 먼저 서버 전송.
-        // 2. 사진 데이터 이벤트버스로 전송.
-        if (result) {
-          EventBus.$emit('send_imgs', result.data.info);
-          EventBus.$emit('refresh-post');
-        }
-        this.init_post();
-        this.$router.push('/main');
+
+        try {
+          if (bo_type === 'update') {
+            post_data.bo_id = this.bo_id;
+            result = await updatePost(post_data);
+          } else {
+            result = await createPost(post_data);
+          }
+          // 1. 게시글 데이터 먼저 서버 전송.
+          // 2. 사진 데이터 이벤트버스로 전송.
+          if (result) {
+            EventBus.$emit('send_imgs', result.data.info);
+            EventBus.$emit('refresh-post');
+          }
+          toastController(
+            '등록완료 \n거래소에서 내가 쓴 글을 확인해보세요.',
+            'success',
+          );
+          this.init_post();
+          this.$router.push('/main');
+        } catch (error) {}
       } catch (err) {
-        console.log(err);
+        toastErrorController(this.$ionic, err);
       }
     },
     init_post() {

@@ -202,6 +202,10 @@
   padding: 15px 5px;
 }
 
+ion-radio-group ion-item > ion-label {
+  padding-left: 20px;
+}
+
 .talk-modal-css {
   --width: 100% !important;
   --height: 100% !important;
@@ -214,13 +218,12 @@
 
 .code-modal-css {
   --width: 100% !important;
-  --height: 30% !important;
+  --height: 360px !important;
 }
 
 @media only screen and (min-height: 600px) and (min-width: 768px) {
   .code-modal-css {
     --width: 50% !important;
-    --height: 30% !important;
     --max-width: 600px;
   }
   .talk-modal-css {
