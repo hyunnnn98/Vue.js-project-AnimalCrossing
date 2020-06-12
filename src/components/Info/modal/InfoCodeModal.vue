@@ -9,19 +9,18 @@
           type="number"
           :value="us_code"
           @input="us_code = $event.target.value"
-          clear-on-edit="true"
           placeholder="- 는 생략하고 입력해주세요."
         ></ion-input>
       </ion-item>
+      <div class="ani-btn sky" @click="update_code()">수정완료</div>
     </ion-content>
-    <div class="ani-btn sky" @click="update_code()">수정완료</div>
   </div>
 </template>
 
 <script>
 import ModalHeader from '@/components/common/ModalHeader';
 import { changeCode } from '@/api/report';
-import { toastErrorController } from '@/utils/toastController';
+import { toastController, toastErrorController } from '@/utils/toastController';
 
 export default {
   props: ['us_id'],
@@ -36,7 +35,12 @@ export default {
   },
   methods: {
     async update_code() {
-      //TODO 통신코드 - 빼고 파싱하기
+      if (this.us_code.length != 12)
+        return toastController(
+          this.$ionic,
+          '[통신코드] 12자리 형식을 맞춰주세요.',
+          'warning',
+        );
       try {
         await changeCode({
           us_id: this.us_id,

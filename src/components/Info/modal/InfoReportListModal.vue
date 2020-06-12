@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import store from '../../store/index';
+import store from '@/store/index';
 import ModalHeader from '@/components/common/ModalHeader';
 import { getReport } from '@/api/report';
 import { toastErrorController } from '@/utils/toastController';

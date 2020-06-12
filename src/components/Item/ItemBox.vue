@@ -8,6 +8,9 @@
     </div>
     <div v-if="item" class="post-contents">
       <span class="post-contents post_user">
+        <span class="post-contents status">
+          {{ item.bo_trade_status == 0 ? '거래가능' : '거래완료' }}
+        </span>
         <span class="post-contents nick_name">{{ item.user.us_nickname }}</span>
         <span class="post-contents rank">{{ item.user.us_grant }}</span>
         <span class="post-contents like">

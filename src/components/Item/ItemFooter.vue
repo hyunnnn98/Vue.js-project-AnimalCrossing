@@ -6,6 +6,9 @@
       </div>
       <div @click="post_delete" class="pi-input-delete">삭제</div>
       <div @click="post_edit" class="pi-input-modify">수정</div>
+      <div @click="post_end" class="pi-input-end">
+        {{ item_data.bo_trade_status == 0 ? '거래중' : '거래완료' }}
+      </div>
     </div>
     <div v-else class="pi-bottom">
       <div
@@ -42,7 +45,7 @@
 <script>
 import { EventBus } from '@/utils/bus';
 import { toastController, toastErrorController } from '@/utils/toastController';
-import { setLikeHate, showPost, deletePost } from '@/api/post';
+import { setLikeHate, showPost, deletePost, setPostStatus } from '@/api/post';
 import store from '../../store/index';
 import router from '../../router/index';
 
@@ -120,6 +123,26 @@ export default {
       EventBus.$emit('post_update', this.item_data.bo_id);
       router.push(`/post/${this.item_data.bo_id}`);
       this.$ionic.modalController.dismiss();
+    },
+    async post_end() {
+      try {
+        console.log(this.item_data.bo_id, this.item_data.bo_trade_status);
+        const result = await setPostStatus(
+          this.item_data.bo_id,
+          this.item_data.bo_trade_status,
+        );
+        EventBus.$emit('set_past_trade');
+        this.$ionic.modalController.dismiss();
+
+        let msg = '';
+        this.item_data.bo_trade_status == 0
+          ? (msg = '게시물이 거래완료 상태로 변경되었습니다!')
+          : (msg = '게시물이 거래중 상태로 변경되었습니다!');
+
+        toastController(this.$ionic, msg, 'success');
+      } catch (err) {
+        toastErrorController(this.$ionic, err);
+      }
     },
   },
 };

@@ -1,5 +1,6 @@
 <template>
   <div class="user-container">
+    <ion-icon class="backUrl left" name="arrow-back" @click="go_back" />
     <ul>
       <li>
         <h1>회원가입</h1>
@@ -36,6 +37,24 @@
             :value="us_islandname"
             @input="us_islandname = $event.target.value"
           ></ion-input>
+          <transition name="fade">
+            <span
+              :key="0"
+              @click="us_islandtype = 0"
+              v-if="us_islandtype"
+              class="post_cost_selector"
+            >
+              섬
+            </span>
+            <span
+              :key="1"
+              @click="us_islandtype = 1"
+              v-else
+              class="post_cost_selector"
+            >
+              도
+            </span>
+          </transition>
         </ion-item>
         <ion-item class="join-ion-item-custom">
           <ion-label position="stacked">통신코드</ion-label>
@@ -66,11 +85,18 @@ export default {
       us_password: null,
       us_nickname: null,
       us_islandname: null,
+      us_islandtype: 0,
       us_code: null,
     };
   },
   methods: {
     submit() {
+      if (this.us_code.length != 12)
+        return toastController(
+          this.$ionic,
+          '[통신코드] 12자리 형식을 맞춰주세요.',
+          'warning',
+        );
       const data = {
         us_email: this.us_email,
         us_password: this.us_password,
@@ -91,6 +117,13 @@ export default {
           toastErrorController(this.$ionic, err);
         });
     },
+    go_back() {
+      try {
+        this.$router.go(-1);
+      } catch (error) {
+        this.$ionic.modalController.dismiss();
+      }
+    },
   },
 };
 </script>
@@ -109,10 +142,29 @@ h1 {
   margin-top: 30px;
 }
 
-.btn-custom {
-  font-size: 20px;
-  margin-top: 1em;
-  --border-radius: 50px;
-  font-family: '뽀로로';
+.fade-enter-active {
+  transition: all 0.5s ease;
+}
+.fade-leave-active {
+  transition: all 0.5s cubic-bezier(1, 1, 1.8, 3);
+}
+.fade-enter,
+.fade-leave-to {
+  transform: translateX(3vw);
+  opacity: 0;
+}
+
+.post_cost_selector {
+  background-color: rgb(86, 187, 71);
+  color: white !important;
+  border-radius: 20px;
+  font-weight: 700;
+  width: 45px;
+  padding: 5px 0px;
+  text-align: center;
+  position: absolute;
+  top: 24px;
+  right: 20px;
+  z-index: 100000;
 }
 </style>

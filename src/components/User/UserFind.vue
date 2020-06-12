@@ -1,5 +1,6 @@
 <template>
   <div class="user-container">
+    <ion-icon class="backUrl left" name="arrow-back" @click="go_back" />
     <h1>비밀번호 찾기</h1>
     <ion-item class="login-item">
       <ion-label class="login-label" position="fixed"
@@ -51,6 +52,13 @@ export default {
       }
       console.log(msg, status);
       toastController(this.$ionic, msg, status);
+    },
+    go_back() {
+      try {
+        this.$router.go(-1);
+      } catch (error) {
+        this.$ionic.modalController.dismiss();
+      }
     },
   },
 };

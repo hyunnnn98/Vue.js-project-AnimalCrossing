@@ -97,18 +97,6 @@
   color: rgb(86, 230, 29);
 }
 
-.change-cost-enter-active {
-  transition: all .3s ease;
-}
-.change-cost-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.change-cost-enter, .change-cost-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateX(10px);
-  opacity: 0;
-}
-
 .fade-enter-active {
     transition: all 0.5s ease;
 }

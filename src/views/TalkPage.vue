@@ -45,10 +45,8 @@ export default {
           v.ch_content = (await v.ch_content.substring(0, 12)) + '..';
         }
         // 제목 길이 제한.
-        if (v.board == null) {
-          v.board = { bo_title: '삭제된 게시글입니다' };
-        } else if (v.board.bo_title.length > 12) {
-          v.board.bo_title = (await v.board.bo_title.substring(0, 7)) + '..';
+        if (v.bo_title.length > 12) {
+          v.bo_title = (await v.bo_title.substring(0, 7)) + '..';
         }
       });
       this.talks = data;

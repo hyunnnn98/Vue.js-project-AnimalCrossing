@@ -4,7 +4,7 @@
       <img :src="`${room_data.user.us_thumbnail}`" alt="썸네일" />
     </div>
     <div class="talk-content">
-      <p class="talk-title">{{ room_data.board.bo_title }}</p>
+      <p class="talk-title">{{ room_data.bo_title }}</p>
       <p class="talk-nickname">{{ room_data.user.us_nickname }}</p>
       <p class="talk-lastcontent">{{ room_data.ch_content }}</p>
     </div>

@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import store from '../../store/index';
+import store from '@/store/index';
 import ModalHeader from '@/components/common/ModalHeader';
 import { createReport, getBlacklist } from '@/api/report';
 import { toastErrorController } from '@/utils/toastController';

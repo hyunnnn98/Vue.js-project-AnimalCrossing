@@ -111,6 +111,87 @@
   padding: 10px 10px;
 }
 
+.trade-menu {
+  display: flex;
+  justify-content: space-around;
+  /* flex-wrap: wrap; */
+  text-align: center;
+}
+
+.trade-menu > div {
+  /* flex-basis: 33%; */
+  width: 100%;
+  flex-shrink: 1;
+  padding: 15px;
+  /* border-bottom: 1px solid rgb(116, 116, 116); */
+}
+
+.trade-progress {
+  position: relative;
+  width: 33%;
+  border-bottom: 2px solid rgb(2, 129, 61);
+  transition: all 0.5s ease;
+}
+
+.trade-progress._1 {
+  left: 0px;
+}
+
+.trade-progress._2 {
+  left: 33%;
+}
+
+.trade-progress._3 {
+  left: 66%;
+}
+
+.trade-content {
+  text-indent: 0.5em;
+  margin-top: 0.2em;
+  font-weight: 700;
+  height: 150px;
+  max-height: 150px;
+  overflow-y: scroll;
+}
+
+.trade-content::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+.trade-no-content {
+  text-align: center;
+  margin: 1em auto;
+  background-color: rgb(87, 87, 87);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.trade-content > li {
+  /* background-color: blue; */
+  padding: 10px;
+  border-bottom: 1px solid rgb(189, 189, 189);
+}
+
+.trade-content > li:hover {
+  background-color: rgba(255, 255, 255, 0.561);
+}
+
+.trade-content-status {
+  float: right;
+  background-color: coral;
+  color: rgb(241, 241, 241);
+  width: 72px;
+  text-align: center;
+  border-radius: 10px;
+  text-indent: 0px;
+  padding: 3px;
+}
+
+.trade-content-status._gre {
+  background-color: rgb(102, 202, 102);
+}
+
 /* InfoReview CSS */
 .myReview {
   margin-top: 0.5em;
@@ -122,8 +203,17 @@
   padding: 5px 0;
 }
 
+.talk-sub p {
+  display: inline-block;
+}
+
+.talk-sub img {
+  width: 13px;
+}
+
 .info-date {
-  text-align: right;
+  /* text-align: right; */
+  float: right;
   font-weight: 700;
 }
 
@@ -200,10 +290,21 @@
   background-color: rgb(241, 241, 241);
   margin-top: 0.5em;
   padding: 15px 5px;
+  white-space: pre-wrap;
 }
 
 ion-radio-group ion-item > ion-label {
   padding-left: 20px;
+}
+
+/* InfoDeleteModal CSS */
+.choose-container div {
+  display: inline-block;
+  width: 48%;
+}
+
+.choose-container div:nth-child(1) {
+  float: right;
 }
 
 .talk-modal-css {
@@ -218,7 +319,7 @@ ion-radio-group ion-item > ion-label {
 
 .code-modal-css {
   --width: 100% !important;
-  --height: 360px !important;
+  --height: 370px !important;
 }
 
 @media only screen and (min-height: 600px) and (min-width: 768px) {

@@ -34,6 +34,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283466347522:android:12596520fb7edb4961231b",
+        "android_client_info": {
+          "package_name": "io.ionic.tradeAnimalCrossing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283466347522-9fav2qb1gus6thhd8pv6jss7rtnfnrhb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJ-N3sZ9mkDL6TKwjF6DLgYMjOLATBC3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283466347522-9fav2qb1gus6thhd8pv6jss7rtnfnrhb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

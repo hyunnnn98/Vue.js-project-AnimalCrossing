@@ -58,7 +58,7 @@
 
 <script>
 import store from '../../store/index';
-import InfoCodeModal from './InfoCodeModal';
+import InfoCodeModal from './modal/InfoCodeModal';
 import { toastErrorController } from '@/utils/toastController';
 import { Plugins, CameraSource, CameraResultType } from '@capacitor/core';
 import { valideImageType, b64toBlob } from '@/utils/imgControl';
@@ -165,7 +165,7 @@ export default {
           },
         },
       });
-      modal.present();
+      await modal.present();
     },
   },
 };

@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     logScrolling(event) {
-      console.log(event);
+      console.log('스크롤이벤트', event);
     },
     refreshPost(ca_id) {
       console.log('최종 카테고리', ca_id);

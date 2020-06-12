@@ -69,7 +69,7 @@ export default {
           'success',
         );
         this.$ionic.modalController.dismiss();
-        await store.dispatch('LOGOUT');
+        store.dispatch('LOGOUT');
         router.push('/login');
       } catch (err) {
         toastErrorController(this.$ionic, err);

@@ -11,6 +11,7 @@
   padding: 5px 10px;
   margin-top: 1em;
   letter-spacing: -1px;
+  white-space: pre-wrap;
 }
 
 .pi-contents > div:nth-child(n) {
@@ -145,8 +146,14 @@
 }
 
 .pi-input-modify {
+    width: 100px;
+    background-color: rgb(102, 202, 102);
+  }
+  
+.pi-input-end {
   flex-grow: 1;
-  background-color: rgb(102, 202, 102);
+  background-color: rgb(0, 0, 0);
+    
 }
 
 /* 아이템 박스 관련 CSS */
@@ -194,6 +201,14 @@
 .post-contents.post_user {
   position: absolute;
   bottom: 13px;
+}
+
+.post-contents.status {
+  background-color: rgb(112, 112, 112);
+  color: white;
+  padding: 1px 1px 1px 3px;
+  text-align: center;
+  border-radius: 2px;
 }
 
 .post-contents.post_user > span {
@@ -244,6 +259,10 @@
   height: 100%;
 }
 
+.post .myReview {
+  margin-bottom: 50px;
+}
+
 @media (min-width: 710px) {
   .itembox {
     width: 300px;
@@ -268,6 +287,12 @@
 
   .post-category {
     font-size: 1em;
+  }
+}
+
+@media (max-width: 400px) {
+  .pi-input-delete, .pi-input-modify {
+    width: 70px;
   }
 }
 

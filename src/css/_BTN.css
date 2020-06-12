@@ -7,6 +7,7 @@
   background-color: rgb(255, 255, 255);
   color: black;
   margin: 1em 0px;
+  cursor: pointer;
 }
 
 .ani-btn.success {
@@ -25,6 +26,13 @@
   border: 3px solid rgb(7, 112, 233);
   background-color: rgb(7, 112, 233);
   color: white;
+}
+
+.ani-btn.disable {
+  border: 3px solid rgb(110, 110, 110);
+  background-color: rgb(110, 110, 110);
+  color: white;
+  cursor: not-allowed;
 }
 
 .custom-btn {

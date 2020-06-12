@@ -55,6 +55,16 @@ function showPost(bo_id, bo_show) {
   });
 }
 
+// 게시글 완료처리
+function setPostStatus(bo_id, bo_trade_status) {
+  return afterAuth.get('/board/set_bo_trade_status', {
+    params: {
+      bo_id,
+      bo_trade_status,
+    },
+  });
+}
+
 // 조회수 관리
 function setPostView(bo_id) {
   return afterAuth.get('/board/view', {
@@ -104,6 +114,7 @@ export {
   getDetailPost,
   setPostView,
   setLikeHate,
+  setPostStatus,
   searchPost,
   showPost,
   deletePost,

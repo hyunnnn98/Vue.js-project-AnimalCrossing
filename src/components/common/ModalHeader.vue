@@ -32,16 +32,7 @@ ion-title {
   font-family: '뽀로로';
   text-align: center;
   line-height: 100px;
-  font-size: 3.5em;
-  color: rgb(0, 0, 0);
-}
-
-.backUrl {
-  position: absolute;
-  top: 0px;
-  right: 20px;
-  font-size: 25px !important;
-  cursor: pointer;
+  font-size: 3em;
   color: rgb(0, 0, 0);
 }
 </style>

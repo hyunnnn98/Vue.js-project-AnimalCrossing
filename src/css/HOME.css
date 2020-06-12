@@ -27,6 +27,7 @@
   display: none; /* Chrome, Safari, Opera*/
 }
 
+
 .itme-ad {
   display: block;
   width: 100%;
@@ -51,16 +52,17 @@
 
 .searchInput input[type='text'] {
   text-indent: 50px;
+  font-weight: 700;
 }
 
-.search {
+.refresh {
   position: absolute;
   top: 7px;
   right: 15px;
   height: 32px;
   width: 32px;
   color: white;
-  background-image: url('../imgs/search.png');
+  background-image: url('../imgs/refresh.png');
   background-size: contain;
   cursor: pointer;
   z-index: 20000;
@@ -74,6 +76,27 @@
   margin-top: 0.7em;
   margin-left: 1em;
   cursor: pointer;
+}
+
+.search-container {
+  /* border: 1px solid rgb(153, 153, 153); */
+  /* border-bottom: 5px solid rgb(153, 153, 153); */
+  max-height: 300px;
+}
+
+.search-container > li {
+  padding: 10px;
+  border: 0px;
+  border-bottom: 1px solid rgb(153, 153, 153);
+  border-style: dotted;
+}
+
+.search-container > li:hover {
+  background-color: rgb(241, 241, 241);
+}
+
+.search-container > li:nth-last-child(1) {
+  border-bottom: 5px solid rgb(18, 238, 154);
 }
 
 /* NotiveTabs CSS */
@@ -111,7 +134,7 @@
   border-radius: 30px;
   width: 350px;
   max-width: 350px;
-  height: 600px;
+  height: 550px;
   margin: 0 auto;
   padding: 20px;
   background-color: #50b174;
@@ -119,11 +142,11 @@
 
 .category-ul {
   background-color: #ffffff;
-  margin: 0.5em auto 0px;
-  padding: 20px 20px;
+  margin: 0.5em auto 0.5em;
+  padding: 30px 20px;
   border-radius: 20px;
   max-width: 350px;
-  height: 400px;
+  height: 330px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -140,37 +163,33 @@
   font-size: 14px;
 }
 
-.category-ul > li:nth-child(1) > p {
-  /* flex-basis: 100%; */
-  background-image: url('../imgs/tanuki.png');
-}
 
-.category-ul > li:nth-child(2) > p {
+.category-ul > li:nth-child(1) > p {
   background-image: url('../imgs/입양.png');
   background-color: #a3d97a;
 }
 
-.category-ul > li:nth-child(3) > p {
+.category-ul > li:nth-child(2) > p {
   background-color: #ffb8d0;
   background-image: url('../imgs/무주식.png');
 }
 
-.category-ul > li:nth-child(4) > p {
+.category-ul > li:nth-child(3) > p {
   background-image: url('../imgs/아이템.png');
   background-color: #7ad9d6;
 }
 
-.category-ul > li:nth-child(5) > p {
+.category-ul > li:nth-child(4) > p {
   background-image: url('../imgs/만지작.png');
   background-color: #d9947a;
 }
 
-.category-ul > li:nth-child(6) > p {
+.category-ul > li:nth-child(5) > p {
   background-image: url('../imgs/알바.png');
   background-color: #897ad9;
 }
 
-.category-ul > li:nth-child(7) > p {
+.category-ul > li:nth-child(6) > p {
   background-image: url('../imgs/무료나눔.png');
   background-color: #5fd48a;
 }

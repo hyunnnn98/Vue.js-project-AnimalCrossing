@@ -1,60 +1,66 @@
 <template>
   <div class="talk-list">
-    <div class="fix-header">
-      <ion-icon name="arrow-back" @click="$router.push('/talk')" />
-      <span>사기거래에 주의하세요!!</span>
-      <img src="../../imgs/alert.png" alt="신고" @click="report_modal" />
-    </div>
-    <ul>
-      <li
-        :class="chat.ch_send_us_id == us_id ? 'sender' : 'receiver'"
-        v-for="(chat, index) in chat_data"
-        :key="index"
-      >
-        <template
-          v-if="
-            !(
-              chat.ch_request &&
-              chat.request.rq_content == '후기 작성' &&
-              access == true
-            )
-          "
+    <AppHeader :head_name="title" :head_css="css"></AppHeader>
+    <ion-content
+      class="talk-scroll"
+      :scrollEvents="true"
+      @ionScroll="logScrolling($event)"
+    >
+      <ul>
+        <li
+          :class="chat.ch_send_us_id == us_id ? 'sender' : 'receiver'"
+          v-for="(chat, index) in chat_data"
+          :key="index"
         >
-          <template v-if="us_id == chat.ch_send_us_id">
-            <span class="chat read" v-if="chat.ch_read == 0">읽음</span>
-            <span class="chat time">{{ chat.createdAt }}</span>
-          </template>
-          <p
-            class="chat"
-            :class="[
-              chat.ch_request != 0 ? 'bcg_white' : '',
-              us_id == chat.ch_send_us_id ? 'sender' : 'receiver',
-            ]"
+          <template
+            v-if="
+              !(
+                chat.ch_request &&
+                chat.request.rq_content == '후기 작성' &&
+                access == true
+              )
+            "
           >
-            {{ chat.ch_content }}
-            <span
-              @click="trade_access"
-              v-if="chat.ch_request"
-              class="btn-request"
+            <template v-if="us_id == chat.ch_send_us_id">
+              <span class="chat read" v-if="chat.ch_read == 0">읽음</span>
+              <span class="chat time">{{ chat.createdAt }}</span>
+            </template>
+            <p
+              class="chat"
+              :class="[
+                chat.ch_request != 0 ? 'bcg_white' : '',
+                us_id == chat.ch_send_us_id ? 'sender' : 'receiver',
+              ]"
             >
-              {{ chat.request.rq_content }}
-            </span>
-          </p>
-          <template v-if="us_id != chat.ch_send_us_id">
-            <span class="chat time">{{ chat.createdAt }}</span>
-            <span class="chat read" v-if="chat.ch_read == 0">읽음</span>
+              {{ chat.ch_content }}
+              <span
+                @click="trade_access"
+                v-if="chat.ch_request"
+                class="btn-request"
+              >
+                {{ chat.request.rq_content }}
+              </span>
+            </p>
+            <template v-if="us_id != chat.ch_send_us_id">
+              <span class="chat time">{{ chat.createdAt }}</span>
+              <span class="chat read" v-if="chat.ch_read == 0">읽음</span>
+            </template>
           </template>
-        </template>
-      </li>
-    </ul>
+        </li>
+        <li class="chat-out" v-if="ro_exit != 0">
+          {{ us_nickname }}님이 채팅방에서 나갔습니다.
+        </li>
+      </ul>
+    </ion-content>
     <div class="fix-bottom">
-      <ion-buton
-        v-if="access"
-        class="btn_send"
-        @click="trade_access"
-        :class="ro_trade_status == 1 ? 'disabled' : null"
-        expand="block"
-      ></ion-buton>
+      <div class="talk_info">
+        <ion-icon class="talk_bar" name="menu"></ion-icon>
+        <ul class="talk_btn">
+          <li v-if="access" @click="trade_access">승인요청</li>
+          <li @click="report_modal">신고하기</li>
+          <li @click="talk_out">나가기</li>
+        </ul>
+      </div>
       <ion-textarea
         type="text"
         :value="us_input_value"
@@ -80,15 +86,23 @@ import { dateFormat } from '@/utils/dateFormat';
 import { toastController } from '@/utils/toastController';
 import TalkReportModal from './TalkReportModal';
 import TalkReviewModal from './TalkReviewModal';
+import AppHeader from '@/components/common/AppHeader';
 
 export default {
   name: 'TalkRoom',
+  components: {
+    AppHeader,
+  },
   data() {
     return {
-      ro_trade_status: 0,
+      title: '',
+      css: 'fix-header',
+      us_nickname: '',
       us_input_value: '',
-      chat_data: [],
       us_id: parseInt(this.$store.state.us_id),
+      ro_trade_status: 0,
+      ro_exit: 0,
+      chat_data: [],
       ch_ro_id: this.$route.params.id,
       access: false,
       other_us_grant: null,
@@ -101,6 +115,9 @@ export default {
       if (res === false) this.$router.push('/main');
       this.other_us_grant = res.us_grant;
       this.ro_trade_status = res.ro_trade_status;
+      this.us_nickname = res.us_nickname;
+      this.title = `${this.us_nickname}님의 ${res.ro_bo_title}`;
+      this.ro_exit = res.ro_exit;
 
       if (this.other_us_grant === -1) {
         console.log('여기!');
@@ -118,6 +135,7 @@ export default {
         v.createdAt = return_date;
       });
       this.chat_data = res.chat;
+      this.scroll_to_bottom();
     });
 
     // 새로운 채팅메시지 불러오기.
@@ -126,11 +144,19 @@ export default {
       const new_date = new Date();
       let return_date = dateFormat(new_date, res.createdAt, 'chat');
       res.createdAt = return_date;
+
+      // 내가 보냈을 때만 스크롤 하단으로 가기.
       this.chat_data.push(res);
+      if (this.us_id == res.ch_send_us_id) this.scroll_to_bottom(500);
     });
 
     // bo_status 상태값 바인딩 받기.
     this.$store.state.socket.on('request_trade_access', res => {
+      this.ro_trade_status = res;
+    });
+
+    // 상대방이 채팅방 나갔을 시 메시지 받기
+    this.$store.state.socket.on('delete_room', res => {
       this.ro_trade_status = res;
     });
   },
@@ -140,6 +166,7 @@ export default {
   },
   beforeDestroy() {
     this.$store.state.socket.off('get_message');
+    this.$store.state.socket.off('delete_room');
     this.$store.state.socket.off('send_message');
     this.$store.state.socket.off('request_trade_access');
     this.$store.state.socket.emit('leave_room', this.us_id, this.ch_ro_id);
@@ -181,6 +208,15 @@ export default {
         );
       }
     },
+    scroll_to_bottom(time) {
+      const tag = document.querySelector('.talk-scroll');
+      console.log('하단으로 이동!', tag);
+      tag.scrollToBottom(time);
+    },
+    talk_out() {
+      this.$store.state.socket.emit('delete_room', this.us_id, this.ch_ro_id);
+      this.$router.push('/talk');
+    },
     async report_modal() {
       let modal = await this.$ionic.modalController.create({
         component: TalkReportModal,
@@ -211,4 +247,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+@import url('../../css/TALK.css');
+</style>

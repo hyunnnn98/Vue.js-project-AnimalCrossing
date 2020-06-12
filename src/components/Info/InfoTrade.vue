@@ -12,8 +12,17 @@
     </div>
     <p :class="`_${bo_trade_value}`" class="trade-progress"></p>
     <ul v-if="td_contents != ''" class="trade-content">
-      <li v-for="(content, i) of td_contents" :key="i">
-        <div>{{ content.bo_title }}</div>
+      <li
+        @click="openItemModal(content.bo_id)"
+        v-for="(content, i) of td_contents"
+        :key="i"
+      >
+        <span>{{ content.bo_title }}</span>
+        <span
+          class="trade-content-status"
+          :class="content.bo_trade_status == '거래중' ? '_org' : '_gre'"
+          >{{ content.bo_trade_status }}
+        </span>
       </li>
     </ul>
     <p class="trade-no-content" v-else>거래 내역이 없습니다.</p>
@@ -22,7 +31,9 @@
 
 <script>
 import { toastErrorController } from '@/utils/toastController';
-import { getTradeData } from '@/api/post';
+import { EventBus } from '@/utils/bus';
+import { getTradeData, setPostView } from '@/api/post';
+import ItemPage from '@/views/ItemPage';
 
 export default {
   data() {
@@ -31,10 +42,35 @@ export default {
       bo_trade_value: 1,
     };
   },
+  created() {
+    EventBus.$on('set_past_trade', res => {
+      this.get_past_trade(1);
+    });
+  },
+  destroyed() {
+    EventBus.$off('set_past_trade');
+  },
   async mounted() {
     await this.get_past_trade(1);
   },
   methods: {
+    async openItemModal(bo_id) {
+      await setPostView(bo_id);
+      const us_id = this.$store.state.us_id;
+
+      let modal = await this.$ionic.modalController.create({
+        component: ItemPage,
+        cssClass: 'item-modal-css',
+        componentProps: {
+          propsData: {
+            bo_id,
+            us_id,
+          },
+        },
+      });
+
+      modal.present();
+    },
     async get_past_trade(trade_value) {
       this.bo_trade_value = trade_value;
       try {
@@ -42,6 +78,24 @@ export default {
           this.$store.state.us_id,
           trade_value,
         );
+        if (trade_value == 1) {
+          let str_val = '';
+          /*
+            bo_trade_status 0 => 판매
+            bo_trade_status 1 => 거래중
+          */
+          data.info.forEach(v => {
+            switch (v.bo_trade_status) {
+              case 0:
+                str_val = '거래중';
+                break;
+              case 1:
+                str_val = '거래완료';
+                break;
+            }
+            v.bo_trade_status = str_val;
+          });
+        }
         this.td_contents = data.info;
       } catch (err) {
         toastErrorController(this.$ionic, err);
@@ -51,70 +105,4 @@ export default {
 };
 </script>
 
-<style>
-.trade-menu {
-  display: flex;
-  justify-content: space-around;
-  /* flex-wrap: wrap; */
-  text-align: center;
-}
-
-.trade-menu > div {
-  /* flex-basis: 33%; */
-  width: 100%;
-  flex-shrink: 1;
-  padding: 15px;
-  /* border-bottom: 1px solid rgb(116, 116, 116); */
-}
-
-.trade-progress {
-  position: relative;
-  width: 33%;
-  border-bottom: 2px solid rgb(2, 129, 61);
-  transition: all 0.5s ease;
-}
-
-.trade-progress._1 {
-  left: 0px;
-}
-
-.trade-progress._2 {
-  left: 33%;
-}
-
-.trade-progress._3 {
-  left: 66%;
-}
-
-.trade-content {
-  text-indent: 0.5em;
-  margin-top: 0.2em;
-  font-weight: 700;
-  height: 100px;
-  max-height: 150px;
-  overflow-y: scroll;
-}
-
-.trade-content::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
-}
-
-.trade-no-content {
-  text-align: center;
-  margin: 1em auto;
-  background-color: rgb(87, 87, 87);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-.trade-content > li {
-  /* background-color: blue; */
-  padding: 10px;
-  border-bottom: 1px solid rgb(189, 189, 189);
-}
-
-.trade-content > li:hover {
-  background-color: rgba(255, 255, 255, 0.561);
-}
-</style>
+<style></style>

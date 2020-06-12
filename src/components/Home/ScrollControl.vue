@@ -5,7 +5,7 @@
     horizontal="end"
     slot="fixed"
   >
-    <ion-fab-button size="small" color="success">
+    <ion-fab-button size="small" color="dark">
       <ion-icon name="arrow-up"></ion-icon>
     </ion-fab-button>
   </ion-fab>

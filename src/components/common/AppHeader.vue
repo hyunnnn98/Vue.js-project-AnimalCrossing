@@ -1,5 +1,5 @@
 <template>
-  <div class="App-Header">
+  <div class="App-Header" :class="head_css ? head_css : null">
     <ion-icon name="arrow-back" @click="go_back"> </ion-icon>
     <p>{{ head_name }}</p>
   </div>
@@ -11,14 +11,15 @@ export default {
     head_name: {
       type: String,
     },
+    head_css: {
+      type: String,
+    },
   },
   methods: {
     go_back() {
       try {
-        console.log('여기로빠짐!1');
         this.$router.go(-1);
       } catch (error) {
-        console.log('여기로빠짐!2');
         this.$ionic.modalController.dismiss();
       }
     },
