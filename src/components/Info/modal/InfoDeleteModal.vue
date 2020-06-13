@@ -51,6 +51,7 @@ export default {
     };
   },
   methods: {
+    // 사용자 이메일 체크 이벤트
     async email_check(us_email) {
       try {
         const { data } = await emailCheck({
@@ -63,6 +64,7 @@ export default {
         toastErrorController(this.$ionic, err);
       }
     },
+    // 사용자 계정 삭제 처리 이벤트
     async delete_account() {
       if (this.access == false) return;
       try {
@@ -83,10 +85,6 @@ export default {
         toastErrorController(this.$ionic, err);
       }
     },
-    // delete_account(access) {
-    //   if (access == false) return;
-    //   this.delete_access = true;
-    // },
   },
 };
 </script>

@@ -12,7 +12,6 @@
           {{ item.bo_trade_status == 0 ? '거래가능' : '거래완료' }}
         </span>
         <span class="post-contents nick_name">{{ item.user.us_nickname }}</span>
-        <span class="post-contents rank">{{ item.user.us_grant }}</span>
         <span class="post-contents like">
           <img src="../../imgs/like.png" alt="좋아요" />{{ item.bo_like }}
         </span>
@@ -48,6 +47,7 @@ export default {
   props: ['item'],
 
   methods: {
+    // 아이템 상세보기 모달 open 이벤트
     async openModal(bo_id) {
       await setPostView(bo_id);
       const us_id = this.$store.state.us_id;

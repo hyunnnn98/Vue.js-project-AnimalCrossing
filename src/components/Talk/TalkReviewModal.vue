@@ -51,8 +51,8 @@ export default {
   },
   methods: {
     async update_review() {
-      //TODO 리뷰 평점 버튼 만들기.
       try {
+        // 거래 후기 작성
         const result = await createReview({
           us_id: this.us_id,
           ro_id: this.ch_ro_id,
@@ -70,7 +70,7 @@ export default {
       }
     },
     rate_up(number) {
-      console.log('number: ', number);
+      // 사용자 클릭에 따른 별 개수 변화.
       this.rv_rates = [0, 0, 0, 0, 0];
       this.rv_rate = 5;
       for (let i = 0; i < 5; i++) {

@@ -27,6 +27,7 @@ function dateFormat(now_date, date_info, type) {
   return result_date;
 }
 
+// 20XX년 0월 0일 replace
 function review_Format(re_createdAt) {
   const date = new Date(re_createdAt);
 

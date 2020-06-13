@@ -16,7 +16,6 @@ export default {
   methods: {
     scollToTop() {
       const tag = document.querySelector('.home-body');
-      console.log('최상단으로 이동!', tag);
       tag.scrollToTop(400);
     },
   },

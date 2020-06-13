@@ -33,9 +33,9 @@
               <img src="../../imgs/green_island.png" alt="그린섬" />
             </span>
             <span class="myinfo-islandTitle">
-              {{ us_info.us_islandname }}섬
+              {{ us_info.us_islandname }}
+              {{ us_info.us_island_selector == 0 ? '섬' : '도' }}
             </span>
-            <!-- <span class="myinfo-island"></span> -->
           </li>
           <li>
             <span class="myinfo-nickName">{{ us_info.us_nickname }}</span>
@@ -59,7 +59,8 @@
 <script>
 import store from '../../store/index';
 import InfoCodeModal from './modal/InfoCodeModal';
-import { toastErrorController } from '@/utils/toastController';
+import { EventBus } from '@/utils/bus';
+import { toastController, toastErrorController } from '@/utils/toastController';
 import { Plugins, CameraSource, CameraResultType } from '@capacitor/core';
 import { valideImageType, b64toBlob } from '@/utils/imgControl';
 const { Camera } = Plugins;
@@ -79,6 +80,15 @@ export default {
       uploadImageFile: null,
     };
   },
+  created() {
+    // 코드 변경 이벤트 결과처리
+    EventBus.$on('change_code', code => {
+      this.us_code = code.replace(/(\d{4})(\d{4})(\d{4})/, '$1 - $2 - $3');
+    });
+  },
+  beforeDestroy() {
+    EventBus.$off('change_code');
+  },
   async mounted() {
     if (this.us_id) {
       this.formData = new FormData();
@@ -92,12 +102,10 @@ export default {
   },
   methods: {
     async updateThumbnail() {
-      console.log('섬네일변경 요청!!');
       await this.handleFileUpload();
       await this.formData.append('img', this.blobs);
-      console.log(this.formData);
       try {
-        console.log('마지막 this.blobs: ', this.blobs);
+        // 썸네일 변경 비동기처리.
         const req = new XMLHttpRequest();
         req.open(
           'POST',
@@ -111,6 +119,7 @@ export default {
       }
       this.initForm();
     },
+    // 사용자로 부터 썸네일 이미지 받기 이벤트
     async handleFileUpload() {
       // DeviceInfo 보고 사용자 구분하기
       if (this.device_info != 'web') {
@@ -133,13 +142,16 @@ export default {
           let realData = block[1].split(',')[1]; // In this case "iVBORw0KGg...."
           let blob = b64toBlob(realData, contentType);
 
-          // 생성된 blob 객체 배열 저장
-          console.log('this.blobs: ', this.blobs);
           this.blobs = blob;
         } catch (err) {
-          console.log('err', err);
+          toastController(
+            this.$ionic,
+            '이미지 불러오는중 에러가 발생했습니다.\n 다시 시도해주세요.',
+            'danger',
+          );
         }
       } else {
+        // 유저.platform === 모바일
         const image = await this.$refs.uploadImageFile.files[0];
         if (!valideImageType(image)) return;
         let reader = new FileReader();
@@ -155,6 +167,7 @@ export default {
       this.blobs = null;
       this.uploadImageFile = null;
     },
+    // 코드 변경 모달 open 이벤트
     async updateCode() {
       let modal = await this.$ionic.modalController.create({
         component: InfoCodeModal,

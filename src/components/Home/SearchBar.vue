@@ -43,11 +43,13 @@ export default {
     },
   },
   methods: {
+    // 게시글 새로고침 이벤트
     refreshPost() {
       EventBus.$emit('refresh-post');
       const tag = document.querySelector('.home-body');
       tag.scrollToTop(400);
     },
+    // 게시글 검색 이벤트
     async getPostItem(key) {
       // console.log(key);
       try {
@@ -57,6 +59,7 @@ export default {
         toastErrorController(this.$ionic, err);
       }
     },
+    // 카테고리 선택 모달 open 이벤트
     async openCategoryModal() {
       let modal = await this.$ionic.modalController.create({
         component: CategoryModal,
@@ -72,6 +75,7 @@ export default {
 
       let selectRes = await modal.onDidDismiss();
     },
+    // 선택된 게시글 모달 open 이벤트
     async openItemModal(bo_id) {
       await setPostView(bo_id);
       const us_id = this.$store.state.us_id;

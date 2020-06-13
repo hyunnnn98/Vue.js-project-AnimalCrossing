@@ -11,9 +11,9 @@
         <ion-item class="content">
           <ion-label position="floating"><span>*</span> 상품명</ion-label>
           <ion-input
+            maxlength="20"
             :value="bo_title"
             @input="bo_title = $event.target.value"
-            clear-on-edit="true"
           ></ion-input>
         </ion-item>
       </li>
@@ -51,7 +51,8 @@
         <ion-item class="content">
           <ion-label position="floating"><span>*</span> 가격</ion-label>
           <ion-input
-            type="number"
+            type="text"
+            maxlength="5"
             :value="bo_cost"
             @input="bo_cost = $event.target.value"
             clear-on-edit="true"
@@ -59,7 +60,7 @@
           <transition name="fade">
             <span
               :key="0"
-              @click="change_cost(0)"
+              @click="bo_cost_selector = 0"
               v-if="bo_cost_selector"
               class="post_cost_selector"
             >
@@ -67,7 +68,7 @@
             </span>
             <span
               :key="1"
-              @click="change_cost(1)"
+              @click="bo_cost_selector = 1"
               v-else
               class="post_cost_selector"
             >
@@ -75,6 +76,11 @@
             </span>
           </transition>
         </ion-item>
+        <p class="validation-text">
+          <span class="warning" v-if="!isUserCostValid && bo_cost">
+            숫자만 입력 가능합니다.
+          </span>
+        </p>
       </li>
       <li>
         <div class="ani-btn success" @click="submit_post(bo_type)">
@@ -89,6 +95,7 @@
 import { EventBus } from '@/utils/bus';
 import { createPost, getDetailPost, updatePost } from '@/api/post';
 import { toastController, toastErrorController } from '@/utils/toastController';
+import { validateCost } from '@/utils/validation';
 
 export default {
   name: 'post-content',
@@ -106,20 +113,29 @@ export default {
       bo_btn: '작성 완료',
     };
   },
+  computed: {
+    isUserCostValid() {
+      return validateCost(this.bo_cost);
+    },
+  },
   async created() {
+    // 썸네일 변경 체크
     EventBus.$on('thumbnail_change', index_number => {
       console.log('바뀐 썸네일은?', index_number);
       this.bo_thumbnail = index_number;
     });
 
+    // 게시글 업데이트시 로딩
     EventBus.$on('post_update', bo_id => {
       this.post_control(bo_id);
     });
 
+    // 게시글 초기화
     EventBus.$on('post_init', res => {
       this.init_post();
     });
-    // 처음 마운트 될 경우 파람스 보고 게시글 초기화.
+
+    // 처음 마운트 될 경우 params 확인 후 게시글 초기화.
     this.post_control();
   },
   beforeDestroy() {
@@ -128,13 +144,30 @@ export default {
     EventBus.$off('thumbnail_change');
   },
   methods: {
-    change_cost(cost) {
-      this.bo_cost_selector = cost;
-    },
     async submit_post(bo_type) {
       if (this.$store.state.us_grant === -1) {
         let msg =
           '위험한 유저로 신고 처리되어, 거래 서비스 이용이 불가합니다. \n1:1 게시판을 이용해 신고내역을 확인해주세요.';
+        toastController(this.$ionic, msg, 'warning');
+        return;
+      } else if (!this.isUserCostValid) {
+        let msg = '가격을 확인해주세요.';
+        toastController(this.$ionic, msg, 'warning');
+        return;
+      } else if (this.bo_title.length > 20) {
+        let msg = '상품명은 최대 20자리 까지 가능합니다.';
+        toastController(this.$ionic, msg, 'warning');
+        return;
+      } else if (this.bo_content == '' || this.bo_title == '') {
+        let str;
+        this.bo_content == '' ? (str = '상품 설명') : (str = '상품명');
+        let msg = str + '을 입력해주세요.';
+        toastController(this.$ionic, msg, 'warning');
+        return;
+      } else if (this.bo_content == '' || this.bo_title == '') {
+        let str;
+        this.bo_content == '' ? (str = '상품 설명') : (str = '상품명');
+        let msg = str + '을 입력해주세요.';
         toastController(this.$ionic, msg, 'warning');
         return;
       }
@@ -166,9 +199,11 @@ export default {
             EventBus.$emit('refresh-post');
           }
           toastController(
+            this.$ionic,
             '등록완료 \n거래소에서 내가 쓴 글을 확인해보세요.',
             'success',
           );
+          EventBus.$emit('redirect_category');
           this.init_post();
           this.$router.push('/main');
         } catch (error) {}
@@ -188,13 +223,14 @@ export default {
       this.bo_id = null;
       this.bo_btn = '작성 완료';
     },
+    // 게시글 업데이트 => 데이터 로딩
     async post_control(bo_id) {
       let _id = await this.$route.params.id;
       if (_id == null && bo_id != null) _id = bo_id;
 
       if (_id != null) {
         console.log('_id가 null이 아닐경우');
-        getDetailPost(_id)
+        getDetailPost(_id, this.$store.state.us_id)
           .then(res => {
             EventBus.$emit('update_imgs', res.data.info.image);
             const data = res.data.info;
@@ -208,6 +244,7 @@ export default {
             this.bo_thumbnail = data.bo_thumbnail;
             this.bo_type = 'update';
             this.bo_btn = '수정 완료';
+            this.trade(data.bo_trade_value);
           })
           .catch(err => {
             this.$router.push('/post');
@@ -216,10 +253,8 @@ export default {
       } else {
         this.init_post();
       }
-
-      // console.log('_id가 null일경우!');
-      // this.init_post();
     },
+    // 카테고리 변경 이벤트
     trade(number) {
       console.log('클릭이벤트 발생!', number);
       this.bo_trade_value = number;

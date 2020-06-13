@@ -88,6 +88,5 @@ export default {
   margin-top: 2em;
   margin-right: 0.5em;
   float: right;
-  /* font-family: '뽀로로'; */
 }
 </style>

@@ -32,7 +32,9 @@
           ></ion-input>
         </ion-item>
       </li>
-      <li v-if="message" class="warning">{{ message }}</li>
+      <li v-if="message" class="validation-text">
+        <span class="validation-text">{{ message }}</span>
+      </li>
       <li>
         <div @click="submitForm" class="ani-btn success">로그인</div>
       </li>
@@ -97,40 +99,13 @@ export default {
         }
       } catch (err) {
         this.message = err.response.data.message;
+        setTimeout(() => {
+          this.message = '';
+        }, 2000);
       }
     },
   },
 };
 </script>
 
-<style>
-.login-label > img {
-  width: 20px;
-}
-
-.login-item {
-  --background: rgba(255, 255, 255, 0) !important;
-}
-
-.login-label {
-  --background: rgba(255, 255, 255, 0) !important;
-}
-
-.login-input {
-  letter-spacing: 0.9px;
-  --padding-bottom: 0px;
-  margin-left: -95px;
-}
-
-.login_footer {
-  margin-right: 1em;
-  float: right;
-  font-size: 14px;
-  font-family: '뽀로로';
-  color: #7e693a;
-}
-
-.login_footer > span {
-  margin-left: 20px;
-}
-</style>
+<style></style>

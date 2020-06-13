@@ -176,3 +176,10 @@ Animalcross Vue 소스 코드입니다.
 1. MainPage SearchBar 게시글 클릭 기능 추가.
 2. 게시글 판매중 / 판매완료 수정버튼 추가.
 ```
+
+### 2020.06.13 ~ 13
+```
+* [UPDATE]
+1. validation 추가.
+2. console.log 걷어내기 + 주석달기.
+```

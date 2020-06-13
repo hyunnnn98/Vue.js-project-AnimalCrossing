@@ -1,3 +1,4 @@
+// base64 이미지 => Blob 변경
 function b64toBlob(b64Data, contentType, sliceSize) {
   // console.log('b64Data', b64Data);
   contentType = contentType || '';
@@ -23,6 +24,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
   return blob;
 }
 
+// 이미지 타입 검사
 function valideImageType(image) {
   const result =
     ['image/jpeg', 'image/png', 'image/jpg'].indexOf(image.type) > -1;

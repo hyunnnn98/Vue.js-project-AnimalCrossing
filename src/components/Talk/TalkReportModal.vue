@@ -46,7 +46,6 @@ export default {
       this.$ionic.modalController.dismiss();
     },
     submit_post() {
-      //TODO 토스트메세지 통한 벨리데이션 검사필요.
       if (this.bl_content == '')
         return toastController(this.$ionic, '내용을 입력해주세요.', 'danger');
       else if (this.bl_content.length < 20)
@@ -55,7 +54,7 @@ export default {
           '20글자 이상 자세한 내용을 적어주세요',
           'warning',
         );
-      console.log('클릭!');
+      // 벨리데이션 통과 => 서버로 신고 접수
       store.state.socket.emit(
         'set_blacklist',
         this.us_id,

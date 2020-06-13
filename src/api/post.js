@@ -25,11 +25,6 @@ function updatePost(post_data) {
   return afterAuth.post('/board/bo_update', post_data);
 }
 
-//TODO 인기 카테고리 가져오기
-// function getPopCategory() {
-//   return afterAuth.get('/get_category');
-// }
-
 // 카테고리 가져오기
 function getCategory() {
   return afterAuth.post('/get_category');

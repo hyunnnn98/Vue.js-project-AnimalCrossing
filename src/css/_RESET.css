@@ -58,8 +58,8 @@ ion-item {
 
 .ionic_toast {
   --border-radius : 10px;
-  --width : 100%;
-  --max-width	: 450px;
+  --width : 90%;
+  --max-width	: 500px;
   text-align: center;
 }
 
@@ -75,6 +75,14 @@ ion-item {
 .backUrl.left {
   right: 0px;
   left: 20px;
+}
+
+.validation-text {
+  color: red;
+}
+
+.validation-text span {
+  font-size: 0.8em;
 }
 
 .clear {clear:both;}

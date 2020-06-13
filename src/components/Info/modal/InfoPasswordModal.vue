@@ -23,6 +23,11 @@
           clear-on-edit="true"
         ></ion-input>
       </ion-item>
+      <p class="validation-text">
+        <span class="warning" v-if="!isUserPasswordValid && new_us_password">
+          비밀번호 길이는 최소 6자리 ~ 최대 16자리까지 가능합니다.
+        </span>
+      </p>
     </ion-content>
     <div class="ani-btn sky" @click="update_password()">변경완료</div>
   </div>
@@ -34,6 +39,7 @@ import store from '@/store/index';
 import router from '@/router/index';
 import { updatePassword } from '@/api/auth';
 import { toastController, toastErrorController } from '@/utils/toastController';
+import { validatePassword } from '@/utils/validation';
 
 export default {
   props: ['us_id'],
@@ -42,12 +48,19 @@ export default {
   },
   data() {
     return {
-      title: '비밀번호 변경하기',
+      title: '비밀번호 변경',
       us_password: '',
       new_us_password: '',
     };
   },
+  computed: {
+    isUserPasswordValid() {
+      return validatePassword(this.new_us_password);
+    },
+  },
+
   methods: {
+    // 비밀번호 변경 이벤트
     async update_password() {
       if (this.us_password == '' || this.new_us_password == '') {
         return toastController(

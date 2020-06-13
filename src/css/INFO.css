@@ -100,7 +100,6 @@
 }
 
 .myinfo-islandTitle, .myinfo-nickName .myinfo-code {
-  /* font-size: 1.1em; */
   font-weight: 900;
 }
 
@@ -114,16 +113,13 @@
 .trade-menu {
   display: flex;
   justify-content: space-around;
-  /* flex-wrap: wrap; */
   text-align: center;
 }
 
 .trade-menu > div {
-  /* flex-basis: 33%; */
   width: 100%;
   flex-shrink: 1;
   padding: 15px;
-  /* border-bottom: 1px solid rgb(116, 116, 116); */
 }
 
 .trade-progress {
@@ -168,13 +164,13 @@
 }
 
 .trade-content > li {
-  /* background-color: blue; */
   padding: 10px;
   border-bottom: 1px solid rgb(189, 189, 189);
+  cursor: pointer;
 }
 
 .trade-content > li:hover {
-  background-color: rgba(255, 255, 255, 0.561);
+  background-color: rgba(219, 219, 219, 0.561);
 }
 
 .trade-content-status {
@@ -212,9 +208,19 @@
 }
 
 .info-date {
-  /* text-align: right; */
   float: right;
   font-weight: 700;
+}
+
+.talk-nodata {
+  margin-top: 0.5em;
+  padding: 10px;
+}
+
+.talk-nodata > img {
+  position: relative;
+  top: -2px;
+  width: 15px;
 }
 
 /* InfoMenu CSS */
@@ -225,13 +231,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: space-around; */
   padding: 20px 0px;
   width: 100%;
+  cursor: pointer;
 }
 
 .myMenu > div {
-  width: 98%;
+  width: 95%;
   font-weight: 900;
   text-align: center;
   background-color: #5cc2b8;
@@ -239,6 +245,10 @@
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 1em;
+}
+
+.myMenu > div:hover {
+  background-color: #47afa5;
 }
 
 /* InfoReportModal CSS */

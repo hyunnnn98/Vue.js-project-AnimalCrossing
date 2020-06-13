@@ -11,6 +11,11 @@ const routes = [
     redirect: '/main',
   },
   {
+    path: '/update',
+    name: 'update',
+    component: () => import('@/views/UpdatePage.vue'),
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/LoginPage.vue'),

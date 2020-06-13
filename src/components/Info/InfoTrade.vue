@@ -1,14 +1,13 @@
 <template>
   <div class="myTrade info-bcg">
-    <!-- <div>내 거래 이력 보기</div> -->
     <div class="trade-menu">
-      <div @click="get_past_trade(1)" class="trade-sell">
-        판매
+      <div @click="get_past_trade(1)">
+        내 게시글
       </div>
-      <div @click="get_past_trade(2)" class="trade-buy">
+      <div @click="get_past_trade(2)">
         구매
       </div>
-      <div @click="get_past_trade(3)" class="trade-trd">교환</div>
+      <div @click="get_past_trade(3)">교환</div>
     </div>
     <p :class="`_${bo_trade_value}`" class="trade-progress"></p>
     <ul v-if="td_contents != ''" class="trade-content">
@@ -43,6 +42,7 @@ export default {
     };
   },
   created() {
+    // 내 게시글 전체보기 선택 이벤트
     EventBus.$on('set_past_trade', res => {
       this.get_past_trade(1);
     });
@@ -54,6 +54,7 @@ export default {
     await this.get_past_trade(1);
   },
   methods: {
+    // 선택된 게시글 모달 open 이벤트
     async openItemModal(bo_id) {
       await setPostView(bo_id);
       const us_id = this.$store.state.us_id;

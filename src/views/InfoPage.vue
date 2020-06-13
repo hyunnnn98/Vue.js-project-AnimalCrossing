@@ -2,8 +2,11 @@
   <ion-content class="info">
     <div class="info-page">
       <AppHeader :head_name="title"></AppHeader>
+      <span class="item-info">내정보</span>
       <InfoContent :us_info="us_info" :us_id="us_id"></InfoContent>
+      <span class="item-info">거래내역</span>
       <InfoTrade></InfoTrade>
+      <span class="item-info">후기정보</span>
       <InfoReview :us_id="us_id"></InfoReview>
       <InfoMenu></InfoMenu>
     </div>

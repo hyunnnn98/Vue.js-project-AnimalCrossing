@@ -25,6 +25,7 @@ export default {
     },
   },
   methods: {
+    // 채팅방 입장
     join_room() {
       if (this.$store.state.us_grant === -1) {
         let msg =

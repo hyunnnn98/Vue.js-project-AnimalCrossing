@@ -120,7 +120,6 @@ export default {
       this.ro_exit = res.ro_exit;
 
       if (this.other_us_grant === -1) {
-        console.log('여기!');
         this.us_input_value = '2차 사기로 확산방지로 채팅을 제한합니다.';
         toastController(
           this.$ionic,
@@ -128,6 +127,8 @@ export default {
           'danger',
         );
       }
+
+      // 사용자 구별
       if (res.chat[0].ch_send_us_id != this.us_id) this.access = true;
       const new_date = new Date();
       res.chat.forEach(v => {
@@ -184,8 +185,8 @@ export default {
 
       this.us_input_value = '';
     },
+    // 거래 관련 알림 전송 컨트롤
     trade_access() {
-      // 거래 관련 알림 전송 컨트롤
       let status = this.ro_trade_status;
       console.log(this.ro_trade_status);
       if (this.access == false && status === 4) {
@@ -193,14 +194,10 @@ export default {
         return this.review_modal();
       }
 
-      console.log('클릭!');
       let buyer_check = this.access == false && status != 4;
       let seller_check = this.access == true && (status == 0 || status == 2);
 
-      console.log('buyer_check: ', buyer_check);
-      console.log('seller_check: ', seller_check);
       if (buyer_check || seller_check) {
-        console.log('들어왔음!');
         this.$store.state.socket.emit(
           'request_trade_access',
           this.us_id,
@@ -208,15 +205,17 @@ export default {
         );
       }
     },
+    // 하단 스크롤
     scroll_to_bottom(time) {
       const tag = document.querySelector('.talk-scroll');
-      console.log('하단으로 이동!', tag);
       tag.scrollToBottom(time);
     },
+    // 채팅방 나가기
     talk_out() {
       this.$store.state.socket.emit('delete_room', this.us_id, this.ch_ro_id);
       this.$router.push('/talk');
     },
+    // 신고 모달
     async report_modal() {
       let modal = await this.$ionic.modalController.create({
         component: TalkReportModal,
@@ -230,6 +229,7 @@ export default {
       });
       modal.present();
     },
+    // 리뷰 모달
     async review_modal() {
       let modal = await this.$ionic.modalController.create({
         component: TalkReviewModal,

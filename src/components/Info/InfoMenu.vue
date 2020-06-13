@@ -19,6 +19,7 @@ import InfoDeleteModal from './modal/InfoDeleteModal';
 
 export default {
   methods: {
+    // 로그아웃 처리
     async logout_submit() {
       const data = { us_id: this.$store.state.us_id };
       const logout_info = await logOut(data);
@@ -27,6 +28,7 @@ export default {
         this.$router.push('/login');
       }
     },
+    // 1 : 1 문의하기 모달 open 이벤트
     async reportCreate_modal() {
       let modal = await this.$ionic.modalController.create({
         component: InfoReportModal,
@@ -39,6 +41,7 @@ export default {
       });
       modal.present();
     },
+    // 1 : 1 문의 게시판 모달 open 이벤트
     async reportList_modal() {
       let modal = await this.$ionic.modalController.create({
         component: InfoReportListModal,
@@ -51,6 +54,7 @@ export default {
       });
       modal.present();
     },
+    // 비밀번호 변경 모달 open 이벤트
     async password_modal() {
       let modal = await this.$ionic.modalController.create({
         component: InfoPasswordModal,
@@ -63,6 +67,7 @@ export default {
       });
       modal.present();
     },
+    // 계정삭제 모달 open 이벤트
     async delete_account() {
       let modal = await this.$ionic.modalController.create({
         component: InfoDeleteModal,
@@ -75,6 +80,7 @@ export default {
       });
       modal.present();
     },
+    // 공지사항 모달 open 이벤트
     async notice_modal() {
       let modal = await this.$ionic.modalController.create({
         component: InfoNoticeModal,

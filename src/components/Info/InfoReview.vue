@@ -1,20 +1,26 @@
 <template>
   <ul class="myReview info-bcg">
-    <li class="talk-box" v-for="(review, i) of review_info" :key="i">
-      <div class="talk-avater">
-        <img :src="`${review.user.us_thumbnail}`" alt="썸네일" />
-      </div>
-      <div class="talk-content">
-        <p class="talk-title">{{ review.user.us_nickname }}</p>
-        <p class="info-review">{{ review.rv_content }}</p>
-        <div class="talk-sub">
-          <p v-for="rate of review.rv_rates" class="info-rate" :key="rate">
-            <img v-if="rate == 0" src="../../imgs/star_on.png" alt="" />
-            <img v-else src="../../imgs/star_off.png" alt="" />
-          </p>
-          <p class="info-date">{{ review.createdAt }}</p>
+    <template v-if="review_info != ''">
+      <li class="talk-box" v-for="(review, i) of review_info" :key="i">
+        <div class="talk-avater">
+          <img :src="`${review.user.us_thumbnail}`" alt="썸네일" />
         </div>
-      </div>
+        <div class="talk-content">
+          <p class="talk-title">{{ review.user.us_nickname }}</p>
+          <p class="info-review">{{ review.rv_content }}</p>
+          <div class="talk-sub">
+            <p v-for="rate of review.rv_rates" class="info-rate" :key="rate">
+              <img v-if="rate == 0" src="../../imgs/star_on.png" alt="" />
+              <img v-else src="../../imgs/star_off.png" alt="" />
+            </p>
+            <p class="info-date">{{ review.createdAt }}</p>
+          </div>
+        </div>
+      </li>
+    </template>
+    <li class="talk-nodata" v-else>
+      <img src="../../imgs/star_on.png" alt="" />
+      거래 후기가 없습니다.
     </li>
   </ul>
 </template>
@@ -32,9 +38,9 @@ export default {
     };
   },
   async mounted() {
+    // 리뷰 데이터 불러오기 이벤트
     try {
       const { data } = await getReview(this.us_id);
-      console.log(data);
       let rv_rates;
       await data.info.forEach(v => {
         v.createdAt = review_Format(v.createdAt);
@@ -44,7 +50,6 @@ export default {
         }
         v.rv_rates = rv_rates;
       });
-      console.log('반환된 데이터', data);
 
       this.review_info = data.info;
     } catch (err) {

@@ -189,7 +189,6 @@ input[type='file'] {
   border: 0;
 }
 
-/*TODO 삭제 관련 CSS 수정해야 함. */
 .delete-picture {
   position: relative;
   background-color: rgb(179, 13, 13);

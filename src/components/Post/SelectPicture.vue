@@ -10,8 +10,12 @@
       />
     </li>
     <li v-else @click="handleFileUpload"></li>
-    <li @click="submit_thumbnail(i)" v-for="(picture, i) in imageUrl" :key="i">
-      <img class="post-imgs" :src="imageUrl[i] ? imageUrl[i] : null" />
+    <li v-for="(picture, i) in imageUrl" :key="i">
+      <img
+        @click="submit_thumbnail(i)"
+        class="post-imgs"
+        :src="imageUrl[i] ? imageUrl[i] : null"
+      />
       <span class="delete-picture" @click="deleteUrl(i)">삭제</span>
     </li>
   </ul>
@@ -35,23 +39,28 @@ export default {
       blobs: [],
       formData: null,
       device_info: null,
+      thumbnail_index: 6,
     };
   },
   async mounted() {
     this.formData = new FormData();
+    // 플랫폼 확인
     const { platform } = await Device.getInfo();
     this.device_info = platform;
   },
   created() {
+    // 이미지 전송 요청
     EventBus.$on('send_imgs', async bo_id => {
       await this.image_submit(bo_id);
       this.init_post();
     });
 
+    // 게시글 input 초기화
     EventBus.$on('post_init', res => {
       this.init_post();
     });
 
+    // 게시글 업데이트 이미지 로딩
     EventBus.$on('update_imgs', async imgs => {
       console.log('이미지 버스 도착!');
       this.imageUrl = [];
@@ -68,6 +77,7 @@ export default {
     EventBus.$off('post_init');
   },
   methods: {
+    // 사용자로부터 이미지 업로드 요청
     async handleFileUpload() {
       if (this.imageUrl.length == 5)
         return toastController(
@@ -114,6 +124,10 @@ export default {
         reader.readAsDataURL(image);
         this.blobs.push(image);
       }
+      if (this.imageUrl.length == 0) {
+        EventBus.$emit('thumbnail_change', 1);
+        this.thumbnail_index = 1;
+      }
     },
     async image_submit(bo_id) {
       await this.blobs.forEach((item, index) => {
@@ -130,15 +144,25 @@ export default {
         toastErrorController(this.$ionic, err);
       }
     },
+    // 이미지 삭제
     deleteUrl(index_number) {
       this.imageUrl.splice(index_number, 1);
       this.blobs.splice(index_number, 1);
+      if (this.imageUrl.length == 0) {
+        EventBus.$emit('thumbnail_change', 6);
+      } else if (this.thumbnail_index == index_number + 1) {
+        if (index_number != 0) this.thumbnail_color(index_number - 1);
+        this.thumbnail_index = index_number;
+        EventBus.$emit('thumbnail_change', index_number);
+      }
     },
+    // 게시글 초기화
     init_post() {
       this.imageUrl = [];
       this.blobs = [];
       this.formData = new FormData();
     },
+    // b64 to datablob
     async toDataUrl(url, array, b64toBlob) {
       axios
         .get(url, {
@@ -162,17 +186,23 @@ export default {
         });
     },
     submit_thumbnail(index_number) {
-      console.log(index_number);
-      if (this.imageUrl.length == 0) EventBus.$emit('thumbnail_change', 5);
-      else EventBus.$emit('thumbnail_change', index_number);
-      // const all_of_li = document.querySelector(
-      //   `.post-Picture li:nth-child(2n+1)`,
-      // );
-      // const selected_li = document.querySelector(
-      //   `.post-Picture > li:nth-child(n + ${index_number})`,
-      // );
-      // all_of_li.style.border = '2px solid rgb(66, 66, 66)';
-      // selected_li.style.border = '2px solid rgb(236, 75, 0)';
+      console.log('섬네일 변경 요청 들어옴!');
+      EventBus.$emit('thumbnail_change', index_number + 1);
+      this.thumbnail_color(index_number);
+      this.thumbnail_index = index_number + 1;
+    },
+    // 썸네일 클릭시 컬러 변경
+    thumbnail_color(index_number) {
+      const all_of_li = document.querySelectorAll(
+        `.post-Picture li:nth-child(n+2)`,
+      );
+      all_of_li.forEach(v => {
+        v.style.border = '2px solid rgb(66, 66, 66)';
+      });
+      const selected_li = document.querySelector(
+        `.post-Picture > li:nth-child(${index_number + 2})`,
+      );
+      selected_li.style.border = '2px solid rgb(236, 75, 0)';
     },
   },
 };

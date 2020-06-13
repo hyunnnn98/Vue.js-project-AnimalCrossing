@@ -3,7 +3,7 @@
     <ModalHeader :modal_title="title"></ModalHeader>
 
     <ion-content class="ion-padding qu-body">
-      <ul class="qu-list">
+      <ul v-if="no_lists != ''" class="qu-list">
         <li v-for="(list, index) of no_lists" :key="index">
           <div class="qu-title" @click="change_view(index)">
             <span class="qu-co">
@@ -14,6 +14,7 @@
           <div style="display:none;" class="qu-content"></div>
         </li>
       </ul>
+      <p v-else>공지사항이 없습니다.</p>
     </ion-content>
   </div>
 </template>
@@ -40,6 +41,7 @@ export default {
   },
   async mounted() {
     try {
+      // 공지사항 로딩 이벤트
       const { data } = await getNotice();
       this.no_lists = data.info;
       console.log(data);

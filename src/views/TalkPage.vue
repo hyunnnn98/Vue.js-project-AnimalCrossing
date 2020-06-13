@@ -35,9 +35,16 @@ export default {
   },
   async created() {
     await this.$store.state.socket.on('get_chat_data', async data => {
-      console.log('[Talk] 받은 룸 데이터: ', data);
+      // [Talk] 받은 룸 데이터
       const new_date = new Date();
       data.forEach(async v => {
+        if (v.user == null) {
+          v.user = {
+            us_nickname: '이름 없음',
+            us_thumbnail:
+              'https://deac-project.s3.ap-northeast-2.amazonaws.com/web-source/ghost_user.png',
+          };
+        }
         let return_date = dateFormat(new_date, v.createdAt, 'chat');
         v.createdAt = return_date;
         // 내용 길이 제한.
@@ -58,7 +65,6 @@ export default {
       'get_chat_data',
       this.$store.state.us_id,
     );
-    console.log('TALK 데이터 요청 보내기!');
   },
 };
 </script>

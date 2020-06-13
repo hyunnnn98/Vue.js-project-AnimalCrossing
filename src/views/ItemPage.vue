@@ -41,8 +41,8 @@ export default {
     };
   },
   created() {
+    // 좋아요 / 싫어요 변경
     EventBus.$on('get_LikeHate', res => {
-      console.log('이벤트 버스로 받은 데이터 :', res);
       console.log('getData: ', this.bo_data);
       this.bo_data.info.bo_like = res.info.data.bo_like;
       this.bo_data.info.bo_hate = res.info.data.bo_hate;
@@ -53,8 +53,10 @@ export default {
     EventBus.$off('get_LikeHate');
   },
   async mounted() {
+    // 상세 게시글 데이터 가져오기
     const { data } = await getDetailPost(this.bo_id, this.us_id);
     console.log(data);
+    // 상세 게시글 데이터 날짜 validate
     const new_date = new Date();
     let return_date = dateFormat(new_date, data.info.createdAt);
     data.info.createdAt = return_date;

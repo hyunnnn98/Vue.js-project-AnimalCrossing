@@ -38,12 +38,8 @@ export default {
       type: Array,
     },
   },
-  created() {
-    EventBus.$on('category_list', category => {
-      console.log('이벤트버스로 받은 카테고리:', category);
-    });
-  },
   methods: {
+    // 카테고리 메뉴 선택 이벤트
     selectMenu(menu) {
       console.log(menu);
       this.select = menu;

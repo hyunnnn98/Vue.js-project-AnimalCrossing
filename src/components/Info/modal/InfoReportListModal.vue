@@ -3,24 +3,7 @@
     <ModalHeader :modal_title="title"></ModalHeader>
 
     <ion-content class="ion-padding qu-body">
-      <ion-item>
-        <ion-label><span>*</span> 문의유형</ion-label>
-        <ion-select
-          interface="popover"
-          placeholder="선택"
-          :value="re_category"
-          @ionChange="re_category = $event.target.value"
-        >
-          <ion-select-option value="회원정보">회원정보</ion-select-option>
-          <ion-select-option value="계정정지">계정정지</ion-select-option>
-          <ion-select-option value="거래">거래</ion-select-option>
-          <ion-select-option value="개발자 피드백">
-            개발자 피드백
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <ul class="qu-list">
+      <ul v-if="re_lists != ''" class="qu-list">
         <li v-for="(list, index) of re_lists" :key="index">
           <div class="qu-title" @click="change_view(index)">
             <span :class="list.re_status == 0 ? 'qu-ye' : 'qu-co'">
@@ -36,6 +19,7 @@
           </div>
         </li>
       </ul>
+      <p v-else>1 : 1 문의내역이 없습니다.</p>
     </ion-content>
   </div>
 </template>
@@ -53,7 +37,7 @@ export default {
   },
   data() {
     return {
-      title: '1 : 1 문의내역',
+      title: '문의내역',
       re_title: null,
       re_content: null,
       re_category: null,
@@ -63,16 +47,15 @@ export default {
   },
   async mounted() {
     try {
+      // 1 : 1 문의내용 로딩 이벤트
       const { data } = await getReport(store.state.us_id);
       this.re_lists = data.info;
-      console.log(data.info);
     } catch (err) {
       toastErrorController(this.$ionic, err);
     }
   },
   methods: {
     change_view(_id) {
-      console.log(_id);
       this.click_view = _id;
     },
   },

@@ -63,31 +63,37 @@ export default {
       : (this.pi_show = '비공개');
   },
   methods: {
+    // 채팅하기 => 기존 채팅방으로 이동
     join_room() {
       this.$ionic.modalController.dismiss();
       console.log('test1', this.item_data);
       router.push(`/talk/${this.item_data.ch_ro_id}`);
     },
+    // 거래하기 => 새로운 채팅방 생성 이벤트
     async create_room() {
+      // 사용자가 신고 처리중인 경우 리턴.
       if (store.state.us_grant === -1) {
         let msg =
           '위험한 유저로 신고 처리되어, 거래 서비스 이용이 불가합니다. \n1:1 게시판을 이용해 신고내역을 확인해주세요.';
         toastController(this.$ionic, msg, 'warning');
         return;
       }
-
+      // 소켓연결 확인
       await store.commit('setSocket');
+      // 채팅방 생성
       await store.state.socket.emit(
         'create_room',
         parseInt(this.us_id),
         parseInt(this.item_data.bo_id),
       );
+      // 생성된 채팅방으로 이동
       store.state.socket.on('create_room', async res => {
         console.log('res: ', res);
         await this.$ionic.modalController.dismiss();
         router.push(`/talk/${res}`);
       });
     },
+    // 좋아요 / 싫어요 반환 이벤트
     async busLikeHate(selectedVal) {
       const { data } = await setLikeHate(
         this.us_id,
@@ -96,16 +102,7 @@ export default {
       );
       EventBus.$emit('get_LikeHate', data);
     },
-    async post_delete() {
-      try {
-        const result = await deletePost(this.item_data.bo_id, this.us_id);
-        toastController(this.$ionic, '게시물이 삭제되었습니다!', 'success');
-        await this.$ionic.modalController.dismiss();
-        EventBus.$emit('refresh-post');
-      } catch (err) {
-        toastErrorController(this.$ionic, err);
-      }
-    },
+    // 공개 / 비공개 처리 이벤트
     async post_show() {
       this.pi_show == '공개'
         ? (this.pi_show = '비공개')
@@ -119,11 +116,24 @@ export default {
         toastErrorController(this.$ionic, err);
       }
     },
+    // 게시글 삭제 이벤트
+    async post_delete() {
+      try {
+        const result = await deletePost(this.item_data.bo_id, this.us_id);
+        toastController(this.$ionic, '게시물이 삭제되었습니다!', 'success');
+        await this.$ionic.modalController.dismiss();
+        EventBus.$emit('refresh-post');
+      } catch (err) {
+        toastErrorController(this.$ionic, err);
+      }
+    },
+    // 게시글 수정 이벤트
     post_edit() {
       EventBus.$emit('post_update', this.item_data.bo_id);
       router.push(`/post/${this.item_data.bo_id}`);
       this.$ionic.modalController.dismiss();
     },
+    // 거래완료 상태처리 이벤트
     async post_end() {
       try {
         console.log(this.item_data.bo_id, this.item_data.bo_trade_status);

@@ -45,11 +45,6 @@
           >
             {{ list.bl_bo_title }}
           </ion-select-option>
-          <!-- <ion-select-option value="1">
-            너구리 싸게 판매합니다
-          </ion-select-option>
-          <ion-select-option value="2">무료나눔해요</ion-select-option>
-          <ion-select-option value="3">빠른 거래 해요!!</ion-select-option> -->
         </ion-select>
       </ion-item>
       <ion-textarea
@@ -69,7 +64,7 @@
 import store from '@/store/index';
 import ModalHeader from '@/components/common/ModalHeader';
 import { createReport, getBlacklist } from '@/api/report';
-import { toastErrorController } from '@/utils/toastController';
+import { toastController, toastErrorController } from '@/utils/toastController';
 
 export default {
   props: ['us_id'],
@@ -79,21 +74,27 @@ export default {
   data() {
     return {
       title: '1 : 1 문의',
-      re_title: null,
-      re_content: null,
+      re_title: '',
+      re_content: '',
       re_category: null,
       re_bl_id: null,
       re_bl_lists: null,
     };
   },
   async mounted() {
-    console.log(this.us_id);
+    // 유저 => 블랙리스트 회원 검사 이벤트
     const { data } = await getBlacklist(this.us_id);
     this.re_bl_lists = data.info;
-    console.log(this.re_bl_lists);
   },
   methods: {
+    // 1 : 1 문의 전송 이벤트
     async submit_post() {
+      if (this.re_title == '' || this.re_content == '') {
+        let str = '';
+        this.re_title == '' ? (str = '제목') : (str = '문의내용');
+        return toastController(this.$ionic, str + '을 입력해주세요.', 'danger');
+      }
+
       const data = {
         re_us_id: this.us_id,
         re_title: this.re_title,
@@ -101,7 +102,6 @@ export default {
         re_category: this.re_category,
       };
       if (this.re_category == '계정정지') data.re_bl_id = this.re_bl_id;
-      console.log('getData: ', data);
       try {
         await createReport(data);
         this.$ionic.modalController.dismiss();
