@@ -9,7 +9,7 @@
           <p class="talk-title">{{ review.user.us_nickname }}</p>
           <p class="info-review">{{ review.rv_content }}</p>
           <div class="talk-sub">
-            <p v-for="rate of review.rv_rates" class="info-rate" :key="rate">
+            <p v-for="(rate, i) of review.rv_rates" class="info-rate" :key="i">
               <img v-if="rate == 0" src="../../imgs/star_on.png" alt="" />
               <img v-else src="../../imgs/star_off.png" alt="" />
             </p>

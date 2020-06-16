@@ -9,6 +9,9 @@
           :key="index"
         ></TalkBox>
       </ul>
+      <p class="talk-wrap" v-else>
+        거래중인 채팅방이 없습니다!
+      </p>
     </div>
   </ion-content>
 </template>
@@ -42,7 +45,7 @@ export default {
           v.user = {
             us_nickname: '이름 없음',
             us_thumbnail:
-              'https://deac-project.s3.ap-northeast-2.amazonaws.com/web-source/ghost_user.png',
+              'https://web-source-animalcro-project.s3.ap-northeast-2.amazonaws.com/thumbnail/basic/ghost.png',
           };
         }
         let return_date = dateFormat(new_date, v.createdAt, 'chat');

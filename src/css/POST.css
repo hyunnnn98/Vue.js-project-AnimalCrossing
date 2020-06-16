@@ -26,6 +26,11 @@
   margin-top: 2em;
 }
 
+/* ion-select 버그 수정 */
+.action-sheet-group {
+  z-index: 100;
+}
+
 .content {
   border: 0px;
   border-radius: 0px;

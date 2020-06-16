@@ -27,20 +27,31 @@
   display: none; /* Chrome, Safari, Opera*/
 }
 
-
 .itme-ad {
   display: block;
   width: 100%;
   color: white;
   text-align: center;
-  background-color: #558bee;
+  font-size: 2em;
+  background-color: #85623abb;
+  border-radius: 3px;
   margin: 5px 3px;
-  padding: 10px;
+  /* padding: 10px; */
 }
 
-.item-container > li:nth-last-child(2) {
-  border-radius: 8px;
+.itme-ad ion-icon {
+  position: relative;
+  top: 4px;
+  transition-duration: 0.3s;
 }
+
+.itme-ad:hover ion-icon {
+  top: 6px;
+}
+
+/* .item-container > li:nth-last-child(2) {
+  border-radius: 8px;
+} */
 
 /* SearchBar CSS */
 .searchInput {
@@ -50,9 +61,10 @@
   z-index: 10000;
 }
 
-.searchInput input[type='text'] {
+.searchInput input[type="text"] {
   text-indent: 50px;
   font-weight: 700;
+  padding: 0px !important;
 }
 
 .refresh {
@@ -62,7 +74,7 @@
   height: 32px;
   width: 32px;
   color: white;
-  background-image: url('../imgs/refresh.png');
+  background-image: url("../imgs/refresh.png");
   background-size: contain;
   cursor: pointer;
   z-index: 20000;
@@ -102,11 +114,11 @@
 /* NotiveTabs CSS */
 .Notice {
   border-bottom: 1px solid #e0e0e0;
-  background-image: url('../imgs/logo.jpg');
+  background-image: url("../imgs/notice_1.png");
   background-size: cover;
   background-repeat: no-repeat;
   margin-top: 2em;
-  height: 200px;
+  height: 230px;
 }
 
 /* CategoryModal CSS */
@@ -122,7 +134,7 @@
 
 .category-body {
   --color: #707070;
-  --background: url('../imgs/modal_bcg.png');
+  --background: url("../imgs/modal_bcg.png");
   --padding: 0px;
 }
 
@@ -163,34 +175,33 @@
   font-size: 14px;
 }
 
-
 .category-ul > li:nth-child(1) > p {
-  background-image: url('../imgs/입양.png');
+  background-image: url("../imgs/입양.png");
   background-color: #a3d97a;
 }
 
 .category-ul > li:nth-child(2) > p {
   background-color: #ffb8d0;
-  background-image: url('../imgs/무주식.png');
+  background-image: url("../imgs/무주식.png");
 }
 
 .category-ul > li:nth-child(3) > p {
-  background-image: url('../imgs/아이템.png');
+  background-image: url("../imgs/아이템.png");
   background-color: #7ad9d6;
 }
 
 .category-ul > li:nth-child(4) > p {
-  background-image: url('../imgs/만지작.png');
+  background-image: url("../imgs/만지작.png");
   background-color: #d9947a;
 }
 
 .category-ul > li:nth-child(5) > p {
-  background-image: url('../imgs/알바.png');
+  background-image: url("../imgs/알바.png");
   background-color: #897ad9;
 }
 
 .category-ul > li:nth-child(6) > p {
-  background-image: url('../imgs/무료나눔.png');
+  background-image: url("../imgs/무료나눔.png");
   background-color: #5fd48a;
 }
 
@@ -207,4 +218,11 @@
 .category-modal-css {
   --width: 100% !important;
   --height: 100% !important;
+}
+
+@media (min-width: 710px) {
+  /* NotiveTabs CSS */
+  .Notice {
+    background-image: url("../imgs/notice_2.png");
+  }
 }

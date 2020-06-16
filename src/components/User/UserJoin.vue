@@ -143,6 +143,12 @@ export default {
   },
   methods: {
     submit() {
+      if (this.us_code == null || this.us_code.length != 12)
+        return toastController(
+          this.$ionic,
+          `통신코드 12자리를 입력해주세요.`,
+          'danger',
+        );
       if (
         this.isUserEmailValid &&
         this.isUserPasswordValid &&
@@ -155,6 +161,7 @@ export default {
           us_password: this.us_password,
           us_nickname: this.us_nickname,
           us_islandname: this.us_islandname,
+          us_island_selector: this.us_island_selector,
           us_code: this.us_code,
         };
         joinUser(data)

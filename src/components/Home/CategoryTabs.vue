@@ -32,6 +32,9 @@ export default {
     EventBus.$on('redirect_category', ctg_index => {
       this.category_value = 0;
     });
+    EventBus.$on('refresh-post', res => {
+      this.category_value = 0;
+    });
   },
   destroyed() {
     EventBus.$off('redirect_category');
@@ -63,22 +66,19 @@ export default {
 .category-menu {
   display: flex;
   justify-content: space-around;
-  /* flex-wrap: wrap; */
   text-align: center;
 }
 
 .category-menu > div {
-  /* flex-basis: 33%; */
   width: 100%;
   flex-shrink: 1;
   padding: 15px;
-  /* border-bottom: 1px solid rgb(116, 116, 116); */
 }
 
 .category-progress {
   position: relative;
   width: 25%;
-  border-bottom: 2px solid rgb(2, 129, 61);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.554);
   transition: all 0.3s ease;
 }
 

@@ -3,8 +3,6 @@
     <img src="../../imgs/logo.png" alt="logo" />
     <ul>
       <li>
-        <!-- div 에서 ion-item 으로 교체 -->
-        <!-- 라벨 이미지 추가할 것 -->
         <ion-item class="login-item">
           <ion-label class="login-label" position="fixed"
             ><img src="../../imgs/로그인_아이디.png"
@@ -27,6 +25,7 @@
             class="login-input"
             type="password"
             placeholder="password"
+            @keyup="enterKeytoLogin"
             :value="us_password"
             @input="us_password = $event.target.value"
           ></ion-input>
@@ -103,6 +102,9 @@ export default {
           this.message = '';
         }, 2000);
       }
+    },
+    enterKeytoLogin(input_value) {
+      if (input_value.key == 'Enter') this.submitForm();
     },
   },
 };

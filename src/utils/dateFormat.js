@@ -1,24 +1,27 @@
 function dateFormat(now_date, date_info, type) {
-  let past_date, result_date, result_hour;
-  past_date = new Date(date_info);
-  result_hour =
+  let result_date;
+  let past_date = new Date(date_info);
+  let now_hour = now_date.getHours();
+  let past_hour = past_date.getHours();
+  let past_minutes = past_date.getMinutes();
+  let result_hour =
     (now_date.getTime() - past_date.getTime()) / (1000 * 60 * 60 * 24);
 
   if (result_hour > 1) {
     result_date = past_date.getMonth() + 1 + '월 ' + past_date.getDate() + '일';
   } else if (type == 'chat') {
     let halfString = '오전 ';
-    if (past_date.getHours() > 11) halfString = '오후 ';
-    result_date =
-      halfString + past_date.getHours() + ':' + past_date.getMinutes();
+    if (past_hour > 11) halfString = '오후 ';
+    if (past_minutes < 10) past_minutes = '0' + past_minutes;
+    result_date = halfString + past_hour + ':' + past_minutes;
   } else {
-    // console.log(past_date);
-    // console.log('지금 시간', now_date.getHours());
-    let hour = now_date.getHours() - past_date.getHours();
+    // 하루가 지났을 경우.
+    if (now_hour < past_hour) now_hour += 24;
+
+    let hour = now_hour - past_hour;
     let minutes =
-      now_date.getHours() * 60 +
-      now_date.getMinutes() -
-      (past_date.getHours() * 60 + past_date.getMinutes());
+      now_hour * 60 + now_date.getMinutes() - (past_hour * 60 + past_minutes);
+    if (minutes < 10) minutes = '0' + minutes;
     hour > 0
       ? (result_date = hour + '시간전')
       : (result_date = minutes + '분전');

@@ -11,9 +11,9 @@
           :item="item"
         ></ItemBox>
         <li @click="new_post(offset, ca_id)" class="itme-ad">
-          다음페이지로 넘어가기
+          <ion-icon name="cloud-download"></ion-icon>
         </li>
-        <li class="itme-ad">광고영역</li>
+        <!-- <li class="itme-ad">광고영역</li> -->
       </ul>
     </ion-content>
     <ScrollControl></ScrollControl>
@@ -51,6 +51,7 @@ export default {
     // 게시글 새로고침
     EventBus.$on('refresh-post', res => {
       this.offset = -1;
+      this.ca_id = 0;
       this.refreshPost(0);
     });
     // 대표 카테고리 아이디
@@ -112,7 +113,6 @@ export default {
           for (let item of res.data.info.board) {
             this.items.push(item);
           }
-          console.log(this.items);
           this.offset = res.data.info.next_offset;
         }
       } catch (err) {

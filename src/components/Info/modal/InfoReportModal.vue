@@ -53,9 +53,7 @@
         :value="re_content"
         @input="re_content = $event.target.value"
       ></ion-textarea>
-      <ion-button shape="block" color="tertiary" @click="submit_post()">
-        문의하기
-      </ion-button>
+      <div class="ani-btn sky" @click="submit_post()">문의하기</div>
     </ion-content>
   </div>
 </template>

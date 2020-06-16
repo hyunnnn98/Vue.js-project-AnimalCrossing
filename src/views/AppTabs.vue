@@ -82,10 +82,6 @@ export default {
     await this.$store.commit('setSocket');
     // 사용자 연결 확인
     await this.$store.state.socket.emit('get_us_id', us_id);
-    //TODO 룸 데이터 받아오기
-    await this.$store.state.socket.on('get_chat_room', data => {
-      console.log('받은 룸 데이터: ', data);
-    });
     // 미확인 채팅 개수
     await this.$store.state.socket.emit('get_read_count', us_id);
   },
@@ -104,7 +100,7 @@ export default {
 
 ion-badge {
   top: 10px;
-  left: 70px;
+  left: 55%;
   --background: rgb(6, 202, 46);
 }
 </style>

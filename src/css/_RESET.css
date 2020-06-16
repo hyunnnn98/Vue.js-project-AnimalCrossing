@@ -90,10 +90,10 @@ ion-item {
 
 @font-face { 
     font-family: '여기어때 잘난체'; 
-    src: url(font/Jalnan.ttf) format('truetype'); 
+    src: url(font/Jalnan.ttf) format('truetype');
 }
 
 @font-face { 
     font-family: '뽀로로'; 
-    src: url(font/뽀로로.ttf) format('truetype'); 
+    src: url(font/뽀로로.ttf) format('truetype');
 }

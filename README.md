@@ -183,3 +183,12 @@ Animalcross Vue 소스 코드입니다.
 1. validation 추가.
 2. console.log 걷어내기 + 주석달기.
 ```
+
+### 2020.06.14 ~ 17
+```
+* [UPDATE]
+1. 웹사이트 오픈. (https://animalcro.com)
+2. 버그 테스트.
+3. 아이콘 UI 수정.
+4. Google Analytics, Google Search Console 등록.
+```

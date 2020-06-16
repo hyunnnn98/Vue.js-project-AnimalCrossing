@@ -7,7 +7,11 @@
       <div @click="post_delete" class="pi-input-delete">삭제</div>
       <div @click="post_edit" class="pi-input-modify">수정</div>
       <div @click="post_end" class="pi-input-end">
-        {{ item_data.bo_trade_status == 0 ? '거래중' : '거래완료' }}
+        {{
+          item_data.bo_trade_status == 0
+            ? '거래완료 상태로 변경'
+            : '거래중 상태로 변경'
+        }}
       </div>
     </div>
     <div v-else class="pi-bottom">
@@ -31,11 +35,17 @@
         v-if="!item_data.chat_exist"
         @click="create_room()"
         class="pi-input-talk"
+        :class="item_data.bo_trade_status == 0 ? 'on' : 'off'"
       >
         <img src="../../imgs/main_home.png" alt="" />
         거래하기
       </div>
-      <div v-else @click="join_room()" class="pi-input-talk">
+      <div
+        v-else
+        @click="join_room()"
+        class="pi-input-talk"
+        :class="item_data.bo_trade_status == 0 ? 'on' : 'off'"
+      >
         <img src="../../imgs/main_home.png" alt="" />채팅하기
       </div>
     </div>
@@ -57,7 +67,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.us_id);
     this.item_data.bo_show == 0
       ? (this.pi_show = '공개')
       : (this.pi_show = '비공개');
@@ -66,7 +75,6 @@ export default {
     // 채팅하기 => 기존 채팅방으로 이동
     join_room() {
       this.$ionic.modalController.dismiss();
-      console.log('test1', this.item_data);
       router.push(`/talk/${this.item_data.ch_ro_id}`);
     },
     // 거래하기 => 새로운 채팅방 생성 이벤트
@@ -78,6 +86,7 @@ export default {
         toastController(this.$ionic, msg, 'warning');
         return;
       }
+      if (this.item_data.bo_trade_status == 1) return;
       // 소켓연결 확인
       await store.commit('setSocket');
       // 채팅방 생성
@@ -88,7 +97,6 @@ export default {
       );
       // 생성된 채팅방으로 이동
       store.state.socket.on('create_room', async res => {
-        console.log('res: ', res);
         await this.$ionic.modalController.dismiss();
         router.push(`/talk/${res}`);
       });
@@ -112,6 +120,8 @@ export default {
           this.item_data.bo_id,
           this.item_data.bo_show,
         );
+        let msg = `게시글이 ${this.pi_show} 처리 되었습니다.`;
+        toastController(this.$ionic, msg, 'success');
       } catch (err) {
         toastErrorController(this.$ionic, err);
       }
@@ -136,7 +146,6 @@ export default {
     // 거래완료 상태처리 이벤트
     async post_end() {
       try {
-        console.log(this.item_data.bo_id, this.item_data.bo_trade_status);
         const result = await setPostStatus(
           this.item_data.bo_id,
           this.item_data.bo_trade_status,

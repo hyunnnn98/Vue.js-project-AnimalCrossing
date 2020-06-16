@@ -1,5 +1,5 @@
 <template>
-  <div class="App-Header" :class="head_css ? head_css : null">
+  <div class="app-header" :class="head_css ? head_css : null">
     <ion-icon name="arrow-back" @click="go_back"> </ion-icon>
     <p>{{ head_name }}</p>
   </div>
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style>
-.App-Header {
+.app-header {
   background-color: #76b767;
   color: #eef3d2;
   text-align: left;
@@ -36,23 +36,20 @@ export default {
   max-width: 520px;
   height: 50px;
   min-height: 50px;
-  /* line-height: 37px; */
   font-weight: bold;
   font-size: 1.3em;
-  /* border-radius: 18px 8px 8px 18px; */
   letter-spacing: -2px;
   margin-bottom: 0.5em;
 }
 
-.App-Header p {
+.app-header p {
   position: relative;
-  top: 0.8em;
+  top: 0.9em;
   left: 10px;
   display: inline-block;
-  /* left: 45%; */
 }
 
-.App-Header ion-icon {
+.app-header ion-icon {
   background-color: #eef3d2;
   color: #76b767;
   float: left;

@@ -51,7 +51,6 @@ export default {
     },
     // 게시글 검색 이벤트
     async getPostItem(key) {
-      // console.log(key);
       try {
         const { data } = await searchPost(this.myInput);
         this.searchedPosts = data.info;

@@ -79,24 +79,22 @@ export default {
           this.$store.state.us_id,
           trade_value,
         );
-        if (trade_value == 1) {
-          let str_val = '';
-          /*
-            bo_trade_status 0 => 판매
-            bo_trade_status 1 => 거래중
-          */
-          data.info.forEach(v => {
-            switch (v.bo_trade_status) {
-              case 0:
-                str_val = '거래중';
-                break;
-              case 1:
-                str_val = '거래완료';
-                break;
-            }
-            v.bo_trade_status = str_val;
-          });
-        }
+        let str_val = '';
+        /*
+            bo_trade_status 0 => 거래중
+            bo_trade_status 1 => 거래완료
+        */
+        data.info.forEach(v => {
+          switch (v.bo_trade_status) {
+            case 0:
+              str_val = '거래중';
+              break;
+            case 1:
+              str_val = '거래완료';
+              break;
+          }
+          v.bo_trade_status = str_val;
+        });
         this.td_contents = data.info;
       } catch (err) {
         toastErrorController(this.$ionic, err);

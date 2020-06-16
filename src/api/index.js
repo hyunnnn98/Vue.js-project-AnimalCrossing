@@ -1,5 +1,4 @@
 import axios from 'axios';
-import store from '@/store/index';
 import { setInterceptors } from './common/interceptors';
 
 // 엑시오스 초기화 함수

@@ -50,7 +50,6 @@ export default {
         msg = await error.response.data.message;
         status = 'warning';
       }
-      console.log(msg, status);
       toastController(this.$ionic, msg, status);
     },
     go_back() {

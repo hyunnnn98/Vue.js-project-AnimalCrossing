@@ -99,11 +99,7 @@ function getTradeData(us_id, bo_trade_value) {
   });
 }
 
-// 과거 구매했던 기록 불러오기
-// 과거 교환했던 기록 불러오기
-
 export {
-  createPost,
   getPost,
   getCategory,
   getDetailPost,
@@ -112,6 +108,7 @@ export {
   setPostStatus,
   searchPost,
   showPost,
+  createPost,
   deletePost,
   updatePost,
   getTradeData,

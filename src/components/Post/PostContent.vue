@@ -20,19 +20,24 @@
       <li>
         <ion-item class="content">
           <ion-label><span>*</span> 카테고리</ion-label>
-          <!-- <ion-label>Notifications</ion-label> -->
           <ion-select
             :value="bo_category"
             @ionChange="bo_category = $event.target.value"
             cancel-text="** 취소 **"
             interface="action-sheet"
           >
-            <ion-select-option value="1">입양 / 분양</ion-select-option>
+            <!-- <ion-select-option value="1">입양 / 분양</ion-select-option>
             <ion-select-option value="2">무 주식</ion-select-option>
             <ion-select-option value="3">아이템</ion-select-option>
             <ion-select-option value="4">만지작</ion-select-option>
             <ion-select-option value="5">알바</ion-select-option>
-            <ion-select-option value="6">무료나눔</ion-select-option>
+            <ion-select-option value="6">무료나눔</ion-select-option> -->
+            <ion-select-option
+              v-for="(select, index) of select_group"
+              :key="index"
+              :value="`${index + 1}`"
+              >{{ select }}</ion-select-option
+            >
           </ion-select>
         </ion-item>
       </li>
@@ -53,6 +58,7 @@
           <ion-input
             type="text"
             maxlength="5"
+            placeholder="* 1 덩 = 99000 벨"
             :value="bo_cost"
             @input="bo_cost = $event.target.value"
             clear-on-edit="true"
@@ -111,6 +117,14 @@ export default {
       bo_id: null,
       bo_type: null,
       bo_btn: '작성 완료',
+      select_group: [
+        '입양 / 분양',
+        '무 주식',
+        '만지작',
+        '아이템',
+        '알바',
+        '무료나눔',
+      ],
     };
   },
   computed: {
@@ -121,7 +135,6 @@ export default {
   async created() {
     // 썸네일 변경 체크
     EventBus.$on('thumbnail_change', index_number => {
-      console.log('바뀐 썸네일은?', index_number);
       this.bo_thumbnail = index_number;
     });
 
@@ -150,7 +163,7 @@ export default {
           '위험한 유저로 신고 처리되어, 거래 서비스 이용이 불가합니다. \n1:1 게시판을 이용해 신고내역을 확인해주세요.';
         toastController(this.$ionic, msg, 'warning');
         return;
-      } else if (!this.isUserCostValid) {
+      } else if (!this.isUserCostValid && this.bo_trade_value != 3) {
         let msg = '가격을 확인해주세요.';
         toastController(this.$ionic, msg, 'warning');
         return;
@@ -170,43 +183,45 @@ export default {
         let msg = str + '을 입력해주세요.';
         toastController(this.$ionic, msg, 'warning');
         return;
+      } else if (this.bo_trade_value == 3) {
+        this.bo_cost = 0;
       }
+
+      let result;
+
+      let post_data = {
+        bo_trade_value: this.bo_trade_value,
+        bo_title: this.bo_title,
+        bo_category: this.bo_category,
+        bo_content: this.bo_content,
+        bo_cost: this.bo_cost,
+        bo_cost_selector: this.bo_cost_selector,
+        bo_thumbnail: this.bo_thumbnail,
+        bo_us_id: this.$store.state.us_id,
+      };
+
       try {
-        let result;
-
-        let post_data = {
-          bo_trade_value: this.bo_trade_value,
-          bo_title: this.bo_title,
-          bo_category: this.bo_category,
-          bo_content: this.bo_content,
-          bo_cost: this.bo_cost,
-          bo_cost_selector: this.bo_cost_selector,
-          bo_thumbnail: this.bo_thumbnail,
-          bo_us_id: this.$store.state.us_id,
-        };
-
-        try {
-          if (bo_type === 'update') {
-            post_data.bo_id = this.bo_id;
-            result = await updatePost(post_data);
-          } else {
-            result = await createPost(post_data);
-          }
-          // 1. 게시글 데이터 먼저 서버 전송.
-          // 2. 사진 데이터 이벤트버스로 전송.
-          if (result) {
-            EventBus.$emit('send_imgs', result.data.info);
-            EventBus.$emit('refresh-post');
-          }
+        if (bo_type === 'update') {
+          post_data.bo_id = this.bo_id;
+          result = await updatePost(post_data);
+        } else {
+          result = await createPost(post_data);
+        }
+        // 1. 게시글 데이터 먼저 서버 전송.
+        // 2. 사진 데이터 이벤트버스로 전송.
+        EventBus.$emit('send_imgs', result.data.info);
+        toastController(this.$ionic, '게시글 업로드 중입니다...', 'success');
+        setTimeout(() => {
           toastController(
             this.$ionic,
             '등록완료 \n거래소에서 내가 쓴 글을 확인해보세요.',
             'success',
           );
-          EventBus.$emit('redirect_category');
-          this.init_post();
           this.$router.push('/main');
-        } catch (error) {}
+          EventBus.$emit('redirect_category');
+          EventBus.$emit('refresh-post');
+          this.init_post();
+        }, 3000);
       } catch (err) {
         toastErrorController(this.$ionic, err);
       }
@@ -229,7 +244,6 @@ export default {
       if (_id == null && bo_id != null) _id = bo_id;
 
       if (_id != null) {
-        console.log('_id가 null이 아닐경우');
         getDetailPost(_id, this.$store.state.us_id)
           .then(res => {
             EventBus.$emit('update_imgs', res.data.info.image);
@@ -256,7 +270,6 @@ export default {
     },
     // 카테고리 변경 이벤트
     trade(number) {
-      console.log('클릭이벤트 발생!', number);
       this.bo_trade_value = number;
 
       let sale = document.querySelector(`.set-buttons li:nth-child(1)`);

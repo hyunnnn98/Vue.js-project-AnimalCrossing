@@ -44,7 +44,6 @@ export default {
       // 공지사항 로딩 이벤트
       const { data } = await getNotice();
       this.no_lists = data.info;
-      console.log(data);
     } catch (err) {
       toastErrorController(this.$ionic, err);
     }

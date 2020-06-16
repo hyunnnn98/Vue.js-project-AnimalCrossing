@@ -65,6 +65,8 @@
         type="text"
         :value="us_input_value"
         :disabled="other_us_grant == -1"
+        @keydown="enterKeytoPush"
+        @keyup="enterKeytoClean"
         @input="us_input_value = $event.target.value"
         placeholder="채팅을 입력해주세요."
         clear-on-edit="true"
@@ -111,7 +113,6 @@ export default {
   created() {
     // [초기화]  채팅메시지 불러오기.
     this.$store.state.socket.on('get_message', res => {
-      console.log(res);
       if (res === false) this.$router.push('/main');
       this.other_us_grant = res.us_grant;
       this.ro_trade_status = res.ro_trade_status;
@@ -141,7 +142,6 @@ export default {
 
     // 새로운 채팅메시지 불러오기.
     this.$store.state.socket.on('send_message', async res => {
-      console.log('새롭게 받은 메시지', res);
       const new_date = new Date();
       let return_date = dateFormat(new_date, res.createdAt, 'chat');
       res.createdAt = return_date;
@@ -188,7 +188,6 @@ export default {
     // 거래 관련 알림 전송 컨트롤
     trade_access() {
       let status = this.ro_trade_status;
-      console.log(this.ro_trade_status);
       if (this.access == false && status === 4) {
         this.ro_trade_status++;
         return this.review_modal();
@@ -204,6 +203,15 @@ export default {
           this.ch_ro_id,
         );
       }
+    },
+    // 엔터키 채팅 푸쉬
+    enterKeytoPush(input_value) {
+      if (input_value.key == 'Enter') {
+        this.send_message();
+      }
+    },
+    enterKeytoClean(input_value) {
+      if (input_value.key == 'Enter') this.us_input_value = '';
     },
     // 하단 스크롤
     scroll_to_bottom(time) {
@@ -223,7 +231,7 @@ export default {
         componentProps: {
           propsData: {
             us_id: this.us_id,
-            ch_ro_id: this.ch_ro_id,
+            ro_id: this.ch_ro_id,
           },
         },
       });

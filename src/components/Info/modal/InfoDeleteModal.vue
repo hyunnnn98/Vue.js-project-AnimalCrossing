@@ -15,8 +15,14 @@
         ></ion-input>
       </ion-item>
     </ion-content>
-    <div class="ani-btn success" @click="email_check(us_email)">인증하기</div>
-    <div class="choose-container">
+    <div
+      v-if="!delete_access"
+      class="ani-btn success"
+      @click="email_check(us_email)"
+    >
+      인증하기
+    </div>
+    <div v-else class="choose-container">
       <div class="ani-btn danger" @click="$ionic.modalController.dismiss()">
         취소
       </div>

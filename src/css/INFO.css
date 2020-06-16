@@ -6,9 +6,10 @@
 /* InfoContent CSS */
 .info-bcg {
   background-color: #f8f8f0;
+  border-bottom: 3px solid #c8c8c5;
 }
 
-.myinfo-main{
+.myinfo-main {
   padding: 20px 10px;
   border-radius: 10px;
   color: #4c4314;
@@ -16,7 +17,7 @@
 
 .myinfo {
   background-color: #f8f8f0;
-  background-image: url('../imgs/pattern1.png');
+  background-image: url("../imgs/pattern1.png");
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -33,15 +34,36 @@
 }
 
 .myinfo-imgwrap {
-    margin-left: 20px;
+  margin-left: 20px;
   margin-right: 15px;
   background-color: #fcf9db;
   padding: 7px;
   border-radius: 20px;
 }
 
-.myinfo-Img {
+.myinfo-imgwrap:hover .myinfo-img-hint {
+  display: block;
+}
 
+.myinfo-img-hint {
+  display: none;
+  position: absolute;
+  top: 118px;
+  width: 300px;
+}
+
+.myinfo-img-hint > p {
+  display: inline-block;
+  position: relative;
+  left: -50px;
+  background-color: rgba(0, 0, 0, 0.678);
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  color: white;
+}
+
+.myinfo-Img {
   border-radius: 20px;
   min-width: 110px;
   width: 110px;
@@ -52,6 +74,7 @@
 }
 
 .myinfo-Img img {
+  cursor: pointer;
   width: 100%;
 }
 
@@ -95,12 +118,22 @@
   cursor: pointer;
 }
 
-.myinfo-island img{
+.myinfo-island img {
   width: 20px;
 }
 
-.myinfo-islandTitle, .myinfo-nickName .myinfo-code {
+.myinfo-islandTitle,
+.myinfo-nickName .myinfo-code {
   font-weight: 900;
+}
+
+.myinfo-createdAt {
+  position: relative;
+  top: 1em;
+  left: 10px;
+  padding-top: 0.3em;
+  font-size: 0.9em;
+  font-weight: 700;
 }
 
 /* InfoTrade CSS */
@@ -193,6 +226,12 @@
   margin-top: 0.5em;
   border-radius: 10px;
   padding: 10px 10px;
+  max-height: 360px;
+  overflow-y: scroll;
+}
+
+.myReview::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
 }
 
 .info-review {
@@ -327,19 +366,27 @@ ion-radio-group ion-item > ion-label {
   padding: 20px 5px;
 }
 
-.code-modal-css {
+.info-modal-css {
   --width: 100% !important;
-  --height: 370px !important;
+  --height: 360px !important;
 }
 
 @media only screen and (min-height: 600px) and (min-width: 768px) {
-  .code-modal-css {
+  .info-modal-css {
     --width: 50% !important;
     --max-width: 600px;
   }
   .talk-modal-css {
     --width: 50% !important;
     --height: 95% !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .myinfo-Img {
+    min-width: 90px;
+    width: 90px;
+    height: 90px;
   }
 }
 

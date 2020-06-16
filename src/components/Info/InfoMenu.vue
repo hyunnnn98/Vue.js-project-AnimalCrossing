@@ -58,7 +58,7 @@ export default {
     async password_modal() {
       let modal = await this.$ionic.modalController.create({
         component: InfoPasswordModal,
-        cssClass: 'code-modal-css',
+        cssClass: 'info-modal-css',
         componentProps: {
           propsData: {
             us_id: this.$store.state.us_id,
@@ -71,7 +71,7 @@ export default {
     async delete_account() {
       let modal = await this.$ionic.modalController.create({
         component: InfoDeleteModal,
-        cssClass: 'code-modal-css',
+        cssClass: 'info-modal-css',
         componentProps: {
           propsData: {
             us_id: this.$store.state.us_id,

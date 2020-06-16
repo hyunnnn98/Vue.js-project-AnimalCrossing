@@ -24,9 +24,7 @@
           placeholder="판매자에 대한 솔직한 후기는 다음 거래에 많은 도움이 됩니다."
         ></ion-input>
       </ion-item>
-      <ion-button shape="block" color="tertiary" @click="update_review()">
-        작성완료
-      </ion-button>
+      <div class="ani-btn sky" @click="update_review()">작성완료</div>
     </ion-content>
   </div>
 </template>

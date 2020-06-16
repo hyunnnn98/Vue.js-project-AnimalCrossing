@@ -14,6 +14,10 @@
   white-space: pre-wrap;
 }
 
+.post-container {
+  padding: 5px 10px;
+}
+
 .pi-contents > div:nth-child(n) {
   margin-bottom: 0.5em;
 }
@@ -85,6 +89,7 @@
   border-radius: 5px;
   top: 10px;
   left: 10px;
+  z-index: 100;
 }
 
 /* 아이템 FOOTER 관련 CSS */
@@ -94,7 +99,7 @@
   bottom: 0px;
   left: 0px;
   height: 40px;
-  line-height: 40px;
+  line-height: 43px;
   width: 100%;
   margin: 0px;
   z-index: 100;
@@ -107,6 +112,10 @@
   position: relative;
   top: -3px;
 }
+
+.pi-input-like, .pi-input-bad, .pi-input-talk, .pi-input-show , .pi-input-delete , .pi-input-modify, .pi-input-end {
+  cursor: pointer;
+} 
 
 .pi-input-like {
   width: 100px;
@@ -129,10 +138,19 @@
 
 .pi-input-talk {
   flex-grow: 1;
-  background-color: rgb(102, 202, 102);
   color: white;
   font-size: 1.2em;
   letter-spacing: -1px;
+}
+
+.pi-input-talk.on {
+  background-color: rgb(102, 202, 102);
+}
+
+.pi-input-talk.off {
+  border-left: 2px solid white;
+  background-color: rgb(73, 73, 73);
+  cursor: not-allowed;
 }
 
 .pi-input-show {
@@ -146,14 +164,24 @@
 }
 
 .pi-input-modify {
-    width: 100px;
-    background-color: rgb(102, 202, 102);
-  }
-  
+  width: 100px;
+  background-color: rgb(102, 202, 102);
+}
+
 .pi-input-end {
   flex-grow: 1;
   background-color: rgb(0, 0, 0);
-    
+}
+.pi-input-show:hover {
+  background-color: rgb(97, 142, 212);
+}
+
+.pi-input-delete:hover {
+  background-color: rgb(235, 122, 122);
+}
+
+.pi-input-modify:hover {
+  background-color: rgb(78, 153, 78);
 }
 
 /* 아이템 박스 관련 CSS */
@@ -166,8 +194,11 @@
   padding: 10px 10px;
   background: white;
   box-shadow: 0 20px 20px rgba(0, 0, 0, 0.08);
+  border: 1.5px solid rgba(0, 0, 0, 0.513);
+  border-style: dashed;
   border-radius: 3px;
   letter-spacing: -1px;
+  cursor: pointer;
 }
 
 .post-title {
@@ -211,11 +242,16 @@
   border-radius: 2px;
 }
 
+.post-contents.status._0 {
+  background-color: rgb(12, 207, 5);
+}
+
 .post-contents.post_user > span {
   margin-right: 0.5em;
 }
 
 .post-contents.post_info {
+  bottom: 14px;
   right: 20px;
 }
 
@@ -233,7 +269,7 @@
 }
 
 .post-price {
-  font-family: '여기어때 잘난체';
+  font-family: "여기어때 잘난체";
   position: absolute;
   right: 20px;
   top: 15px;
@@ -271,11 +307,15 @@
 
   .post-price {
     font-size: 2.2em;
-    top: 130px;
+    top: 155px;
   }
 
   .post-thumbnail {
     display: block;
+  }
+
+  .post-contents.post_info {
+    top: 50px;
   }
 
   .post-category {
@@ -291,8 +331,24 @@
 }
 
 @media (max-width: 400px) {
-  .pi-input-delete, .pi-input-modify {
-    width: 70px;
+  .pi-input-show {
+    width: 90px;
+  }
+
+  .pi-input-delete,
+  .pi-input-modify {
+    width: 60px;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 450px) {
+  .pi-input-show {
+    width: 90px;
+  }
+
+  .pi-input-delete,
+  .pi-input-modify {
+    width: 80px;
   }
 }
 

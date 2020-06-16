@@ -1,8 +1,11 @@
 <template>
   <div class="myinfo-main info-bcg">
-    <p class="myinfo-title">-- PASSPORT --</p>
+    <p class="myinfo-title">PASSPORT</p>
     <div class="myinfo">
       <div class="myinfo-imgwrap">
+        <div class="myinfo-img-hint" v-if="us_id">
+          <p>이미지를 클릭해 썸네일을 변경해보세요!</p>
+        </div>
         <div
           @change="us_id != null ? updateThumbnail() : null"
           v-if="device_info == 'web'"
@@ -53,6 +56,7 @@
         </ul>
       </div>
     </div>
+    <p class="myinfo-createdAt">등록 : {{ createdAt }}</p>
   </div>
 </template>
 
@@ -74,6 +78,7 @@ export default {
       us_islandname: store.state.us_islandname,
       us_code: null,
       us_thumbnail: store.state.us_thumbnail,
+      createdAt: store.state.createdAt,
       blobs: null,
       formData: null,
       device_info: null,
@@ -103,16 +108,16 @@ export default {
   methods: {
     async updateThumbnail() {
       await this.handleFileUpload();
+      await this.formData.append('us_id', this.us_id);
       await this.formData.append('img', this.blobs);
       try {
         // 썸네일 변경 비동기처리.
         const req = new XMLHttpRequest();
         req.open(
           'POST',
-          'https://server.anicro.org/user/change_thumbnail',
+          `${process.env.VUE_APP_API_URL}change_thumbnail`,
           true,
         );
-        req.setRequestHeader('us_id', this.us_id);
         req.send(this.formData);
       } catch (err) {
         toastErrorController(this.$ionic, err);

@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === 'production') {
       log('인터넷 연결을 할 수 없습니다. 오프라인 모드로 작동합니다.');
     },
     error(error) {
-      console.error('서비스워커 등록간에 에러가 발생했습니다. :', error);
+      log('서비스워커 에러 발생.. 잠시후 다시 시도해주세요.');
     },
   });
 }

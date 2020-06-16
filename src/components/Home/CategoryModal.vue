@@ -41,7 +41,6 @@ export default {
   methods: {
     // 카테고리 메뉴 선택 이벤트
     selectMenu(menu) {
-      console.log(menu);
       this.select = menu;
       EventBus.$emit('ca_id_Change', menu);
       this.modalClose(true);

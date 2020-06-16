@@ -30,6 +30,7 @@ export default {
         us_nickname: this.$store.state.us_nickname,
         us_thumbnail: this.$store.state.us_thumbnail,
         us_islandname: this.$store.state.us_islandname,
+        us_island_selector: this.$store.state.us_island_selector,
       },
       us_id: this.$store.state.us_id,
     };

@@ -8,6 +8,7 @@ import {
   saveUserToCookie,
   deleteCookie,
 } from '@/utils/cookies';
+import { review_Format } from '@/utils/dateFormat';
 import { loginUser } from '../api/auth';
 
 Vue.use(Vuex);
@@ -19,9 +20,11 @@ export default new Vuex.Store({
     us_id: getUserFromCookie() || '',
     us_nickname: '',
     us_islandname: '',
+    us_island_selector: '',
     us_code: '',
     us_thumbnail: '',
     us_grant: '',
+    createdAt: '',
     // *** socket.io ***
     socket: '',
   },
@@ -35,9 +38,11 @@ export default new Vuex.Store({
       state.us_id = info.us_id;
       state.us_nickname = info.us_nickname;
       state.us_islandname = info.us_islandname;
+      state.us_island_selector = info.us_island_selector;
       state.us_code = info.us_code;
       state.us_thumbnail = info.us_thumbnail;
       state.us_grant = info.us_grant;
+      state.createdAt = review_Format(info.createdAt);
     },
     clearUserInfo(state) {
       state.us_id = '';
@@ -54,10 +59,12 @@ export default new Vuex.Store({
       state.us_logintoken = '';
     },
     setSocket(state) {
-      console.log('소켓 접근을 하는중입니다!');
       if (state.socket === '') {
-        console.log('여기들어왔어요!');
-        state.socket = socket_io('https://server.anicro.org/');
+        state.socket = socket_io(process.env.VUE_APP_API_URL, {
+          secure: true,
+          reconnect: true,
+          rejectUnauthorized: false,
+        });
       }
     },
     getSocket(state) {
@@ -70,7 +77,6 @@ export default new Vuex.Store({
   actions: {
     async LOGIN({ commit }, user_data) {
       const { data } = await loginUser(user_data);
-      console.log('로그인!', data);
       commit('setUserInfo', data.info.us_info);
       commit('setToken', data.info.new_token);
       commit('setSocket');
@@ -85,10 +91,8 @@ export default new Vuex.Store({
       deleteCookie('animal_user');
     },
     async X_SOCKET({ commit }, payload) {
-      // console.log('actions :', payload);
       await commit('setSocket');
       const result = await commit(payload.type, payload);
-      console.log('X_SOCKET : ', result);
       return result;
     },
   },

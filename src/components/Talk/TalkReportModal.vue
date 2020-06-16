@@ -12,14 +12,7 @@
         :value="bl_content"
         @input="bl_content = $event.target.value"
       ></ion-textarea>
-      <ion-button
-        shape="block"
-        fill="outline"
-        color="danger"
-        @click="submit_post()"
-      >
-        신고 접수
-      </ion-button>
+      <div class="ani-btn danger" @click="submit_post()">신고 접수</div>
     </ion-content>
   </div>
 </template>
@@ -46,6 +39,7 @@ export default {
       this.$ionic.modalController.dismiss();
     },
     submit_post() {
+      console.log(this.us_id, this.ro_id, this.bl_content);
       if (this.bl_content == '')
         return toastController(this.$ionic, '내용을 입력해주세요.', 'danger');
       else if (this.bl_content.length < 20)
@@ -61,11 +55,7 @@ export default {
         this.ro_id,
         this.bl_content,
       );
-      toastController(
-        this.$ionic,
-        '신고가 접수되었습니다. 문의에 대한 답변은\n 내정보 - 1:1 문의내역에서 확인하실 수 있습니다.',
-        'success',
-      );
+      toastController(this.$ionic, '신고가 접수 되었습니다.', 'success');
       router.push('/talk');
       this.modalClose();
     },

@@ -62,7 +62,6 @@ export default {
 
     // 게시글 업데이트 이미지 로딩
     EventBus.$on('update_imgs', async imgs => {
-      console.log('이미지 버스 도착!');
       this.imageUrl = [];
       this.blobs = [];
       await imgs.forEach(async (v, index) => {
@@ -106,11 +105,14 @@ export default {
           let realData = block[1].split(',')[1]; // In this case "iVBORw0KGg...."
           let blob = b64toBlob(realData, contentType);
 
-          console.log('this.blobs: ', this.blobs);
           // 생성된 blob 객체 배열 저장
           this.blobs.push(blob);
         } catch (err) {
-          console.log('err', err);
+          toastController(
+            this.$ionic,
+            '사진 업로드 실패...\n 잠시 후 다시 시도해주세요.',
+            'danger',
+          );
         }
       } else {
         const image = this.$refs.uploadImageFile.files[0];
@@ -130,15 +132,13 @@ export default {
       }
     },
     async image_submit(bo_id) {
+      await this.formData.append('bo_id', bo_id);
       await this.blobs.forEach((item, index) => {
         this.formData.append('img', item);
       });
-      console.log(this.formData);
       try {
-        console.log('마지막 this.blobs: ', this.blobs);
         const req = new XMLHttpRequest();
-        req.open('POST', 'https://server.anicro.org/board/image', true);
-        req.setRequestHeader('bo_id', bo_id);
+        req.open('POST', `${process.env.VUE_APP_API_URL}board/image`, true);
         req.send(this.formData);
       } catch (err) {
         toastErrorController(this.$ionic, err);
@@ -186,7 +186,6 @@ export default {
         });
     },
     submit_thumbnail(index_number) {
-      console.log('섬네일 변경 요청 들어옴!');
       EventBus.$emit('thumbnail_change', index_number + 1);
       this.thumbnail_color(index_number);
       this.thumbnail_index = index_number + 1;
