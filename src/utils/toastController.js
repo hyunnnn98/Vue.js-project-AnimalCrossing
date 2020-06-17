@@ -1,9 +1,9 @@
-async function toastController(ionic, message, color) {
+async function toastController(ionic, message, color, time) {
   const toast = await ionic.toastController.create({
     message,
     color,
     cssClass: 'ionic_toast',
-    duration: 2000,
+    duration: time || 2000,
     position: 'top',
   });
   toast.present();

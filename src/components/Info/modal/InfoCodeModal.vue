@@ -4,7 +4,7 @@
 
     <ion-content class="ion-padding qu-body">
       <ion-item>
-        <ion-label><span>*</span> 통신코드</ion-label>
+        <ion-label><span>*</span> 친구코드</ion-label>
         <ion-input
           type="text"
           maxlength="12"
@@ -37,7 +37,7 @@ export default {
   },
   data() {
     return {
-      title: '통신코드 수정하기',
+      title: '친구코드 수정하기',
       us_code: '',
     };
   },
@@ -52,7 +52,7 @@ export default {
       if (this.us_code.length != 12)
         return toastController(
           this.$ionic,
-          '[통신코드] 12자리 형식을 맞춰주세요.',
+          '[친구코드] 12자리 형식을 맞춰주세요.',
           'warning',
         );
       try {

@@ -331,6 +331,10 @@
 }
 
 @media (max-width: 400px) {
+  .pi-price {
+    font-size: 2em;
+  }
+
   .pi-input-show {
     width: 90px;
   }
@@ -338,6 +342,10 @@
   .pi-input-delete,
   .pi-input-modify {
     width: 60px;
+  }
+
+  .post-title {
+    font-size: 1.1em;
   }
 }
 
@@ -349,6 +357,10 @@
   .pi-input-delete,
   .pi-input-modify {
     width: 80px;
+  }
+
+  .post-title {
+    font-size: 1.2em;
   }
 }
 

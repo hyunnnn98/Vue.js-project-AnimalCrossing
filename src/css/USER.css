@@ -4,7 +4,7 @@
 }
 
 .user-container {
-  padding: 0px 15px;
+  padding: 0px 5px;
   width: 100%;
   position: absolute;
   top: 50%;
@@ -13,19 +13,38 @@
   background-color: rgba(255, 255, 255, 0);
 }
 
-.user-container ul li {
+.user-container.join {
+  height: 100%;
+  padding-top: 1em;
+}
+
+.user-container.join .backUrl {
+  top: 20px;
+}
+
+.user-container.join h1 {
+  padding: 1em 0px;
+}
+
+.user-container ul {
   color: black;
   font-size: 1.3em;
-  font-weight: bold;
-  padding: 0.5em 1em;
-  margin: 0.3em;
-  border-radius: 25px;
+  padding: 0.1em  0.8em;
   text-align: left;
+}
+
+.user-container ul li {
+  font-weight: bold;
   letter-spacing: -1px;
 }
 
 .user-container > img {
   margin-bottom: 2em;
+}
+
+.user-join input {
+  text-indent: 0px;
+  padding-bottom: 0px !important;
 }
 
 h1 {

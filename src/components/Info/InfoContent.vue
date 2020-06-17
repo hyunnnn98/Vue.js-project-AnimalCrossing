@@ -44,7 +44,7 @@
             <span class="myinfo-nickName">{{ us_info.us_nickname }}</span>
           </li>
           <li v-if="us_id">
-            <span class="myinfo-codeName">* 통신코드</span>
+            <span class="myinfo-codeName">* 친구코드</span>
             <span class="myinfo-code">{{ us_code }}</span>
             <img
               class="myinfo-update"

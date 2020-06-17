@@ -13,7 +13,7 @@
         <li @click="new_post(offset, ca_id)" class="itme-ad">
           <ion-icon name="cloud-download"></ion-icon>
         </li>
-        <!-- <li class="itme-ad">광고영역</li> -->
+        <!-- <li class="itme-ad"><AppAd /></li> -->
       </ul>
     </ion-content>
     <ScrollControl></ScrollControl>

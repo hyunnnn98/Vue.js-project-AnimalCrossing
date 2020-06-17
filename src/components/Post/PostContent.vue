@@ -11,7 +11,7 @@
         <ion-item class="content">
           <ion-label position="floating"><span>*</span> 상품명</ion-label>
           <ion-input
-            maxlength="20"
+            maxlength="16"
             :value="bo_title"
             @input="bo_title = $event.target.value"
           ></ion-input>
@@ -26,12 +26,6 @@
             cancel-text="** 취소 **"
             interface="action-sheet"
           >
-            <!-- <ion-select-option value="1">입양 / 분양</ion-select-option>
-            <ion-select-option value="2">무 주식</ion-select-option>
-            <ion-select-option value="3">아이템</ion-select-option>
-            <ion-select-option value="4">만지작</ion-select-option>
-            <ion-select-option value="5">알바</ion-select-option>
-            <ion-select-option value="6">무료나눔</ion-select-option> -->
             <ion-select-option
               v-for="(select, index) of select_group"
               :key="index"
@@ -57,7 +51,7 @@
           <ion-label position="floating"><span>*</span> 가격</ion-label>
           <ion-input
             type="text"
-            maxlength="5"
+            maxlength="3"
             placeholder="* 1 덩 = 99000 벨"
             :value="bo_cost"
             @input="bo_cost = $event.target.value"

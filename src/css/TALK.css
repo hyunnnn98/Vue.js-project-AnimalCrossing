@@ -29,6 +29,7 @@
 
 .talk-avater {
   background-color: white;
+  min-width: 80px;
   width: 80px !important;
   height: 100%;
   border-radius: 25px;

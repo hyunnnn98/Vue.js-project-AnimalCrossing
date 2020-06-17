@@ -81,8 +81,17 @@ ion-item {
   color: red;
 }
 
+.validation-text .success {
+  color: rgb(6, 162, 6);
+}
+
+.validation-text.warning {
+  color: rgb(5, 68, 196);
+  /* font-size: 1em; */
+}
+
 .validation-text span {
-  font-size: 0.8em;
+  font-size: 0.75em;
 }
 
 .clear {clear:both;}
