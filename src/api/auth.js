@@ -7,6 +7,15 @@ function joinUser(userData) {
   return instance.post('/auth/register', userData);
 }
 
+// 이메일 중복 체크 API
+function emailCheck(us_email) {
+  return instance.get('/auth/email_check', {
+    params: {
+      us_email,
+    },
+  });
+}
+
 // 로그인 API
 function loginUser(userData) {
   return instance.post('/auth/login', userData);
@@ -37,4 +46,12 @@ function updatePassword(new_password) {
   return afterAuth.post('/auth/update_password', new_password);
 }
 
-export { joinUser, loginUser, logOut, authCheck, getPassword, updatePassword };
+export {
+  joinUser,
+  emailCheck,
+  loginUser,
+  logOut,
+  authCheck,
+  getPassword,
+  updatePassword,
+};

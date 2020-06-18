@@ -15,7 +15,7 @@
 }
 
 .post-container {
-  padding: 5px 10px;
+  padding: 5px 10px 50px;
 }
 
 .pi-contents > div:nth-child(n) {
@@ -98,13 +98,14 @@
   position: fixed;
   bottom: 0px;
   left: 0px;
-  height: 40px;
-  line-height: 43px;
+  height: 45px;
+  line-height: 46px;
   width: 100%;
   margin: 0px;
   z-index: 100;
   text-align: center;
   color: white;
+  background-color: rgba(0, 0, 0, 0.226);
 }
 
 .pi-bottom img {
@@ -115,11 +116,14 @@
 
 .pi-input-like, .pi-input-bad, .pi-input-talk, .pi-input-show , .pi-input-delete , .pi-input-modify, .pi-input-end {
   cursor: pointer;
+  border-radius: 5px;
+  margin: 1.5px;
 } 
 
 .pi-input-like {
   width: 100px;
-  background-color: rgb(149, 149, 149);
+  background-color: rgb(124, 100, 100);
+  transition: 1s;
 }
 
 .pi-input-like.pi-like-clicked {
@@ -128,8 +132,7 @@
 
 .pi-input-bad {
   width: 100px;
-  border-left: 2px solid rgb(245, 245, 245);
-  background-color: rgb(149, 149, 149);
+  background-color: rgb(83, 99, 114);
 }
 
 .pi-input-bad.pi-bad-clicked {
@@ -148,7 +151,7 @@
 }
 
 .pi-input-talk.off {
-  border-left: 2px solid white;
+  /* border-left: 2px solid white; */
   background-color: rgb(73, 73, 73);
   cursor: not-allowed;
 }
@@ -170,7 +173,7 @@
 
 .pi-input-end {
   flex-grow: 1;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(70, 70, 70);
 }
 .pi-input-show:hover {
   background-color: rgb(97, 142, 212);
@@ -182,6 +185,10 @@
 
 .pi-input-modify:hover {
   background-color: rgb(78, 153, 78);
+}
+
+.pi-input-end:hover {
+  background-color: rgb(37, 37, 37);
 }
 
 /* 아이템 박스 관련 CSS */

@@ -35,4 +35,16 @@ ion-title {
   font-size: 3em;
   color: rgb(0, 0, 0);
 }
+
+@media (max-width: 350px) {
+  ion-title {
+    font-size: 2.2em;
+  }
+}
+
+@media (min-width: 350px) and (max-width: 400px) {
+  ion-title {
+    font-size: 2.5em;
+  }
+}
 </style>

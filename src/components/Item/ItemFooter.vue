@@ -2,7 +2,7 @@
   <div class="itemFooter">
     <div v-if="this.item_data.bo_us_id == us_id" class="pi-bottom">
       <div @click="post_show" class="pi-input-show">
-        게시글 {{ this.pi_show }}
+        {{ this.pi_show == '공개' ? '비공개' : '공개' }} 하기
       </div>
       <div @click="post_delete" class="pi-input-delete">삭제</div>
       <div @click="post_edit" class="pi-input-modify">수정</div>
@@ -86,7 +86,7 @@ export default {
         toastController(this.$ionic, msg, 'warning');
         return;
       }
-      if (this.item_data.bo_trade_status == 1) return;
+      if (this.item_data.bo_trade_status == 1 || this.us_id == '') return;
       // 소켓연결 확인
       await store.commit('setSocket');
       // 채팅방 생성
@@ -103,12 +103,15 @@ export default {
     },
     // 좋아요 / 싫어요 반환 이벤트
     async busLikeHate(selectedVal) {
-      const { data } = await setLikeHate(
-        this.us_id,
-        this.item_data.bo_id,
-        selectedVal,
-      );
-      EventBus.$emit('get_LikeHate', data);
+      if (this.us_id != '') {
+        console.log('들어옴!');
+        const { data } = await setLikeHate(
+          this.us_id,
+          this.item_data.bo_id,
+          selectedVal,
+        );
+        EventBus.$emit('get_LikeHate', data);
+      }
     },
     // 공개 / 비공개 처리 이벤트
     async post_show() {
@@ -121,7 +124,7 @@ export default {
           this.item_data.bo_show,
         );
         let msg = `게시글이 ${this.pi_show} 처리 되었습니다.`;
-        toastController(this.$ionic, msg, 'success');
+        toastController(this.$ionic, msg, 'tertiary', null, 'middle');
       } catch (err) {
         toastErrorController(this.$ionic, err);
       }
@@ -129,10 +132,38 @@ export default {
     // 게시글 삭제 이벤트
     async post_delete() {
       try {
-        const result = await deletePost(this.item_data.bo_id, this.us_id);
-        toastController(this.$ionic, '게시물이 삭제되었습니다!', 'success');
-        await this.$ionic.modalController.dismiss();
-        EventBus.$emit('refresh-post');
+        const delete_toast = await this.$ionic.toastController.create({
+          header: '* 게시글 삭제하기 *',
+          message: '한번 삭제한 게시글은\n복구할 수 없습니다.',
+          cssClass: 'ionic_toast',
+          color: 'tertiary',
+          position: 'middle',
+          buttons: [
+            {
+              side: 'start',
+              icon: 'trash',
+              text: '삭제',
+              handler: async () => {
+                const result = await deletePost(
+                  this.item_data.bo_id,
+                  this.us_id,
+                );
+                toastController(
+                  this.$ionic,
+                  '게시물이 삭제되었습니다!',
+                  'success',
+                );
+                await this.$ionic.modalController.dismiss();
+                EventBus.$emit('refresh-post');
+              },
+            },
+            {
+              text: '취소',
+              role: 'cancel',
+            },
+          ],
+        });
+        delete_toast.present();
       } catch (err) {
         toastErrorController(this.$ionic, err);
       }

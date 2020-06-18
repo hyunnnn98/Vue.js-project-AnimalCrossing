@@ -13,7 +13,7 @@
         <li @click="new_post(offset, ca_id)" class="itme-ad">
           <ion-icon name="cloud-download"></ion-icon>
         </li>
-        <!-- <li class="itme-ad"><AppAd /></li> -->
+        <li class="itme-ad"><AppAdfit /></li>
       </ul>
     </ion-content>
     <ScrollControl></ScrollControl>
@@ -26,6 +26,7 @@ import NoticeTabs from '@/components/Home/NoticeTabs.vue';
 import CategoryTabs from '@/components/Home/CategoryTabs.vue';
 import ItemBox from '@/components/Item/ItemBox.vue';
 import ScrollControl from '@/components/Home/ScrollControl.vue';
+import AppAdfit from '@/components/common/AppAdfit';
 import { getPost, getCategory } from '@/api/post.js';
 import { dateFormat } from '@/utils/dateFormat';
 import { toastErrorController } from '@/utils/toastController';
@@ -38,6 +39,7 @@ export default {
     CategoryTabs,
     ItemBox,
     ScrollControl,
+    AppAdfit,
   },
   data() {
     return {

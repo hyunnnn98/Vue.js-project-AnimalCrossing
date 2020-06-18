@@ -1,5 +1,5 @@
 <template>
-  <ion-app>
+  <ion-app class="app">
     <ion-vue-router></ion-vue-router>
   </ion-app>
 </template>

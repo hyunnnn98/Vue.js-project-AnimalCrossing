@@ -15,6 +15,13 @@
             @input="us_email = $event.target.value"
           ></ion-input>
         </ion-item>
+        <p
+          class="email_check ani-btn success"
+          v-if="isUserEmailValid == true"
+          @click="email_check"
+        >
+          중복검사
+        </p>
         <p class="validation-text">
           <span class="warning" v-if="!isUserEmailValid && us_email">
             유효한 이메일 형식이 아닙니다.
@@ -123,7 +130,7 @@
 </template>
 
 <script>
-import { joinUser } from '@/api/auth';
+import { joinUser, emailCheck } from '@/api/auth';
 import { toastController, toastErrorController } from '@/utils/toastController';
 import {
   validateEmail,
@@ -163,7 +170,7 @@ export default {
   mounted() {
     toastController(
       this.$ionic,
-      '현재 이메일 인증 간에 오류가 있어 \n 인증번호 관련 확인이 안 될 경우\n 구글 이메일 주소에 한해\n 스팸 처리된 메일로 도착할 가능성이 높습니다.\n 구글 이메일 외의 다른 메일 주소로 가입해주세요. \n 빠른 시일 내에 수정하도록 하겠습니다. \n - 거래해요 동물의숲 개발자 -',
+      '현재 이메일 인증 간에 오류가 있어 \n 인증메일 확인이 안 될 경우\n 구글 이메일 주소에 한해\n 스팸 처리된 메일로 도착할 가능성이 높습니다.\n 구글 이메일 외의 다른 메일 주소로 가입해주세요. \n 빠른 시일 내에 수정하도록 하겠습니다. \n - 거래해요 동물의숲 개발자 -',
       'tertiary',
       8000,
     );
@@ -203,6 +210,14 @@ export default {
           '입력 양식을 확인해주세요.',
           'danger',
         );
+      }
+    },
+    async email_check() {
+      try {
+        const { data } = await emailCheck(this.us_email);
+        toastController(this.$ionic, data.message, 'success');
+      } catch (err) {
+        toastErrorController(this.$ionic, err);
       }
     },
     go_back() {

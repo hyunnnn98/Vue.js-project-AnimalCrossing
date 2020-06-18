@@ -68,22 +68,26 @@ export default {
     };
   },
   created() {
-    // [APP] 받은 메세지 개수
-    this.$store.state.socket.on('get_read_count', data => {
-      this.talk_count = data;
-    });
+    try {
+      // [APP] 받은 메세지 개수
+      this.$store.state.socket.on('get_read_count', data => {
+        this.talk_count = data;
+      });
+    } catch (error) {}
   },
   beforeDestroy() {
     this.$store.state.socket.off('get_read_count');
   },
   async mounted() {
     const us_id = this.$store.state.us_id;
-    // 소켓 연결 확인
-    await this.$store.commit('setSocket');
-    // 사용자 연결 확인
-    await this.$store.state.socket.emit('get_us_id', us_id);
-    // 미확인 채팅 개수
-    await this.$store.state.socket.emit('get_read_count', us_id);
+    if (us_id != null) {
+      // 소켓 연결 확인
+      await this.$store.commit('setSocket');
+      // 사용자 연결 확인
+      await this.$store.state.socket.emit('get_us_id', us_id);
+      // 미확인 채팅 개수
+      await this.$store.state.socket.emit('get_read_count', us_id);
+    }
   },
   methods: {
     post_init() {

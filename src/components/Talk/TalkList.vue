@@ -56,7 +56,9 @@
       <div class="talk_info">
         <ion-icon class="talk_bar" name="menu"></ion-icon>
         <ul class="talk_btn">
-          <li v-if="access" @click="trade_access">승인요청</li>
+          <li v-if="access && bo_trade_status == 0" @click="trade_access">
+            승인요청
+          </li>
           <li @click="report_modal">신고하기</li>
           <li @click="talk_out">나가기</li>
         </ul>
@@ -108,18 +110,22 @@ export default {
       ch_ro_id: this.$route.params.id,
       access: false,
       other_us_grant: null,
+      bo_trade_status: 0,
     };
   },
   created() {
     // [초기화]  채팅메시지 불러오기.
     this.$store.state.socket.on('get_message', res => {
+      console.log(res);
       if (res === false) this.$router.push('/main');
       this.other_us_grant = res.us_grant;
       this.ro_trade_status = res.ro_trade_status;
       this.us_nickname = res.us_nickname;
       this.title = `${this.us_nickname}님의 ${res.ro_bo_title}`;
       this.ro_exit = res.ro_exit;
+      this.bo_trade_status = res.bo_trade_status;
 
+      if (res.chat[0].ch_send_us_id != this.us_id) this.access = true;
       if (this.other_us_grant === -1) {
         this.us_input_value = '2차 사기로 확산방지로 채팅을 제한합니다.';
         toastController(
@@ -127,10 +133,15 @@ export default {
           '(주의) 사기 거래로 신고된 유저입니다.',
           'danger',
         );
+      } else if (this.bo_trade_status == 1 && this.access == false) {
+        toastController(
+          this.$ionic,
+          '(주의) 거래완료 처리된 게시글입니다.',
+          'danger',
+        );
       }
 
       // 사용자 구별
-      if (res.chat[0].ch_send_us_id != this.us_id) this.access = true;
       const new_date = new Date();
       res.chat.forEach(v => {
         let return_date = dateFormat(new_date, v.createdAt, 'chat');

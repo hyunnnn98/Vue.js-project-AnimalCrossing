@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { IonicVueRouter } from '@ionic/vue';
 import { authCheck } from '@/api/auth';
+import { toastController } from '@/utils/toastController';
 import store from '../store';
 
 Vue.use(IonicVueRouter);
@@ -45,7 +46,6 @@ const routes = [
   {
     path: '/main',
     name: 'Main',
-    meta: { auth: true, isNeedKeepAlive: true },
     component: () => import('@/views/AppTabs.vue'),
   },
   {
@@ -97,28 +97,61 @@ const router = new IonicVueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.meta.auth && !store.getters.isLogin) {
     // console.log('로그인이 필요합니다!');
-    next('/login');
+    try {
+      const ionic = document.querySelector('.app').__vue__.$ionic;
+      const auth_toast = await ionic.toastController.create({
+        header: '-거래해요 동물의숲-',
+        message: '회원가입 이후 사용 가능합니다.',
+        color: 'tertiary',
+        position: 'bottom',
+        buttons: [
+          {
+            // side: 'start',
+            // icon: 'star',
+            text: '로그인',
+            handler: () => {
+              next('/login');
+            },
+          },
+          {
+            text: '닫기',
+            role: 'cancel',
+          },
+        ],
+      });
+      auth_toast.present();
+    } catch (error) {
+      next('/main');
+    }
     return;
   } else if (to.meta.auth && store.getters.isLogin) {
     let us_info = { us_id: store.state.us_id };
     authCheck(us_info)
       .then(res => {
-        // console.log(res);
         store.commit('setUserInfo', res.data.info);
         store.state.socket.emit('get_info', store.state.us_id);
-        // console.log('체크체크!');
         next();
       })
       .catch(async err => {
-        // console.log('신뢰성 오류일때!', err);
-        await store.dispatch('LOGOUT');
+        try {
+          const ionic = document.querySelector('.app').__vue__.$ionic;
+          const token_toast = toastController(
+            ionic,
+            '세션이 만료 되었습니다. \n 다시 로그인 해주세요.',
+            'success',
+            null,
+            'middle',
+          );
+          await store.dispatch('LOGOUT');
+        } catch (error) {
+          next('/login');
+        }
         next('/login');
       });
   } else {
-    // console.log('그냥일때');
     next();
   }
 });

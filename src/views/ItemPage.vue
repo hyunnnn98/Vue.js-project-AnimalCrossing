@@ -33,10 +33,7 @@ export default {
     InfoReview,
     ItemFooter,
   },
-  props: {
-    bo_id: { type: Number },
-    us_id: { type: Number },
-  },
+  props: ['bo_id', 'us_id'],
   data() {
     return {
       bo_data: '',
