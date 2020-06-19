@@ -56,7 +56,10 @@
         </ul>
       </div>
     </div>
-    <p class="myinfo-createdAt">등록 : {{ createdAt }}</p>
+    <p class="myinfo-createdAt">
+      등록 :
+      {{ us_id ? createdAt : us_info.createdAt }}
+    </p>
   </div>
 </template>
 

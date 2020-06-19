@@ -5,6 +5,19 @@
       <NoticeTabs></NoticeTabs>
       <CategoryTabs></CategoryTabs>
       <ul class="item-container">
+        <ion-refresher
+          slot="fixed"
+          pull-factor="2"
+          pull-min="40"
+          pull-max="50"
+          @ionRefresh="doRefresh($event)"
+        >
+          <ion-refresher-content
+            pulling-icon="cube"
+            refreshing-spinner="circles"
+          >
+          </ion-refresher-content>
+        </ion-refresher>
         <ItemBox
           v-for="(item, index) in items"
           :key="index"
@@ -80,6 +93,14 @@ export default {
       });
   },
   methods: {
+    doRefresh(event) {
+      this.offset = -1;
+      EventBus.$emit('redirect_category', null);
+      this.refreshPost(this.ca_id, this.bo_trade_value);
+      setTimeout(() => {
+        event.target.complete();
+      }, 500);
+    },
     // (세부카테고리, 전체카테고리)별 게시글 리로딩
     refreshPost(ca_id, bo_trade_value) {
       getPost({

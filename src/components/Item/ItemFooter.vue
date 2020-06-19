@@ -86,7 +86,15 @@ export default {
         toastController(this.$ionic, msg, 'warning');
         return;
       }
-      if (this.item_data.bo_trade_status == 1 || this.us_id == '') return;
+      if (this.item_data.bo_trade_status == 1 || this.us_id == '') {
+        if (this.us_id == '')
+          toastController(
+            this.$ionic,
+            '로그인 후 이용 가능합니다.',
+            'tertiary',
+          );
+        return;
+      }
       // 소켓연결 확인
       await store.commit('setSocket');
       // 채팅방 생성
@@ -104,13 +112,14 @@ export default {
     // 좋아요 / 싫어요 반환 이벤트
     async busLikeHate(selectedVal) {
       if (this.us_id != '') {
-        console.log('들어옴!');
         const { data } = await setLikeHate(
           this.us_id,
           this.item_data.bo_id,
           selectedVal,
         );
         EventBus.$emit('get_LikeHate', data);
+      } else {
+        toastController(this.$ionic, '로그인 후 이용 가능합니다.', 'tertiary');
       }
     },
     // 공개 / 비공개 처리 이벤트

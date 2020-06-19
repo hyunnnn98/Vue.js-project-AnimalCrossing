@@ -2,7 +2,7 @@
   <div class="modal-reportList">
     <ModalHeader :modal_title="title"></ModalHeader>
 
-    <ion-content class="ion-padding">
+    <ion-content>
       <ul v-if="no_lists != ''" class="qu-list">
         <li v-for="(list, index) of no_lists" :key="index">
           <div class="qu-title" @click="change_view(index)">

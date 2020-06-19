@@ -54,16 +54,16 @@ export default {
 .top_3_notice {
   position: absolute;
   right: 20px;
-  top: 80px;
-  background-color: rgba(97, 96, 96, 0.123);
+  top: 100px;
+  background-color: rgba(255, 255, 255, 0.219);
   letter-spacing: -1px;
   color: rgb(0, 0, 0);
   border-radius: 10px;
+  box-shadow: 1px 2px 5px rgba(128, 128, 128, 0.52);
 }
 
 .notice_title {
   width: 100%;
-  /* background-color: white; */
   color: rgb(0, 0, 0);
   background-color: rgb(188, 229, 245);
   border-top-right-radius: 10px;
@@ -78,28 +78,30 @@ export default {
   text-align: center;
   font-weight: 900;
   letter-spacing: -0.2px;
-  /* font-size: 1.4em; */
 }
 
 .notice_container {
-  padding: 5px 30px;
+  padding: 5px 15px;
 }
 
 .notice_container li {
   margin-bottom: 0.8em;
+  padding-bottom: 0.1em;
+  border-bottom: 1px solid black;
 }
 
 .notice_container li:nth-last-child(1) {
   cursor: pointer;
   text-align: right;
+  border: 0px;
 }
 
 .notice_container li span {
-  /* background-color: rgb(255, 73, 1); */
-  /* color: white; */
-  /* font-weight: 700; */
-  /* padding: 1px 7px 1px 6px; */
-  /* border-radius: 50px; */
+  /* background-color: rgb(255, 73, 1);
+  color: white;
+  font-weight: 700;
+  padding: 1px 7px 1px 6px;
+  border-radius: 50px; */
   text-align: center;
 }
 </style>

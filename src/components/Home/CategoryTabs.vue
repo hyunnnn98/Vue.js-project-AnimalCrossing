@@ -32,9 +32,6 @@ export default {
     EventBus.$on('redirect_category', ctg_index => {
       this.category_value = 0;
     });
-    EventBus.$on('refresh-post', res => {
-      this.category_value = 0;
-    });
   },
   destroyed() {
     EventBus.$off('redirect_category');

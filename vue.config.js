@@ -6,7 +6,10 @@ module.exports = {
   pwa: {
     name: '거래해요 동물의숲',
     themeColor: '#76b767',
-    background_color: '#FFFFFF',
+    msTileColor: '#FFFFFF',
+    manifestOptions: {
+      background_color: '#FFFFFF',
+    },
     appleMobileWebAppCapable: 'no',
     appleMobileWebAppStatusBarStyle: 'default',
   },

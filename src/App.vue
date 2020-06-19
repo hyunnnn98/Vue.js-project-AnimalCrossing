@@ -41,10 +41,22 @@ export default {
       });
 
       // 포그라운드 호출 메서드.
-      // PushNotifications.addListener(
-      //   'pushNotificationReceived',
-      //   notification => {},
-      // );
+      PushNotifications.addListener(
+        'pushNotificationReceived',
+        notification => {
+          /*
+            notification 객체안의 데이터
+            1) notification.title
+            2) notification.body
+          */
+          toastController(
+            this.$ionic,
+            '새로운 메시지가 도착했어요!',
+            'tertiary',
+            1000,
+          );
+        },
+      );
     }
 
     // 백그라운드 호출 메서드
