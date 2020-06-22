@@ -219,3 +219,11 @@ Trade Animalcrossing Vue 소스 코드입니다.
 * [CREATE]
 1. Native Refreshers 추가 => 새로고침 수정.
 ```
+
+### 2020.06.23
+```
+* [CREATE]
+1. 모바일 어플 관련, Version 체크 API 추가.
+2. 모바일 광고 제거.
+3. 모바일 icon / splash 이미지 변경.
+```

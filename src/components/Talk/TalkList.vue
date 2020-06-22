@@ -121,7 +121,7 @@ export default {
       this.other_us_grant = res.us_grant;
       this.ro_trade_status = res.ro_trade_status;
       this.us_nickname = res.us_nickname;
-      this.title = `${this.us_nickname}님의 ${res.ro_bo_title}`;
+      this.title = res.ro_bo_title;
       this.ro_exit = res.ro_exit;
       this.bo_trade_status = res.bo_trade_status;
 

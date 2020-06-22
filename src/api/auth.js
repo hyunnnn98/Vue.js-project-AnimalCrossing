@@ -46,6 +46,11 @@ function updatePassword(new_password) {
   return afterAuth.post('/auth/update_password', new_password);
 }
 
+// 버젼체크
+function versionCheck() {
+  return instance.get('/auth/version');
+}
+
 export {
   joinUser,
   emailCheck,
@@ -54,4 +59,5 @@ export {
   authCheck,
   getPassword,
   updatePassword,
+  versionCheck,
 };
