@@ -16,6 +16,11 @@
 - Vuex
 - Axios
 
+## 거래 프로세스 UML
+![거래 프로세스](https://user-images.githubusercontent.com/52916934/97780994-b3930580-1bcb-11eb-848c-fbf84b980e79.png)
+
+## 개발 일지
+
 ### 2020.05.20
 ```
 * [CREATE]
