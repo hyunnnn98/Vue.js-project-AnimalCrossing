@@ -1,4 +1,4 @@
-# Trade With Animalcrossing
+# Trade With Animalcrossing - Vue.js
 
 ### GooglePlay Store 정식 출시
 <img src="https://user-images.githubusercontent.com/52916934/97780868-afb2b380-1bca-11eb-84d8-545ca1d934f8.png" width="500">
@@ -15,6 +15,9 @@
 - Ionic Vue Router
 - Vuex
 - Axios
+
+> ### Node 기반 서버의 소스코드는 아래의 Repository에 기재되어 있습니다.
+> <a href="https://github.com/kokomade98/Node.js-project-AnimalCrossing">Node.js-project-AnimalCrossing</a>
 
 ## 거래 프로세스 UML
 ![거래 프로세스](https://user-images.githubusercontent.com/52916934/97780994-b3930580-1bcb-11eb-848c-fbf84b980e79.png)
